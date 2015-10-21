@@ -36,7 +36,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
         inicializarColumnas();
         DefaultComboBoxModel combo= new DefaultComboBoxModel();
         combo.addElement(new Cuenta("José", 'A', new Transaccion("D",500 ) ));
-        combo.addElement(new Cuenta("Dannier", 'P', new Transaccion("H",600 ) ));
+        combo.addElement(new Cuenta("Elsy", 'P', new Transaccion("H",700 ) ));
         jComboBox1.setModel(combo);
         this.setLocationRelativeTo(null);
     }
