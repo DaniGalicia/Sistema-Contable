@@ -40,9 +40,9 @@ public class IngresoCuenta extends javax.swing.JFrame {
         combo.addElement(new Cuenta("Elsy", 'P', new Transaccion("H",700 ) ));
         combo.addElement(new Cuenta("Dannier", 'P', new Transaccion("H",600 ) ));
         combo.addElement(new Cuenta("Master", 'A', new Transaccion("H",6100 ) ));
-        jComboBox1.setModel(combo);
+        comboListaCuentas.setModel(combo);
         this.setLocationRelativeTo(null);
-        Cuenta.setVisible(false);
+        nombreNuevaCuenta.setVisible(false);
         Tipo.setVisible(false);
 
     }
@@ -103,17 +103,18 @@ public class IngresoCuenta extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jTextField1 = new javax.swing.JTextField();
+        comboListaCuentas = new javax.swing.JComboBox();
+        montoMovimiento = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        Cuenta = new javax.swing.JTextField();
+        nombreNuevaCuenta = new javax.swing.JTextField();
         Crear = new javax.swing.JCheckBox();
         Tipo = new javax.swing.JComboBox();
+        aplicaIva = new javax.swing.JCheckBox();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
@@ -132,33 +133,32 @@ public class IngresoCuenta extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jComboBox1.setEditable(true);
-        jComboBox1.setMaximumSize(new java.awt.Dimension(28, 20));
-        jComboBox1.setName(""); // NOI18N
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        comboListaCuentas.setEditable(true);
+        comboListaCuentas.setMaximumSize(new java.awt.Dimension(28, 20));
+        comboListaCuentas.setName(""); // NOI18N
+        comboListaCuentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                comboListaCuentasActionPerformed(evt);
             }
         });
 
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("Monto");
-        jTextField1.setToolTipText("Monto");
-        jTextField1.setMaximumSize(new java.awt.Dimension(7, 70));
-        jTextField1.setMinimumSize(new java.awt.Dimension(7, 70));
-        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+        montoMovimiento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        montoMovimiento.setText("Monto");
+        montoMovimiento.setToolTipText("Monto");
+        montoMovimiento.setMaximumSize(new java.awt.Dimension(7, 70));
+        montoMovimiento.setMinimumSize(new java.awt.Dimension(7, 70));
+        montoMovimiento.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField1FocusGained(evt);
+                montoMovimientoFocusGained(evt);
             }
         });
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        montoMovimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                montoMovimientoActionPerformed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setText("CUENTA");
+        jLabel2.setText("SELECCIONAR CUENTA");
 
         jButton1.setBackground(new java.awt.Color(0, 25, 51));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -172,7 +172,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
 
         tipoCuenta.add(jRadioButton1);
         jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Debe");
+        jRadioButton1.setText("Cargar");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton1ActionPerformed(evt);
@@ -180,38 +180,35 @@ public class IngresoCuenta extends javax.swing.JFrame {
         });
 
         tipoCuenta.add(jRadioButton2);
-        jRadioButton2.setText("Haber ");
+        jRadioButton2.setText("Abonar");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton2ActionPerformed(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("MONTO");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel4.setText("TIPO DE TRANSACCIÓN ");
+        jLabel4.setText("ACCION");
 
-        Cuenta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Cuenta.setText("Cuenta");
-        Cuenta.setToolTipText("Cuenta");
-        Cuenta.setMaximumSize(new java.awt.Dimension(150, 25));
-        Cuenta.setMinimumSize(new java.awt.Dimension(150, 25));
-        Cuenta.setPreferredSize(new java.awt.Dimension(150, 25));
-        Cuenta.addFocusListener(new java.awt.event.FocusAdapter() {
+        nombreNuevaCuenta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        nombreNuevaCuenta.setText("Nueva cuenta");
+        nombreNuevaCuenta.setToolTipText("Cuenta");
+        nombreNuevaCuenta.setMaximumSize(new java.awt.Dimension(150, 25));
+        nombreNuevaCuenta.setMinimumSize(new java.awt.Dimension(150, 25));
+        nombreNuevaCuenta.setPreferredSize(new java.awt.Dimension(150, 25));
+        nombreNuevaCuenta.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                CuentaFocusGained(evt);
+                nombreNuevaCuentaFocusGained(evt);
             }
         });
-        Cuenta.addActionListener(new java.awt.event.ActionListener() {
+        nombreNuevaCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CuentaActionPerformed(evt);
+                nombreNuevaCuentaActionPerformed(evt);
             }
         });
 
-        Crear.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        Crear.setText("Crear cuenta");
+        Crear.setText("NC");
         Crear.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 CrearStateChanged(evt);
@@ -226,6 +223,8 @@ public class IngresoCuenta extends javax.swing.JFrame {
         Tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "D", "H" }));
         Tipo.setToolTipText("");
 
+        aplicaIva.setText("IVA");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -234,40 +233,43 @@ public class IngresoCuenta extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(nombreNuevaCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(comboListaCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(5, 5, 5)
+                                .addComponent(Crear)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(aplicaIva)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
-                                .addGap(89, 89, 89))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Cuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(211, 211, 211)
+                                .addComponent(jLabel3)
+                                .addGap(47, 47, 47)
                                 .addComponent(jLabel4)
-                                .addGap(166, 166, 166))
+                                .addGap(95, 95, 95))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(76, 76, 76)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jRadioButton2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton1))
-                                    .addComponent(jRadioButton1))
-                                .addContainerGap())))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(Crear)
-                        .addGap(0, 782, Short.MAX_VALUE))))
+                                .addGap(0, 197, Short.MAX_VALUE)
+                                .addComponent(montoMovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(66, 66, 66)
+                                .addComponent(jRadioButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton2)
+                                .addGap(65, 65, 65)))))
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Cuenta, jComboBox1});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {comboListaCuentas, nombreNuevaCuenta});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,35 +277,31 @@ public class IngresoCuenta extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)))
+                        .addComponent(jLabel2))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel4)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jRadioButton1)
+                            .addComponent(jRadioButton2)
+                            .addComponent(montoMovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton2))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jRadioButton1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Cuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(32, 32, 32)
-                        .addComponent(Crear)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboListaCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(aplicaIva)
+                            .addComponent(Crear))
+                        .addGap(6, 6, 6)
+                        .addComponent(nombreNuevaCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         jButton2.setBackground(new java.awt.Color(0, 25, 51));
@@ -362,7 +360,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -373,13 +371,13 @@ public class IngresoCuenta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void montoMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_montoMovimientoActionPerformed
         
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_montoMovimientoActionPerformed
 
-    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
-        jTextField1.setText("");
-    }//GEN-LAST:event_jTextField1FocusGained
+    private void montoMovimientoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoMovimientoFocusGained
+        montoMovimiento.setText("");
+    }//GEN-LAST:event_montoMovimientoFocusGained
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
         // TODO add your handling code here:
@@ -390,45 +388,56 @@ public class IngresoCuenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(!validarMonto())
+        {
+            JOptionPane.showMessageDialog(null,"El monto no es correcto");
+            return;
+        }
+                
         String tipo;
         if(jRadioButton1.isSelected())
             tipo="D";
         else
             tipo="H";
-        Transaccion transaccion=new Transaccion(tipo, Double.parseDouble(jTextField1.getText()));
+        
+        Double cantidad=Double.parseDouble(montoMovimiento.getText());
+        if(aplicaIva.isSelected())
+            cantidad=cantidad + 0.13*cantidad;
+            
+        Transaccion transaccion=new Transaccion(tipo,cantidad);
         if(Crear.isSelected()){
             String var= (String) Tipo.getSelectedItem();
             char cad;
             cad=var.charAt(0);
-            Cuenta nueva= new Cuenta(Cuenta.getText(), cad,transaccion);
+            Cuenta nueva= new Cuenta(nombreNuevaCuenta.getText(), cad,transaccion);
             if(isAdd(nueva)){
                 JOptionPane.showMessageDialog(null, "YA EXISTE ESA CUENTA");
             }
             else{
                 tabla.lineas.add(new LineaTransaccion(nueva, transaccion));      
             }
-            combo.addElement(new Cuenta(Cuenta.getText(), cad,transaccion ));
+            combo.addElement(new Cuenta(nombreNuevaCuenta.getText(), cad,transaccion ));
             tabla.fireTableDataChanged();
-            jComboBox1.setVisible(true);
-            Cuenta.setVisible(false);
+            comboListaCuentas.setVisible(true);
+            nombreNuevaCuenta.setVisible(false);
             Tipo.setVisible(false);
             Crear.setSelected(false);
             
         }else{
-            if(isAdd((Cuenta) jComboBox1.getSelectedItem())){
+            if(isAdd((Cuenta) comboListaCuentas.getSelectedItem())){
                 JOptionPane.showMessageDialog(null, "YA EXISTE ESA CUENTA");
             }
             else{
-                tabla.lineas.add(new LineaTransaccion((Cuenta) jComboBox1.getSelectedItem(), transaccion));      
+                tabla.lineas.add(new LineaTransaccion((Cuenta) comboListaCuentas.getSelectedItem(), transaccion));      
             }
         
             tabla.fireTableDataChanged(); 
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void comboListaCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboListaCuentasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_comboListaCuentasActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         System.exit(WIDTH);
@@ -443,29 +452,52 @@ public class IngresoCuenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearActionPerformed
-
         if(Crear.isSelected()){
-            jComboBox1.setVisible(false);
-            Cuenta.setVisible(true);
+            comboListaCuentas.setVisible(false);
+            nombreNuevaCuenta.setVisible(true);
             Tipo.setVisible(true);
         }else{
-            jComboBox1.setVisible(true);
-            Cuenta.setVisible(false);
+            comboListaCuentas.setVisible(true);
+            nombreNuevaCuenta.setVisible(false);
             Tipo.setVisible(false);
         }
     }//GEN-LAST:event_CrearActionPerformed
 
-    private void CuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CuentaActionPerformed
+    private boolean validarMonto(){
+            //valida si esta vacio
+        if(montoMovimiento.getText().isEmpty())
+            return false;
+        
+        Double monto=0.0;
+        
+        //Valida si es un numero, si lo es lo asigna a monto
+        
+        try {
+            monto = Double.parseDouble(montoMovimiento.getText());
+        } catch (Exception e) {
+            return false;
+        }
+        
+        //Valida si no es mayor que cero retorna falso
+        if(monto < 0)
+            return false;
+        
+        
+        //Paso todas las restricciones, retorna true
+        return true;
+    }
+    
+    private void nombreNuevaCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreNuevaCuentaActionPerformed
                // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaActionPerformed
+    }//GEN-LAST:event_nombreNuevaCuentaActionPerformed
 
     private void CrearStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_CrearStateChanged
 
     }//GEN-LAST:event_CrearStateChanged
 
-    private void CuentaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_CuentaFocusGained
-        Cuenta.setText(""); // TODO add your handling code here:
-    }//GEN-LAST:event_CuentaFocusGained
+    private void nombreNuevaCuentaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreNuevaCuentaFocusGained
+        nombreNuevaCuenta.setText(""); // TODO add your handling code here:
+    }//GEN-LAST:event_nombreNuevaCuentaFocusGained
 
     /**
      * @param args the command line arguments
@@ -504,12 +536,12 @@ public class IngresoCuenta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox Crear;
-    private javax.swing.JTextField Cuenta;
     private javax.swing.JComboBox Tipo;
+    private javax.swing.JCheckBox aplicaIva;
+    private javax.swing.JComboBox comboListaCuentas;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -519,7 +551,8 @@ public class IngresoCuenta extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField montoMovimiento;
+    private javax.swing.JTextField nombreNuevaCuenta;
     private javax.swing.ButtonGroup tipoCuenta;
     // End of variables declaration//GEN-END:variables
 }

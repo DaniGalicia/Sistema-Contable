@@ -6,6 +6,7 @@ import java.util.List;
 
 
 public class Cuenta {
+    String idCuenta;
     String nombre;
     char tipo;
     List<Transaccion> transacciones=new ArrayList<>();
