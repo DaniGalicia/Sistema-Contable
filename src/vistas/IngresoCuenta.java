@@ -7,28 +7,23 @@ package vistas;
 
 import clases.Cuenta;
 import clases.LineaTransaccion;
-import clases.Transaccion;
-import clases.TransaccionesTableModel;
-import java.awt.Rectangle;
-import java.awt.font.TextAttribute;
+import clases.Movimiento;
+import clases.MovimientosTableModel;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableColumnModel;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import modelo.SICService;
 
 /**
  *
  * @author Escobar
  */
 public class IngresoCuenta extends javax.swing.JFrame {
-    public TransaccionesTableModel tabla = new TransaccionesTableModel();
+    public MovimientosTableModel tabla = new MovimientosTableModel();
     List<Cuenta> cuentas= new ArrayList<>();
     DefaultComboBoxModel combo= new DefaultComboBoxModel();
     
@@ -36,15 +31,21 @@ public class IngresoCuenta extends javax.swing.JFrame {
         this.getContentPane().setBackground(new java.awt.Color(102,177,255));
         initComponents();
         inicializarColumnas();
-        combo.addElement(new Cuenta("José", 'A', new Transaccion("D",500 ) ));
-        combo.addElement(new Cuenta("Elsy", 'P', new Transaccion("H",700 ) ));
-        combo.addElement(new Cuenta("Dannier", 'P', new Transaccion("H",600 ) ));
-        combo.addElement(new Cuenta("Master", 'A', new Transaccion("H",6100 ) ));
+        combo.addElement(new Cuenta("José", "A", new Movimiento("D",500 ) ));
+        combo.addElement(new Cuenta("Elsy", "P", new Movimiento("H",700 ) ));
+        combo.addElement(new Cuenta("Dannier", "P", new Movimiento("H",600 ) ));
+        combo.addElement(new Cuenta("Master", "A", new Movimiento("H",6100 ) ));
         comboListaCuentas.setModel(combo);
         this.setLocationRelativeTo(null);
         nombreNuevaCuenta.setVisible(false);
         Tipo.setVisible(false);
-
+        for(Cuenta cuenta:SICService.getServCuenta().getListado()){
+            String cad="\n";
+            for(Movimiento movimiento:SICService.getServMovimiento().getListadoByIdCuenta(cuenta.getIdCuenta()))
+                cad+=movimiento.getTipo() + " " + movimiento.getCantidad() + "\n";
+            
+            JOptionPane.showMessageDialog(null, cuenta.getNombre() +cad);
+        }
     }
     
     private void inicializarColumnas() {
@@ -240,16 +241,13 @@ public class IngresoCuenta extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel2)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(comboListaCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(5, 5, 5)
                                 .addComponent(Crear)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(aplicaIva)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(aplicaIva)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(211, 211, 211)
@@ -404,19 +402,17 @@ public class IngresoCuenta extends javax.swing.JFrame {
         if(aplicaIva.isSelected())
             cantidad=cantidad + 0.13*cantidad;
             
-        Transaccion transaccion=new Transaccion(tipo,cantidad);
+        Movimiento transaccion=new Movimiento(tipo,cantidad);
         if(Crear.isSelected()){
-            String var= (String) Tipo.getSelectedItem();
-            char cad;
-            cad=var.charAt(0);
-            Cuenta nueva= new Cuenta(nombreNuevaCuenta.getText(), cad,transaccion);
+            String var= Tipo.getSelectedItem().toString();
+            Cuenta nueva= new Cuenta(nombreNuevaCuenta.getText(), var,transaccion);
             if(isAdd(nueva)){
                 JOptionPane.showMessageDialog(null, "YA EXISTE ESA CUENTA");
             }
             else{
                 tabla.lineas.add(new LineaTransaccion(nueva, transaccion));      
             }
-            combo.addElement(new Cuenta(nombreNuevaCuenta.getText(), cad,transaccion ));
+            combo.addElement(new Cuenta(nombreNuevaCuenta.getText(), var,transaccion ));
             tabla.fireTableDataChanged();
             comboListaCuentas.setVisible(true);
             nombreNuevaCuenta.setVisible(false);

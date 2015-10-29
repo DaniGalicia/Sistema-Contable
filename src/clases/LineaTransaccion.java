@@ -3,9 +3,9 @@ package clases;
 
 public class LineaTransaccion {
     private Cuenta cuenta;
-    private Transaccion transaccion;
+    private Movimiento transaccion;
 
-    public LineaTransaccion(Cuenta cuenta, Transaccion transaccion) {
+    public LineaTransaccion(Cuenta cuenta, Movimiento transaccion) {
         this.cuenta = cuenta;
         this.transaccion = transaccion;
     }
@@ -19,11 +19,11 @@ public class LineaTransaccion {
         this.cuenta = cuenta;
     }
 
-    public Transaccion getTransaccion() {
+    public Movimiento getTransaccion() {
         return transaccion;
     }
 
-    public void setTransaccion(Transaccion transaccion) {
+    public void setTransaccion(Movimiento transaccion) {
         this.transaccion = transaccion;
     }
     

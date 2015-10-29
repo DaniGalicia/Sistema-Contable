@@ -8,10 +8,13 @@ import java.util.List;
 public class Cuenta {
     String idCuenta;
     String nombre;
-    char tipo;
-    List<Transaccion> transacciones=new ArrayList<>();
+    String tipo;
+    List<Movimiento> transacciones=new ArrayList<>();
 
-    public Cuenta(String nombre, char tipo, Transaccion transaccion) {
+    public Cuenta() {
+    }
+
+    public Cuenta(String nombre, String tipo, Movimiento transaccion) {
         this.nombre=nombre;
         this.tipo=tipo;
         agregarTransaccion(transaccion);
@@ -26,8 +29,16 @@ public class Cuenta {
         }
         return res;
     }*/
+
+    public String getIdCuenta() {
+        return idCuenta;
+    }
+
+    public void setIdCuenta(String idCuenta) {
+        this.idCuenta = idCuenta;
+    }
     
-    public void agregarTransaccion(Transaccion transaccion)
+    public void agregarTransaccion(Movimiento transaccion)
     {
         transacciones.add(transaccion);
     }
@@ -40,15 +51,15 @@ public class Cuenta {
         this.nombre = nombre;
     }
 
-    public char getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(char tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
-    public List<Transaccion> getTransacciones() {
+    public List<Movimiento> getTransacciones() {
         return transacciones;
     } 
    

@@ -1,12 +1,12 @@
 
 package clases;
 
-public class Transaccion {
+public class Movimiento {
      String tipo;
      Double cantidad;
     
      
-    public Transaccion(String tipo, double cantidad) {
+    public Movimiento(String tipo, double cantidad) {
         this.tipo = tipo;
         this.cantidad = cantidad;
     }
