@@ -8,7 +8,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class MovimientosTableModel extends AbstractTableModel{
     
-    public List<LineaTransaccion> lineas= new ArrayList<>();
+    public List<LineaMovimiento> lineas= new ArrayList<>();
     
     @Override
     public int getRowCount(){
@@ -22,14 +22,14 @@ public class MovimientosTableModel extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        LineaTransaccion linea = lineas.get(rowIndex);
+        LineaMovimiento linea = lineas.get(rowIndex);
         Object valor = null;
         switch(columnIndex){
             case 0: valor = linea.getCuenta().getNombre();
             break;
-            case 1: valor = linea.getTransaccion().getTipo();
+            case 1: valor = linea.getMovimiento().getTipo();
             break;
-            case 2: valor = linea.getTransaccion().getCantidad();
+            case 2: valor = linea.getMovimiento().getCantidad();
         }
         return valor;
     }

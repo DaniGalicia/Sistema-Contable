@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vistas; 
+package vistas;
 
 import clases.Cuenta;
-import clases.LineaTransaccion;
+import clases.LineaMovimiento;
 import clases.Movimiento;
 import clases.MovimientosTableModel;
 import java.util.ArrayList;
@@ -23,73 +23,79 @@ import modelo.SICService;
  * @author Escobar
  */
 public class IngresoCuenta extends javax.swing.JFrame {
-    public MovimientosTableModel tabla = new MovimientosTableModel();
-    List<Cuenta> cuentas= new ArrayList<>();
-    DefaultComboBoxModel combo= new DefaultComboBoxModel();
-    
+
+    public MovimientosTableModel modeloTabla = new MovimientosTableModel();
+    List<Cuenta> cuentas = new ArrayList<>();
+    DefaultComboBoxModel combo = new DefaultComboBoxModel();
+
     public IngresoCuenta() {
-        this.getContentPane().setBackground(new java.awt.Color(102,177,255));
+        this.getContentPane().setBackground(new java.awt.Color(102, 177, 255));
         initComponents();
         inicializarColumnas();
-        combo.addElement(new Cuenta("José", "A", new Movimiento("D",500 ) ));
-        combo.addElement(new Cuenta("Elsy", "P", new Movimiento("H",700 ) ));
-        combo.addElement(new Cuenta("Dannier", "P", new Movimiento("H",600 ) ));
-        combo.addElement(new Cuenta("Master", "A", new Movimiento("H",6100 ) ));
+        combo.addElement(new Cuenta("José", "A", new Movimiento("D", 500)));
+        combo.addElement(new Cuenta("Elsy", "P", new Movimiento("H", 700)));
+        combo.addElement(new Cuenta("Dannier", "P", new Movimiento("H", 600)));
+        combo.addElement(new Cuenta("Master", "A", new Movimiento("H", 6100)));
         comboListaCuentas.setModel(combo);
         this.setLocationRelativeTo(null);
         nombreNuevaCuenta.setVisible(false);
         Tipo.setVisible(false);
-        for(Cuenta cuenta:SICService.getServCuenta().getListado()){
-            String cad="\n";
-            for(Movimiento movimiento:SICService.getServMovimiento().getListadoByIdCuenta(cuenta.getIdCuenta()))
-                cad+=movimiento.getTipo() + " " + movimiento.getCantidad() + "\n";
-            
-            JOptionPane.showMessageDialog(null, cuenta.getNombre() +cad);
+        for (Cuenta cuenta : SICService.getServCuenta().getListado()) {
+            String cad = "\n";
+            for (Movimiento movimiento : SICService.getServMovimiento().getListadoByIdCuenta(cuenta.getIdCuenta())) {
+                cad += movimiento.getTipo() + " " + movimiento.getCantidad() + "\n";
+            }
+
+            JOptionPane.showMessageDialog(null, cuenta.getNombre() + cad);
         }
     }
-    
+
     private void inicializarColumnas() {
         TableColumnModel tColumnModel = new DefaultTableColumnModel();
         for (int i = 0; i < 3; i++) {
-        TableColumn col = new TableColumn(i);
-        switch (i) {
-            case 0:
-                col.setHeaderValue("Nombre de la cuenta");
-                break;
-            case 1:
-                col.setHeaderValue("Tipo de transacción");
-                break;
-            case 2:
-                col.setHeaderValue("Monto");
-                break;
-        }
-        tColumnModel.addColumn(col);
+            TableColumn col = new TableColumn(i);
+            switch (i) {
+                case 0:
+                    col.setHeaderValue("Nombre de la cuenta");
+                    break;
+                case 1:
+                    col.setHeaderValue("Tipo de transacción");
+                    break;
+                case 2:
+                    col.setHeaderValue("Monto");
+                    break;
+            }
+            tColumnModel.addColumn(col);
         }
         jTable1.setColumnModel(tColumnModel);
-       
-}
 
-    public boolean isAdd(Cuenta cuenta){
-        for(LineaTransaccion linea: tabla.lineas){
-            if(linea.getCuenta().equals(cuenta))
+    }
+
+    public boolean isAdded(Cuenta cuenta) {
+        for (LineaMovimiento linea : modeloTabla.lineas) {
+            if (linea.getCuenta().equals(cuenta)) {
                 return true;
             }
+        }
         return false;
     }
-    
-    public boolean total (){
-        double resultado=0;
-        for (LineaTransaccion linea: tabla.lineas) {
-            if(linea.getTransaccion().getTipo()=="D")
-                resultado+=linea.getTransaccion().getCantidad();
-            else
-                resultado-=linea.getTransaccion().getCantidad();
+
+    public boolean total() {
+        double resultado = 0;
+        for (LineaMovimiento linea : modeloTabla.lineas) {
+            if (linea.getMovimiento().getTipo() == "D") {
+                resultado += linea.getMovimiento().getCantidad();
+            } else {
+                resultado -= linea.getMovimiento().getCantidad();
+            }
         }
-        if(resultado==0)
+        if (resultado == 0) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,23 +119,27 @@ public class IngresoCuenta extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         nombreNuevaCuenta = new javax.swing.JTextField();
-        Crear = new javax.swing.JCheckBox();
+        nuevaCuenta = new javax.swing.JCheckBox();
         Tipo = new javax.swing.JComboBox();
         aplicaIva = new javax.swing.JCheckBox();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        botonEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(900, 700));
         setMinimumSize(new java.awt.Dimension(900, 700));
-        setPreferredSize(new java.awt.Dimension(900, 700));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setText("REGISTRO DE TRANSACCIONES ");
 
-        jTable1.setModel(tabla);
+        jTable1.setModel(modeloTabla);
         jTable1.getTableHeader().setReorderingAllowed(false);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -209,15 +219,15 @@ public class IngresoCuenta extends javax.swing.JFrame {
             }
         });
 
-        Crear.setText("NC");
-        Crear.addChangeListener(new javax.swing.event.ChangeListener() {
+        nuevaCuenta.setText("NC");
+        nuevaCuenta.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                CrearStateChanged(evt);
+                nuevaCuentaStateChanged(evt);
             }
         });
-        Crear.addActionListener(new java.awt.event.ActionListener() {
+        nuevaCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CrearActionPerformed(evt);
+                nuevaCuentaActionPerformed(evt);
             }
         });
 
@@ -238,16 +248,17 @@ public class IngresoCuenta extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jLabel2)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(comboListaCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(5, 5, 5)
-                                .addComponent(Crear)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(aplicaIva)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(Tipo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(comboListaCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(5, 5, 5)
+                                        .addComponent(nuevaCuenta)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(aplicaIva)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(211, 211, 211)
@@ -294,12 +305,12 @@ public class IngresoCuenta extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(comboListaCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(aplicaIva)
-                            .addComponent(Crear))
+                            .addComponent(nuevaCuenta))
                         .addGap(6, 6, 6)
                         .addComponent(nombreNuevaCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jButton2.setBackground(new java.awt.Color(0, 25, 51));
@@ -322,6 +333,13 @@ public class IngresoCuenta extends javax.swing.JFrame {
             }
         });
 
+        botonEliminar.setText("Eliminar seleccionada");
+        botonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -334,21 +352,22 @@ public class IngresoCuenta extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(157, 157, 157))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(157, 157, 157))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(389, 389, 389))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(botonEliminar)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(58, 58, 58))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton3)
-                        .addGap(400, 400, 400))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(389, 389, 389))
+                .addComponent(jButton3)
+                .addGap(400, 400, 400))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,9 +376,11 @@ public class IngresoCuenta extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonEliminar)
+                .addGap(83, 83, 83)
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
@@ -370,7 +391,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void montoMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_montoMovimientoActionPerformed
-        
+
     }//GEN-LAST:event_montoMovimientoActionPerformed
 
     private void montoMovimientoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_montoMovimientoFocusGained
@@ -386,49 +407,55 @@ public class IngresoCuenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(!validarMonto())
-        {
-            JOptionPane.showMessageDialog(null,"El monto no es correcto");
+        if (!validarMonto()) {
+            JOptionPane.showMessageDialog(null, "El monto no es correcto");
             return;
         }
-                
+        //Obtiene el tipo de movimiento
         String tipo;
-        if(jRadioButton1.isSelected())
-            tipo="D";
-        else
-            tipo="H";
-        
-        Double cantidad=Double.parseDouble(montoMovimiento.getText());
-        if(aplicaIva.isSelected())
-            cantidad=cantidad + 0.13*cantidad;
-            
-        Movimiento transaccion=new Movimiento(tipo,cantidad);
-        if(Crear.isSelected()){
-            String var= Tipo.getSelectedItem().toString();
-            Cuenta nueva= new Cuenta(nombreNuevaCuenta.getText(), var,transaccion);
-            if(isAdd(nueva)){
-                JOptionPane.showMessageDialog(null, "YA EXISTE ESA CUENTA");
-            }
-            else{
-                tabla.lineas.add(new LineaTransaccion(nueva, transaccion));      
-            }
-            combo.addElement(new Cuenta(nombreNuevaCuenta.getText(), var,transaccion ));
-            tabla.fireTableDataChanged();
+        if (jRadioButton1.isSelected()) {
+            tipo = "D";
+        } else {
+            tipo = "H";
+        }
+        //Obtiene el monto
+        Double cantidad = Double.parseDouble(montoMovimiento.getText());
+        if (aplicaIva.isSelected()) {
+            cantidad = cantidad + 0.13 * cantidad;
+        }
+
+        Movimiento movimiento = new Movimiento(tipo, cantidad);
+        Cuenta cuenta;
+        //Sino existe la crea
+        if (nuevaCuenta.isSelected()) {
+            String var = Tipo.getSelectedItem().toString();
+            cuenta = new Cuenta(nombreNuevaCuenta.getText(), var, movimiento);
+            combo.addElement(cuenta);
             comboListaCuentas.setVisible(true);
             nombreNuevaCuenta.setVisible(false);
             Tipo.setVisible(false);
-            Crear.setSelected(false);
-            
-        }else{
-            if(isAdd((Cuenta) comboListaCuentas.getSelectedItem())){
-                JOptionPane.showMessageDialog(null, "YA EXISTE ESA CUENTA");
-            }
-            else{
-                tabla.lineas.add(new LineaTransaccion((Cuenta) comboListaCuentas.getSelectedItem(), transaccion));      
-            }
-        
-            tabla.fireTableDataChanged(); 
+            nuevaCuenta.setSelected(false);
+        } else {
+            cuenta = (Cuenta) comboListaCuentas.getSelectedItem();
         }
+
+        if (comboListaCuentas.isEnabled()) {
+            if (isAdded(cuenta)) {
+                JOptionPane.showMessageDialog(null, "YA EXISTE ESA CUENTA");
+                return;
+            }
+            modeloTabla.lineas.add(new LineaMovimiento(cuenta, movimiento));
+        } else {
+            for (LineaMovimiento linea : modeloTabla.lineas) {
+                if (linea.getCuenta().equals((Cuenta) comboListaCuentas.getSelectedItem())) {
+                    linea.setMovimiento(movimiento);
+                    break;
+                }
+            }
+            comboListaCuentas.setEnabled(true);
+        }
+
+        modeloTabla.fireTableDataChanged();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void comboListaCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboListaCuentasActionPerformed
@@ -441,59 +468,92 @@ public class IngresoCuenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        if(total())
+        if (total()) {
             JOptionPane.showMessageDialog(null, "IGUALES");
-        else
+        } else {
             JOptionPane.showMessageDialog(null, "NO IGUALES");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void CrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearActionPerformed
-        if(Crear.isSelected()){
+    private void nuevaCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaCuentaActionPerformed
+        if (nuevaCuenta.isSelected()) {
             comboListaCuentas.setVisible(false);
             nombreNuevaCuenta.setVisible(true);
             Tipo.setVisible(true);
-        }else{
+        } else {
             comboListaCuentas.setVisible(true);
             nombreNuevaCuenta.setVisible(false);
             Tipo.setVisible(false);
         }
-    }//GEN-LAST:event_CrearActionPerformed
+    }//GEN-LAST:event_nuevaCuentaActionPerformed
 
-    private boolean validarMonto(){
-            //valida si esta vacio
-        if(montoMovimiento.getText().isEmpty())
+    private boolean validarMonto() {
+        //valida si esta vacio
+        if (montoMovimiento.getText().isEmpty()) {
             return false;
-        
-        Double monto=0.0;
-        
+        }
+
+        Double monto = 0.0;
+
         //Valida si es un numero, si lo es lo asigna a monto
-        
         try {
             monto = Double.parseDouble(montoMovimiento.getText());
         } catch (Exception e) {
             return false;
         }
-        
+
         //Valida si no es mayor que cero retorna falso
-        if(monto < 0)
+        if (monto < 0) {
             return false;
-        
-        
+        }
+
         //Paso todas las restricciones, retorna true
         return true;
     }
-    
+
     private void nombreNuevaCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreNuevaCuentaActionPerformed
-               // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_nombreNuevaCuentaActionPerformed
 
-    private void CrearStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_CrearStateChanged
+    private void nuevaCuentaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_nuevaCuentaStateChanged
 
-    }//GEN-LAST:event_CrearStateChanged
+    }//GEN-LAST:event_nuevaCuentaStateChanged
 
     private void nombreNuevaCuentaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreNuevaCuentaFocusGained
         nombreNuevaCuenta.setText(""); // TODO add your handling code here:
     }//GEN-LAST:event_nombreNuevaCuentaFocusGained
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int clicks = evt.getClickCount();
+        int row = jTable1.rowAtPoint(evt.getPoint());
+
+        if (clicks == 2) {
+            LineaMovimiento linea = modeloTabla.lineas.get(row);
+            String tipo = (new StringBuffer().append(linea.getMovimiento().getTipo())).toString();
+
+            if ("D".equals(tipo)) {
+                jRadioButton1.setSelected(true);
+            } else {
+                jRadioButton2.setSelected(true);
+            }
+
+            montoMovimiento.setText(String.valueOf(linea.getMovimiento().getCantidad()));
+            comboListaCuentas.setSelectedItem(linea.getCuenta());
+            comboListaCuentas.setEnabled(false);
+
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
+        int filaSelec = jTable1.getSelectedRow();
+        if (filaSelec == -1 || jTable1.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Error no hay fila seleccionada");
+        } else {
+            modeloTabla.lineas.remove(filaSelec);
+        }
+        jTable1.repaint();
+    }//GEN-LAST:event_botonEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -509,16 +569,21 @@ public class IngresoCuenta extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IngresoCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IngresoCuenta.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IngresoCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IngresoCuenta.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IngresoCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IngresoCuenta.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IngresoCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(IngresoCuenta.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -531,9 +596,9 @@ public class IngresoCuenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox Crear;
     private javax.swing.JComboBox Tipo;
     private javax.swing.JCheckBox aplicaIva;
+    private javax.swing.JButton botonEliminar;
     private javax.swing.JComboBox comboListaCuentas;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -549,6 +614,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField montoMovimiento;
     private javax.swing.JTextField nombreNuevaCuenta;
+    private javax.swing.JCheckBox nuevaCuenta;
     private javax.swing.ButtonGroup tipoCuenta;
     // End of variables declaration//GEN-END:variables
 }
