@@ -1,5 +1,5 @@
 
-package vistas;
+package SIC.Vistas;
 
 import java.awt.Color;
 
@@ -11,8 +11,6 @@ public class Bienvenida extends javax.swing.JFrame {
         this.getContentPane().setBackground(new java.awt.Color(102,177,255));
         initComponents();
         this.setLocationRelativeTo(null);
-        
-
     }
 
 
@@ -35,9 +33,7 @@ public class Bienvenida extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setFocusTraversalPolicyProvider(true);
         setFocusable(false);
-        setMaximumSize(new java.awt.Dimension(900, 700));
         setMinimumSize(new java.awt.Dimension(900, 700));
-        setPreferredSize(new java.awt.Dimension(900, 700));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -88,9 +84,6 @@ public class Bienvenida extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            IngresoCuenta ingreso = new IngresoCuenta();
-            ingreso.setVisible(true);
-            this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
