@@ -51,7 +51,7 @@ public class Bienvenida extends javax.swing.JFrame {
         jLabel4.setBackground(new java.awt.Color(0, 102, 0));
         jLabel4.setForeground(new java.awt.Color(0, 102, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SIC/Imagenes/logo.png"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 750, 510));
 
         jButton1.setBackground(new java.awt.Color(0, 25, 51));
