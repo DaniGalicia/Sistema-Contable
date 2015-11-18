@@ -21,6 +21,7 @@ public class SICService {
     private static ServCuenta servCuenta;
     private static ServMovimiento servMovimiento;
     private static ServUsuario servUsuario;
+    private static ServCuentaSaldada servCuentaSaldada;
 
     public SICService() {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
@@ -33,9 +34,6 @@ public class SICService {
         
         return servUsuario;
     }
-
-    
-
     
     public static ServCuenta getServCuenta() {
         if (servCuenta == null) {
@@ -44,12 +42,18 @@ public class SICService {
         return servCuenta;
     }
 
-    
     public static ServMovimiento getServMovimiento() {
         if (servMovimiento == null) {
             SICService.servMovimiento = new ServMovimiento(PERSISTENCE_UNIT_NAME);
         }
         return servMovimiento;
+    }
+
+    public static ServCuentaSaldada getServCuentaSaldada() {
+        if(servCuentaSaldada==null)
+            servCuentaSaldada=new ServCuentaSaldada(PERSISTENCE_UNIT_NAME);
+        
+        return servCuentaSaldada;
     }
     
 }

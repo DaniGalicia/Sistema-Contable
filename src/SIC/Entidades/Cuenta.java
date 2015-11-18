@@ -8,6 +8,7 @@ package SIC.Entidades;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,6 +26,9 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Cuenta.findAll", query = "SELECT c FROM Cuenta c")})
 public class Cuenta implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta")
+    private List<CuentasSaldadas> cuentasSaldadasList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -100,6 +104,14 @@ public class Cuenta implements Serializable {
     @Override
     public String toString() {
         return this.nombre;
+    }
+
+    public List<CuentasSaldadas> getCuentasSaldadasList() {
+        return cuentasSaldadasList;
+    }
+
+    public void setCuentasSaldadasList(List<CuentasSaldadas> cuentasSaldadasList) {
+        this.cuentasSaldadasList = cuentasSaldadasList;
     }
     
 }
