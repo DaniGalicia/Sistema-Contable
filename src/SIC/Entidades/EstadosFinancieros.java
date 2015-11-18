@@ -38,8 +38,8 @@ public class EstadosFinancieros implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "ID_ESTADO_FINANCIERO")
-    @GeneratedValue(generator="InvSeq")
-    @SequenceGenerator(name="InvSeq",sequenceName="SECUENCIA_ESTADO_FINANCIERO", allocationSize=5)
+    @GeneratedValue(generator="InvSeqES")
+    @SequenceGenerator(name="InvSeqES",sequenceName="SECUENCIA_ESTADO_FINANCIERO", allocationSize=5)
     
     private BigDecimal idEstadoFinanciero;
     @Basic(optional = false)

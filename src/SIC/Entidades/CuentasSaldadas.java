@@ -42,8 +42,8 @@ public class CuentasSaldadas implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
-        @GeneratedValue(generator="InvSeq")
-    @SequenceGenerator(name="InvSeq",sequenceName="SECUENCIA_CUENTA_SALDADA", allocationSize=5)  
+        @GeneratedValue(generator="InvSeqCS")
+    @SequenceGenerator(name="InvSeqCS",sequenceName="SECUENCIA_CUENTA_SALDADA", allocationSize=5)  
     @Column(name = "ID_CUENTA_SALDADA")
     private BigDecimal idCuentaSaldada;
     @Basic(optional = false)

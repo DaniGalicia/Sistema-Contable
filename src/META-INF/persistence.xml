@@ -7,6 +7,8 @@
     <class>SIC.Entidades.Movimiento</class>
     <class>SIC.Entidades.CuentasSaldadas</class>
     <class>SIC.Entidades.EstadosFinancieros</class>
+    <class>SIC.Entidades.Cargo</class>
+    <class>SIC.Entidades.Empleado</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
       <property name="javax.persistence.jdbc.user" value="SIC"/>

@@ -70,15 +70,9 @@ public class ServCuentaSaldada {
     public List<CuentasSaldadas> findByTipoCuenta(String tipoCuenta){
 
         List<CuentasSaldadas> aux=getListado();
-        List<CuentasSaldadas> rem= new ArrayList<>();
-        for(CuentasSaldadas cs:aux)
-        {
-            if(!cs.getCuenta().getTipo().equals(tipoCuenta))
-                rem.add(cs);
-        }
         
-        aux.removeAll(rem);
-        //q.setParameter("idCuenta", idCuenta);
+        aux.removeIf(p -> !p.getCuenta().getTipo().equals(tipoCuenta));
+ 
         return aux;
     }
 }
