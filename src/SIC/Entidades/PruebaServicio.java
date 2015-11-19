@@ -18,7 +18,11 @@ public class PruebaServicio {
 
     public static void main(String[] args) {
         // TODO code application logic here
-        for(CuentasSaldadas cs:SICService.getServCuentaSaldada().findByTipoCuenta("A"))
-            System.out.println(cs.getCuenta().getIdCuenta());
-            }
+
+        Cargo cargo=new Cargo();
+        cargo.setNombreCargo("Edto");
+        cargo.setSueldo(200);
+        
+        SICService.getServCargo().guardar(cargo);
+    }
 }
