@@ -5,12 +5,9 @@
  */
 package SIC.Vistas;
 
-import SIC.Entidades.Usuario;
 import SIC.Service.SICService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import SIC.Service.ServCuenta;
-import SIC.Service.ServUsuario;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +20,14 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Loggin
      */
     public Login() {
+        Bienvenida bienvenida=new Bienvenida();
+        bienvenida.setVisible(true);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        bienvenida.setVisible(false);
         initComponents();
 
     }

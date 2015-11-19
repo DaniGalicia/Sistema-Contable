@@ -21,21 +21,35 @@ public class SICService {
     private static ServCuenta servCuenta;
     private static ServMovimiento servMovimiento;
     private static ServUsuario servUsuario;
+    private static ServCuentaSaldada servCuentaSaldada;
+    private static ServEmpleado servEmpleado;
+    private static ServCargo servCargo;
 
     public SICService() {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         entityManager = factory.createEntityManager();
     }
 
+    public static ServEmpleado getServEmpleado() {
+        if(servEmpleado==null)
+            servEmpleado=new ServEmpleado(PERSISTENCE_UNIT_NAME);
+        return servEmpleado;
+    }
+
+    public static ServCargo getServCargo() {
+        if(servCargo==null)
+            servCargo=new ServCargo(PERSISTENCE_UNIT_NAME);
+        return servCargo;
+    }
+
+    
+    
     public static ServUsuario getServUsuario() {
         if(servUsuario==null)
             servUsuario=new ServUsuario(PERSISTENCE_UNIT_NAME);
         
         return servUsuario;
     }
-
-    
-
     
     public static ServCuenta getServCuenta() {
         if (servCuenta == null) {
@@ -44,12 +58,18 @@ public class SICService {
         return servCuenta;
     }
 
-    
     public static ServMovimiento getServMovimiento() {
         if (servMovimiento == null) {
             SICService.servMovimiento = new ServMovimiento(PERSISTENCE_UNIT_NAME);
         }
         return servMovimiento;
+    }
+
+    public static ServCuentaSaldada getServCuentaSaldada() {
+        if(servCuentaSaldada==null)
+            servCuentaSaldada=new ServCuentaSaldada(PERSISTENCE_UNIT_NAME);
+        
+        return servCuentaSaldada;
     }
     
 }

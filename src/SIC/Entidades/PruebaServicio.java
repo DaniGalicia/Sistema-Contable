@@ -15,23 +15,14 @@ import java.util.Date;
  * @author dannier
  */
 public class PruebaServicio {
-        public static void main(String[] args) {
+
+    public static void main(String[] args) {
         // TODO code application logic here
+
+        Cargo cargo=new Cargo();
+        cargo.setNombreCargo("Edto");
+        cargo.setSueldo(200);
         
-Movimiento movimiento=new Movimiento();
-movimiento.setIdMovimiento(BigDecimal.ZERO);
-movimiento.setCantidad(199);
-Cuenta c= SICService.getServCuenta().getCuentaById("110102");
-
-movimiento.setCuenta(c);
-movimiento.setTipo("D");
-movimiento.setFecha(new Date());
-
-
-if(SICService.getServMovimiento().guardar(movimiento))
-                System.out.println("ok");
-else
-                System.out.println("MT");
-        
+        SICService.getServCargo().guardar(cargo);
     }
 }
