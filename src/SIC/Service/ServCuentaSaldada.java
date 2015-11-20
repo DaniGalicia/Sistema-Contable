@@ -71,7 +71,7 @@ public class ServCuentaSaldada {
 
         List<CuentasSaldadas> aux=getListado();
         
-        aux.removeIf(p -> !p.getCuenta().getTipo().equals(tipoCuenta));
+        aux.removeIf(p -> !p.getCuenta().getIdTipoCuenta().getIdTipoCuenta().equals(tipoCuenta));
  
         return aux;
     }

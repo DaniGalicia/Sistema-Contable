@@ -1,6 +1,6 @@
 package SIC.Service;
 
-import SIC.Entidades.Usuario;
+import SIC.Entidades.TipoCuenta;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,32 +11,35 @@ import javax.persistence.Query;
  *
  * @author GALICIA
  */
-public class ServUsuario {
+public class ServTipoCuenta {
 
     private static EntityManagerFactory factory;
     private EntityManager entityManager;
     private String persistenceUnit;
 
-    public ServUsuario(String persistenceUnit) {
+    public ServTipoCuenta(String persistenceUnit) {
         this.persistenceUnit = persistenceUnit;
         factory = Persistence.createEntityManagerFactory(persistenceUnit);
         entityManager = factory.createEntityManager();
         this.persistenceUnit = persistenceUnit;
     }
 
-    public boolean eliminar(Usuario usuario) {
+    public boolean eliminar(TipoCuenta tipoCuenta)
+    {
         entityManager.getTransaction().begin();
-        entityManager.remove(usuario);
+        entityManager.remove(tipoCuenta);
         entityManager.getTransaction().commit();
+        entityManager.close();
         return true;
     }
-
-    public boolean guardar(Usuario usuario) {
+    
+    public boolean guardar(TipoCuenta tipoCuenta) {
 
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(usuario);
+            entityManager.persist(tipoCuenta);
             entityManager.getTransaction().commit();
+            entityManager.close();
         } catch (Exception e) {
             return false;
         }
@@ -44,22 +47,9 @@ public class ServUsuario {
         return true;
     }
 
-    public Usuario getUsuarioByCodigoEmpleado(String codigoEmpleado) {
 
-        Query q = entityManager.createNamedQuery("Usuario.findByCodigoEmpleado");
-
-        q.setParameter("codigoEmpleado", codigoEmpleado);
-
-        try {
-            return (Usuario) q.getSingleResult();
-        } catch (Exception e) {
-        }
-
-        return null;
-    }
-
-    public List<Usuario> getListado() {
-        Query q = entityManager.createNamedQuery("Usuario.findAll");
+    public List<TipoCuenta> getListado() {
+        Query q = entityManager.createNamedQuery("TipoCuenta.findAll");
         return q.getResultList();
     }
 }

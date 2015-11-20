@@ -5,6 +5,7 @@
  */
 package SIC.Vistas;
 
+import SIC.Vistas.tableModels.UsuariosTableModel;
 import SIC.Entidades.Empleado;
 import SIC.Entidades.Usuario;
 import SIC.Service.SICService;

@@ -6,15 +6,14 @@
 package SIC.Entidades;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -22,31 +21,35 @@ import javax.persistence.Table;
  * @author dannier
  */
 @Entity
-@Table(name = "CUENTA",schema = "SIC")
+@Table(name = "CUENTA")
 @NamedQueries({
-    @NamedQuery(name = "Cuenta.findAll", query = "SELECT c FROM Cuenta c")})
+    @NamedQuery(name = "Cuenta.findAll", query = "SELECT c FROM Cuenta c"),
+    @NamedQuery(name = "Cuenta.findByIdCuenta", query = "SELECT c FROM Cuenta c WHERE c.idCuenta = :idCuenta"),
+    @NamedQuery(name = "Cuenta.findByNombre", query = "SELECT c FROM Cuenta c WHERE c.nombre = :nombre")})
 public class Cuenta implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta")
-    private List<CuentasSaldadas> cuentasSaldadasList;
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "ID_CUENTA")
     private String idCuenta;
+    @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
-    @Column(name = "TIPO")
-    private String tipo;
-    @OneToMany(mappedBy = "cuenta")
-    private List<Movimiento> movimientoList;
+    @JoinColumn(name = "ID_TIPO_CUENTA", referencedColumnName = "ID_TIPO_CUENTA")
+    @ManyToOne(optional = false)
+    private TipoCuenta idTipoCuenta;
 
     public Cuenta() {
     }
 
     public Cuenta(String idCuenta) {
         this.idCuenta = idCuenta;
+    }
+
+    public Cuenta(String idCuenta, String nombre) {
+        this.idCuenta = idCuenta;
+        this.nombre = nombre;
     }
 
     public String getIdCuenta() {
@@ -65,20 +68,12 @@ public class Cuenta implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getTipo() {
-        return tipo;
+    public TipoCuenta getIdTipoCuenta() {
+        return idTipoCuenta;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public List<Movimiento> getMovimientoList() {
-        return movimientoList;
-    }
-
-    public void setMovimientoList(List<Movimiento> movimientoList) {
-        this.movimientoList = movimientoList;
+    public void setIdTipoCuenta(TipoCuenta idTipoCuenta) {
+        this.idTipoCuenta = idTipoCuenta;
     }
 
     @Override
@@ -103,15 +98,7 @@ public class Cuenta implements Serializable {
 
     @Override
     public String toString() {
-        return this.nombre;
-    }
-
-    public List<CuentasSaldadas> getCuentasSaldadasList() {
-        return cuentasSaldadasList;
-    }
-
-    public void setCuentasSaldadasList(List<CuentasSaldadas> cuentasSaldadasList) {
-        this.cuentasSaldadasList = cuentasSaldadasList;
+        return "SIC.Entidades.Cuenta[ idCuenta=" + idCuenta + " ]";
     }
     
 }

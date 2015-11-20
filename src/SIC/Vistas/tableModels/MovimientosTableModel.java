@@ -1,5 +1,5 @@
 
-package SIC.Vistas;
+package SIC.Vistas.tableModels;
 
 import SIC.Entidades.Movimiento;
 import java.util.ArrayList;

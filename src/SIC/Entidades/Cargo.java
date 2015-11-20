@@ -50,7 +50,7 @@ public class Cargo implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargo")
     private List<Empleado> empleadoList;
 
-    public Cargo() {
+    public Cargo() {        
     }
 
     public Cargo(BigDecimal idCargo) {

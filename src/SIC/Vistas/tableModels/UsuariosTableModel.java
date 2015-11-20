@@ -1,16 +1,16 @@
-package SIC.Vistas;
+package SIC.Vistas.tableModels;
 
-import SIC.Entidades.Cargo;
+import SIC.Entidades.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-public class CargosTableModel extends AbstractTableModel {
-   public List<Cargo> cargos= new ArrayList<>();
+public class UsuariosTableModel extends AbstractTableModel {
+   public List<Usuario> usuarios= new ArrayList<>();
     
     @Override
     public int getRowCount(){
-        return cargos.size();
+        return usuarios.size();
     }
     
 
@@ -21,14 +21,14 @@ public class CargosTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Cargo cargo = cargos.get(rowIndex);
+        Usuario usuario = usuarios.get(rowIndex);
         Object valor = null;
         switch(columnIndex){
-            case 0: valor = cargo.getIdCargo();
+            case 0: valor = usuario.getCodigoEmpleado();
             break;
-            case 1: valor = cargo.getSueldo();
+            case 1: valor = usuario.getUsuario();
             break;
-            case 2: valor = cargo.getNombreCargo();
+            case 2: valor = usuario.getClave();
         }
         return valor;
     }

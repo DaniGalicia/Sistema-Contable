@@ -5,6 +5,7 @@
  */
 package SIC.Vistas;
 
+import SIC.Vistas.tableModels.CargosTableModel;
 import SIC.Entidades.Cargo;
 import SIC.Service.SICService;
 import java.math.BigDecimal;

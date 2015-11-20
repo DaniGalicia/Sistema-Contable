@@ -24,6 +24,7 @@ public class SICService {
     private static ServCuentaSaldada servCuentaSaldada;
     private static ServEmpleado servEmpleado;
     private static ServCargo servCargo;
+    private static ServTipoCuenta servTipoCuenta;
 
     public SICService() {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
@@ -34,6 +35,12 @@ public class SICService {
         if(servEmpleado==null)
             servEmpleado=new ServEmpleado(PERSISTENCE_UNIT_NAME);
         return servEmpleado;
+    }
+
+    public static ServTipoCuenta getServTipoCuenta() {
+        if(servTipoCuenta==null)
+            servTipoCuenta=new ServTipoCuenta(PERSISTENCE_UNIT_NAME);
+        return servTipoCuenta;
     }
 
     public static ServCargo getServCargo() {
