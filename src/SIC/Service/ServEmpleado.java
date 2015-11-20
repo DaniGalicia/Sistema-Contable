@@ -24,15 +24,14 @@ public class ServEmpleado {
         this.persistenceUnit = persistenceUnit;
     }
 
-    public boolean eliminar(Empleado empleado)
-    {
+    public boolean eliminar(Empleado empleado) {
         entityManager.getTransaction().begin();
         entityManager.remove(empleado);
         entityManager.getTransaction().commit();
         entityManager.close();
         return true;
     }
-    
+
     public boolean guardar(Empleado empleado) {
 
         try {
@@ -49,11 +48,13 @@ public class ServEmpleado {
 
     public Empleado getEmpleadoByCodigo(String codigoEmpleado) {
         Query q = entityManager.createNamedQuery("Empleado.findByCodigoEmpleado");
-               
         q.setParameter("codigoEmpleado", codigoEmpleado);
+        try {
+            return (Empleado) q.getSingleResult();
+        } catch (Exception e) {
+        }
 
-        return (Empleado) q.getSingleResult();
-
+        return null;
     }
 
     public List<Empleado> getListado() {

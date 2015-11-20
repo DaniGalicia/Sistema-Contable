@@ -6,10 +6,6 @@
 package SIC.Entidades;
 
 import SIC.Service.SICService;
-import SIC.Service.ServUsuario;
-import java.math.BigDecimal;
-import java.util.Date;
-
 /**
  *
  * @author dannier
@@ -17,12 +13,13 @@ import java.util.Date;
 public class PruebaServicio {
 
     public static void main(String[] args) {
-        // TODO code application logic here
         
-        Usuario usuario=new Usuario();
-        usuario.setCarnet("gc19384");
-        usuario.setClave("algo");
+        Empleado e=SICService.getServEmpleado().getEmpleadoByCodigo("34341");
         
-        SICService.getServUsuario().guardar(usuario);
+        Usuario u=new Usuario(e.getCodigoEmpleado());
+        u.setClave("admin");
+        u.setUsuario("Hola");
+        SICService.getServUsuario().guardar(u);
+        
     }
 }

@@ -21,14 +21,21 @@ import javax.persistence.Table;
  * @author dannier
  */
 @Entity
-@Table(name = "USUARIO",schema = "SIC")
+@Table(name = "USUARIO")
 @NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")})
+    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
+    @NamedQuery(name = "Usuario.findByUsuario", query = "SELECT u FROM Usuario u WHERE u.usuario = :usuario"),
+    @NamedQuery(name = "Usuario.findByClave", query = "SELECT u FROM Usuario u WHERE u.clave = :clave"),
+    @NamedQuery(name = "Usuario.findByCodigoEmpleado", query = "SELECT u FROM Usuario u WHERE u.codigoEmpleado = :codigoEmpleado")})
 public class Usuario implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @Column(name = "USUARIO")
     private String usuario;
+    @Basic(optional = false)
+    @Column(name = "CLAVE")
+    private String clave;
     @Id
     @Basic(optional = false)
     @Column(name = "CODIGO_EMPLEADO")
@@ -37,65 +44,17 @@ public class Usuario implements Serializable {
     @OneToOne(optional = false)
     private Empleado empleado;
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "CARNET")
-    private String carnet;
-    @Column(name = "CLAVE")
-    private String clave;
-
     public Usuario() {
     }
 
-    public Usuario(String carnet) {
-        this.carnet = carnet;
+    public Usuario(String codigoEmpleado) {
+        this.codigoEmpleado = codigoEmpleado;
     }
 
-    public String getCarnet() {
-        return carnet;
-    }
-
-    public void setCarnet(String carnet) {
-        this.carnet = carnet;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (carnet != null ? carnet.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuario)) {
-            return false;
-        }
-        Usuario other = (Usuario) object;
-        if ((this.carnet == null && other.carnet != null) || (this.carnet != null && !this.carnet.equals(other.carnet))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Entidades.Usuario[ carnet=" + carnet + " ]";
-    }
-
-    public Usuario(String codigoEmpleado, String usuario) {
+    public Usuario(String codigoEmpleado, String usuario, String clave) {
         this.codigoEmpleado = codigoEmpleado;
         this.usuario = usuario;
+        this.clave = clave;
     }
 
     public String getUsuario() {
@@ -104,6 +63,14 @@ public class Usuario implements Serializable {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 
     public String getCodigoEmpleado() {
@@ -120,6 +87,31 @@ public class Usuario implements Serializable {
 
     public void setEmpleado(Empleado empleado) {
         this.empleado = empleado;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (codigoEmpleado != null ? codigoEmpleado.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Usuario)) {
+            return false;
+        }
+        Usuario other = (Usuario) object;
+        if ((this.codigoEmpleado == null && other.codigoEmpleado != null) || (this.codigoEmpleado != null && !this.codigoEmpleado.equals(other.codigoEmpleado))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "SIC.Entidades.Usuario[ codigoEmpleado=" + codigoEmpleado + " ]";
     }
     
 }
