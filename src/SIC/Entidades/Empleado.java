@@ -8,6 +8,7 @@ package SIC.Entidades;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,6 +37,9 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Empleado.findByDui", query = "SELECT e FROM Empleado e WHERE e.dui = :dui"),
     @NamedQuery(name = "Empleado.findBySexo", query = "SELECT e FROM Empleado e WHERE e.sexo = :sexo")})
 public class Empleado implements Serializable {
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "empleado")
+    private Usuario usuario;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -164,6 +169,14 @@ public class Empleado implements Serializable {
     @Override
     public String toString() {
         return "SIC.Entidades.Empleado[ codigoEmpleado=" + codigoEmpleado + " ]";
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
 }

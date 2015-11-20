@@ -18,11 +18,11 @@ public class PruebaServicio {
 
     public static void main(String[] args) {
         // TODO code application logic here
-
-        Cargo cargo=new Cargo();
-        cargo.setNombreCargo("Edto");
-        cargo.setSueldo(200);
         
-        SICService.getServCargo().guardar(cargo);
+        Usuario usuario=new Usuario();
+        usuario.setCarnet("gc19384");
+        usuario.setClave("algo");
+        
+        SICService.getServUsuario().guardar(usuario);
     }
 }

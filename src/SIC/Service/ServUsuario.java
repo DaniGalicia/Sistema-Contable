@@ -5,6 +5,7 @@
  */
 package SIC.Service;
 
+import SIC.Entidades.Cargo;
 import SIC.Entidades.Usuario;
 import javax.persistence.EntityManager;
 import org.eclipse.persistence.internal.jpa.EntityManagerImpl;
@@ -29,6 +30,19 @@ public class ServUsuario {
         this.persistenceUnit = persistenceUnit;
     }
     
+        public boolean guardar(Usuario usuario) {
+
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(usuario);
+            entityManager.getTransaction().commit();
+            entityManager.close();
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
     
     
     public Usuario getUsuario(String carnet, String clave) {       

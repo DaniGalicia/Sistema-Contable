@@ -10,8 +10,10 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -23,6 +25,17 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")})
 public class Usuario implements Serializable {
+
+    @Basic(optional = false)
+    @Column(name = "USUARIO")
+    private String usuario;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "CODIGO_EMPLEADO")
+    private String codigoEmpleado;
+    @JoinColumn(name = "CODIGO_EMPLEADO", referencedColumnName = "CODIGO_EMPLEADO", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Empleado empleado;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -78,6 +91,35 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "Entidades.Usuario[ carnet=" + carnet + " ]";
+    }
+
+    public Usuario(String codigoEmpleado, String usuario) {
+        this.codigoEmpleado = codigoEmpleado;
+        this.usuario = usuario;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getCodigoEmpleado() {
+        return codigoEmpleado;
+    }
+
+    public void setCodigoEmpleado(String codigoEmpleado) {
+        this.codigoEmpleado = codigoEmpleado;
+    }
+
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
     }
     
 }
