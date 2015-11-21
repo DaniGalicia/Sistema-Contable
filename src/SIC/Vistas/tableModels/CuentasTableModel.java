@@ -29,7 +29,7 @@ public class CuentasTableModel extends AbstractTableModel {
             break;
             case 1: valor = cuenta.getNombre();
             break;
-            case 2: valor = cuenta.getTipo();
+           // case 2: valor = cuenta.getTipo();
         }
         return valor;
     }

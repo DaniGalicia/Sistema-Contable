@@ -16,7 +16,7 @@ public class CargosTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-       return 3;
+       return 2;
     }
 
     @Override
@@ -24,11 +24,9 @@ public class CargosTableModel extends AbstractTableModel {
         Cargo cargo = cargos.get(rowIndex);
         Object valor = null;
         switch(columnIndex){
-            case 0: valor = cargo.getIdCargo();
+           case 0: valor = cargo.getSueldo();
             break;
-            case 1: valor = cargo.getSueldo();
-            break;
-            case 2: valor = cargo.getNombreCargo();
+            case 1: valor = cargo.getNombreCargo();
         }
         return valor;
     }
