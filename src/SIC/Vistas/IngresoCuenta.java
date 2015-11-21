@@ -452,8 +452,8 @@ public class IngresoCuenta extends javax.swing.JFrame {
         if (nuevaCuenta.isSelected()) {
             String var = Tipo.getSelectedItem().toString();
             cuenta.setNombre(nombreNuevaCuenta.getText());
-            cuenta.setTipo(var);
-            cuenta.getMovimientoList().add(movimiento);
+//            cuenta.setTipo(var);
+  //          cuenta.getMovimientoList().add(movimiento);
             
             combo.addElement(cuenta);
             
