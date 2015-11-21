@@ -26,7 +26,7 @@ import javax.persistence.TemporalType;
  * @author dannier
  */
 @Entity
-@Table(name = "EMPLEADO",schema = "SIC")
+@Table(name = "EMPLEADO")
 @NamedQueries({
     @NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e"),
     @NamedQuery(name = "Empleado.findByCodigoEmpleado", query = "SELECT e FROM Empleado e WHERE e.codigoEmpleado = :codigoEmpleado"),
@@ -37,9 +37,6 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Empleado.findByDui", query = "SELECT e FROM Empleado e WHERE e.dui = :dui"),
     @NamedQuery(name = "Empleado.findBySexo", query = "SELECT e FROM Empleado e WHERE e.sexo = :sexo")})
 public class Empleado implements Serializable {
-
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "empleado")
-    private Usuario usuario;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -65,7 +62,9 @@ public class Empleado implements Serializable {
     private String sexo;
     @JoinColumn(name = "ID_CARGO", referencedColumnName = "ID_CARGO")
     @ManyToOne(optional = false)
-    private Cargo idCargo;
+    private Cargo cargo;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "empleado")
+    private Usuario usuario;
 
     public Empleado() {
     }
@@ -138,12 +137,20 @@ public class Empleado implements Serializable {
         this.sexo = sexo;
     }
 
-    public Cargo getIdCargo() {
-        return idCargo;
+    public Cargo getCargo() {
+        return cargo;
     }
 
-    public void setIdCargo(Cargo idCargo) {
-        this.idCargo = idCargo;
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
@@ -169,14 +176,6 @@ public class Empleado implements Serializable {
     @Override
     public String toString() {
         return "SIC.Entidades.Empleado[ codigoEmpleado=" + codigoEmpleado + " ]";
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
     
 }

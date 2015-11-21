@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author dannier
  */
-public class MantenimientoCuentas extends javax.swing.JFrame {
+public class MantenimientoCuentas extends javax.swing.JDialog {
 
     /**
      * Creates new form MantenimientoCuentas
@@ -55,7 +55,7 @@ public class MantenimientoCuentas extends javax.swing.JFrame {
         botonGuardar = new javax.swing.JButton();
         botonEliminar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -161,7 +161,7 @@ public class MantenimientoCuentas extends javax.swing.JFrame {
         else{
             Cuenta cuenta=new Cuenta(idCuenta.getText());
             cuenta.setNombre(nombreCuenta.getText());
-            cuenta.setIdTipoCuenta((TipoCuenta) comboTiposCuenta.getSelectedItem());
+            cuenta.setTipoCuenta((TipoCuenta) comboTiposCuenta.getSelectedItem());
             
             if(SICService.getServCuenta().guardar(cuenta))
                 JOptionPane.showMessageDialog(null, "Guardado");

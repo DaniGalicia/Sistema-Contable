@@ -6,7 +6,7 @@
 package SIC.Entidades;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -37,8 +37,8 @@ public class TipoCuenta implements Serializable {
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoCuenta")
-    private Collection<Cuenta> cuentaCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipoCuenta")
+    private List<Cuenta> cuentaList;
 
     public TipoCuenta() {
     }
@@ -68,12 +68,12 @@ public class TipoCuenta implements Serializable {
         this.nombre = nombre;
     }
 
-    public Collection<Cuenta> getCuentaCollection() {
-        return cuentaCollection;
+    public List<Cuenta> getCuentaList() {
+        return cuentaList;
     }
 
-    public void setCuentaCollection(Collection<Cuenta> cuentaCollection) {
-        this.cuentaCollection = cuentaCollection;
+    public void setCuentaList(List<Cuenta> cuentaList) {
+        this.cuentaList = cuentaList;
     }
 
     @Override
@@ -98,7 +98,7 @@ public class TipoCuenta implements Serializable {
 
     @Override
     public String toString() {
-        return nombre;
+        return "SIC.Entidades.TipoCuenta[ idTipoCuenta=" + idTipoCuenta + " ]";
     }
     
 }

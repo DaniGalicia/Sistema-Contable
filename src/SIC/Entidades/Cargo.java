@@ -12,12 +12,10 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -25,7 +23,7 @@ import javax.persistence.Table;
  * @author dannier
  */
 @Entity
-@Table(name = "CARGO",schema = "SIC")
+@Table(name = "CARGO")
 @NamedQueries({
     @NamedQuery(name = "Cargo.findAll", query = "SELECT c FROM Cargo c"),
     @NamedQuery(name = "Cargo.findByIdCargo", query = "SELECT c FROM Cargo c WHERE c.idCargo = :idCargo"),
@@ -37,8 +35,6 @@ public class Cargo implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
-    @GeneratedValue(generator="InvSeqC")
-    @SequenceGenerator(name="InvSeqC",sequenceName="SECUENCIA_CARGO", allocationSize=5)     
     @Column(name = "ID_CARGO")
     private BigDecimal idCargo;
     @Basic(optional = false)
@@ -47,10 +43,10 @@ public class Cargo implements Serializable {
     @Basic(optional = false)
     @Column(name = "NOMBRE_CARGO")
     private String nombreCargo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargo")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cargo")
     private List<Empleado> empleadoList;
 
-    public Cargo() {        
+    public Cargo() {
     }
 
     public Cargo(BigDecimal idCargo) {

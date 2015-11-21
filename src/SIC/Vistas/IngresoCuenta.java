@@ -17,6 +17,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import SIC.Service.SICService;
 import java.util.Date;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
 /**
  *
@@ -27,29 +28,25 @@ public class IngresoCuenta extends javax.swing.JFrame {
     public MovimientosTableModel modeloTabla = new MovimientosTableModel();
     List<Cuenta> cuentas = SICService.getServCuenta().getListado();
     DefaultComboBoxModel combo = new DefaultComboBoxModel();
-    List<Cuenta> cuentasNuevas=new ArrayList<>();
-    
+    List<Cuenta> cuentasNuevas = new ArrayList<>();
+
     public IngresoCuenta() {
         this.getContentPane().setBackground(new java.awt.Color(102, 177, 255));
         initComponents();
         inicializarColumnas();
         this.setLocationRelativeTo(null);
-        nombreNuevaCuenta.setVisible(false);
-        Tipo.setVisible(false);
         cargarListaCuentas();
     }
-    
-    
-    private void cargarListaCuentas(){
-         combo = new DefaultComboBoxModel();
-         
-         for(Cuenta cuenta:cuentas)
-         {
-             combo.addElement(cuenta);
-         }
-         comboListaCuentas.setModel(combo);
+
+    private void cargarListaCuentas() {
+        combo = new DefaultComboBoxModel();
+
+        for (Cuenta cuenta : cuentas) {
+            combo.addElement(cuenta);
+        }
+        comboListaCuentas.setModel(combo);
     }
-    
+
     private void inicializarColumnas() {
         TableColumnModel tColumnModel = new DefaultTableColumnModel();
         for (int i = 0; i < 3; i++) {
@@ -105,7 +102,8 @@ public class IngresoCuenta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tipoCuenta = new javax.swing.ButtonGroup();
+        tipoMovimiento = new javax.swing.ButtonGroup();
+        jDialog1 = new javax.swing.JDialog();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -113,22 +111,30 @@ public class IngresoCuenta extends javax.swing.JFrame {
         comboListaCuentas = new javax.swing.JComboBox();
         montoMovimiento = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        nombreNuevaCuenta = new javax.swing.JTextField();
         nuevaCuenta = new javax.swing.JCheckBox();
-        Tipo = new javax.swing.JComboBox();
         aplicaIva = new javax.swing.JCheckBox();
         jLabel6 = new javax.swing.JLabel();
         fecha = new javax.swing.JFormattedTextField();
-        jToolBar1 = new javax.swing.JToolBar();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         botonEliminar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 700));
@@ -175,27 +181,20 @@ public class IngresoCuenta extends javax.swing.JFrame {
 
         jLabel2.setText("FECHA TRANSACCION");
 
-        jButton1.setBackground(new java.awt.Color(0, 25, 51));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        tipoCuenta.add(jRadioButton1);
+        tipoMovimiento.add(jRadioButton1);
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("Cargar");
+        jRadioButton1.setToolTipText("Cargar");
+        jRadioButton1.setActionCommand("D");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton1ActionPerformed(evt);
             }
         });
 
-        tipoCuenta.add(jRadioButton2);
+        tipoMovimiento.add(jRadioButton2);
         jRadioButton2.setText("Abonar");
+        jRadioButton2.setActionCommand("H");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton2ActionPerformed(evt);
@@ -205,23 +204,6 @@ public class IngresoCuenta extends javax.swing.JFrame {
         jLabel3.setText("MONTO");
 
         jLabel4.setText("ACCION");
-
-        nombreNuevaCuenta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        nombreNuevaCuenta.setText("Nueva cuenta");
-        nombreNuevaCuenta.setToolTipText("Cuenta");
-        nombreNuevaCuenta.setMaximumSize(new java.awt.Dimension(150, 25));
-        nombreNuevaCuenta.setMinimumSize(new java.awt.Dimension(150, 25));
-        nombreNuevaCuenta.setPreferredSize(new java.awt.Dimension(150, 25));
-        nombreNuevaCuenta.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                nombreNuevaCuentaFocusGained(evt);
-            }
-        });
-        nombreNuevaCuenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreNuevaCuentaActionPerformed(evt);
-            }
-        });
 
         nuevaCuenta.setText("NC");
         nuevaCuenta.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -235,16 +217,11 @@ public class IngresoCuenta extends javax.swing.JFrame {
             }
         });
 
-        Tipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "D", "H" }));
-        Tipo.setToolTipText("");
-
         aplicaIva.setText("IVA");
 
         jLabel6.setText("SELECCIONAR CUENTA");
 
         fecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-
-        jToolBar1.setRollover(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -257,22 +234,18 @@ public class IngresoCuenta extends javax.swing.JFrame {
                     .addComponent(fecha))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nombreNuevaCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(comboListaCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(5, 5, 5)
-                                .addComponent(nuevaCuenta))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jLabel6)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(aplicaIva))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addComponent(comboListaCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(nuevaCuenta))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel6)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(aplicaIva))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -280,20 +253,13 @@ public class IngresoCuenta extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addGap(211, 211, 211))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(montoMovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(66, 66, 66)
+                        .addComponent(montoMovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(69, 69, 69)
                         .addComponent(jRadioButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jRadioButton2)
-                        .addGap(65, 65, 65)
-                        .addComponent(jButton1)
-                        .addContainerGap())))
+                        .addGap(100, 100, 100))))
         );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {comboListaCuentas, nombreNuevaCuenta});
-
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -303,14 +269,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jRadioButton2)
-                            .addComponent(montoMovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,12 +283,11 @@ public class IngresoCuenta extends javax.swing.JFrame {
                             .addComponent(comboListaCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(aplicaIva)
                             .addComponent(nuevaCuenta)
-                            .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
-                        .addComponent(nombreNuevaCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 10, Short.MAX_VALUE)))
+                            .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(montoMovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRadioButton1)
+                            .addComponent(jRadioButton2))
+                        .addGap(0, 32, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -360,43 +318,54 @@ public class IngresoCuenta extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(0, 25, 51));
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Agregar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(99, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addComponent(jLabel1)
+                        .addGap(157, 157, 157))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 87, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(157, 157, 157))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGap(421, 421, 421)
-                                        .addComponent(botonEliminar)
-                                        .addGap(38, 38, 38)
-                                        .addComponent(jButton3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(58, 58, 58))))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGap(421, 421, 421)
+                                    .addComponent(botonEliminar)
+                                    .addGap(38, 38, 38)
+                                    .addComponent(jButton3)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(58, 58, 58))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(406, 406, 406))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botonEliminar)
@@ -430,61 +399,23 @@ public class IngresoCuenta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El monto no es correcto");
             return;
         }
-        //Obtiene el tipo de movimiento
-        String tipo;
-        if (jRadioButton1.isSelected()) {
-            tipo = "D";
-        } else {
-            tipo = "H";
-        }
-        //Obtiene el monto
-        Double cantidad = Double.parseDouble(montoMovimiento.getText());
-        if (aplicaIva.isSelected()) {
-            cantidad = cantidad + 0.13 * cantidad;
+
+        if (!isAdded((Cuenta) comboListaCuentas.getSelectedItem())) {
+            Movimiento movimiento = new Movimiento();
+            //Obtiene el tipo de movimiento
+            Double cantidad = Double.parseDouble(montoMovimiento.getText());
+            if (aplicaIva.isSelected()) {
+                cantidad = cantidad + 0.13 * cantidad;
+            }
+            movimiento.setFecha(new Date(fecha.getText()));
+            movimiento.setCantidad(cantidad);
+            movimiento.setTipo(tipoMovimiento.getSelection().getActionCommand());
+            movimiento.setCuenta((Cuenta) comboListaCuentas.getSelectedItem());
+          modeloTabla.movimientos.add(movimiento);
+          modeloTabla.fireTableDataChanged();
         }
 
-        Movimiento movimiento = new Movimiento();
-        movimiento.setFecha(new Date(fecha.getText()));
-        movimiento.setCantidad(cantidad);
-        movimiento.setTipo(tipo);
-        Cuenta cuenta=new Cuenta();
-        //Sino existe la crea
-        if (nuevaCuenta.isSelected()) {
-            String var = Tipo.getSelectedItem().toString();
-            cuenta.setNombre(nombreNuevaCuenta.getText());
-//            cuenta.setTipo(var);
-  //          cuenta.getMovimientoList().add(movimiento);
-            
-            combo.addElement(cuenta);
-            
-            //Oculta los campos de agregar cuenta nueva
-            comboListaCuentas.setVisible(true);
-            nombreNuevaCuenta.setVisible(false);
-            Tipo.setVisible(false);
-            nuevaCuenta.setSelected(false);
-        } else {
-            cuenta = (Cuenta) comboListaCuentas.getSelectedItem();
-        }
         
-        movimiento.setCuenta(cuenta);
-        
-        if (comboListaCuentas.isEnabled()) {
-            if (isAdded(cuenta)) {
-                JOptionPane.showMessageDialog(null, "YA EXISTE ESA CUENTA");
-                return;
-            }
-            modeloTabla.movimientos.add(movimiento);
-        } else {
-            for (Movimiento mov : modeloTabla.movimientos) {
-                if (mov.getCuenta().equals((Cuenta) comboListaCuentas.getSelectedItem())) {
-                    movimiento=mov;
-                    break;
-                }
-            }
-            comboListaCuentas.setEnabled(true);
-        }
-
-        modeloTabla.fireTableDataChanged();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void comboListaCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboListaCuentasActionPerformed
@@ -498,29 +429,22 @@ public class IngresoCuenta extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (total()) {
-            
-            for(Movimiento mNuevo:modeloTabla.movimientos)
-            {   
+
+            for (Movimiento mNuevo : modeloTabla.movimientos) {
                 SICService.getServMovimiento().guardar(mNuevo);
             }
-            
+
             JOptionPane.showMessageDialog(null, "Transaccion exitosa");
             modeloTabla.movimientos.clear();
         } else {
-            JOptionPane.showMessageDialog(null, "NO IGUALES");
+            JOptionPane.showMessageDialog(null, "No se puedes guardar","Registrar transaccion",ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void nuevaCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaCuentaActionPerformed
-        if (nuevaCuenta.isSelected()) {
-            comboListaCuentas.setVisible(false);
-            nombreNuevaCuenta.setVisible(true);
-            Tipo.setVisible(true);
-        } else {
-            comboListaCuentas.setVisible(true);
-            nombreNuevaCuenta.setVisible(false);
-            Tipo.setVisible(false);
-        }
+
+    
+
     }//GEN-LAST:event_nuevaCuentaActionPerformed
 
     private boolean validarMonto() {
@@ -547,17 +471,9 @@ public class IngresoCuenta extends javax.swing.JFrame {
         return true;
     }
 
-    private void nombreNuevaCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreNuevaCuentaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreNuevaCuentaActionPerformed
-
     private void nuevaCuentaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_nuevaCuentaStateChanged
 
     }//GEN-LAST:event_nuevaCuentaStateChanged
-
-    private void nombreNuevaCuentaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombreNuevaCuentaFocusGained
-        nombreNuevaCuenta.setText(""); // TODO add your handling code here:
-    }//GEN-LAST:event_nombreNuevaCuentaFocusGained
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
@@ -579,6 +495,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
             comboListaCuentas.setEnabled(false);
 
         }
+        
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
@@ -632,7 +549,6 @@ public class IngresoCuenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox Tipo;
     private javax.swing.JCheckBox aplicaIva;
     private javax.swing.JButton botonEliminar;
     private javax.swing.JComboBox comboListaCuentas;
@@ -641,6 +557,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -651,10 +568,8 @@ public class IngresoCuenta extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextField montoMovimiento;
-    private javax.swing.JTextField nombreNuevaCuenta;
     private javax.swing.JCheckBox nuevaCuenta;
-    private javax.swing.ButtonGroup tipoCuenta;
+    private javax.swing.ButtonGroup tipoMovimiento;
     // End of variables declaration//GEN-END:variables
 }

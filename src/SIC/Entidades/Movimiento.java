@@ -9,11 +9,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,14 +27,17 @@ import javax.persistence.TemporalType;
  * @author dannier
  */
 @Entity
-@Table(name = "MOVIMIENTO",schema = "SIC")
+@Table(name = "MOVIMIENTO")
 @NamedQueries({
-    @NamedQuery(name = "Movimiento.findAll", query = "SELECT m FROM Movimiento m")})
+    @NamedQuery(name = "Movimiento.findAll", query = "SELECT m FROM Movimiento m"),
+    @NamedQuery(name = "Movimiento.findByIdMovimiento", query = "SELECT m FROM Movimiento m WHERE m.idMovimiento = :idMovimiento"),
+    @NamedQuery(name = "Movimiento.findByFecha", query = "SELECT m FROM Movimiento m WHERE m.fecha = :fecha"),
+    @NamedQuery(name = "Movimiento.findByTipo", query = "SELECT m FROM Movimiento m WHERE m.tipo = :tipo"),
+    @NamedQuery(name = "Movimiento.findByCantidad", query = "SELECT m FROM Movimiento m WHERE m.cantidad = :cantidad")})
 public class Movimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    
     @Id
     @Basic(optional = false)
     @GeneratedValue(generator="InvSeq")
@@ -54,7 +55,7 @@ public class Movimiento implements Serializable {
     @Column(name = "CANTIDAD")
     private double cantidad;
     @JoinColumn(name = "ID_CUENTA", referencedColumnName = "ID_CUENTA")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Cuenta cuenta;
 
     public Movimiento() {

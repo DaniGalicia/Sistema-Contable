@@ -25,6 +25,15 @@ public class SICService {
     private static ServEmpleado servEmpleado;
     private static ServCargo servCargo;
     private static ServTipoCuenta servTipoCuenta;
+    private static BasicService administradorEntidades;
+
+    public static BasicService getAdministradorEntidades() {
+        if(administradorEntidades==null)
+            administradorEntidades=new BasicService(PERSISTENCE_UNIT_NAME);
+        return administradorEntidades;
+    }
+    
+    
 
     public SICService() {
         factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);

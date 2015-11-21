@@ -6,7 +6,9 @@
 package SIC.Entidades;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -36,9 +39,13 @@ public class Cuenta implements Serializable {
     @Basic(optional = false)
     @Column(name = "NOMBRE")
     private String nombre;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta")
+    private List<CuentaSaldada> cuentaSaldadaList;
     @JoinColumn(name = "ID_TIPO_CUENTA", referencedColumnName = "ID_TIPO_CUENTA")
     @ManyToOne(optional = false)
-    private TipoCuenta idTipoCuenta;
+    private TipoCuenta tipoCuenta;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta")
+    private List<Movimiento> movimientoList;
 
     public Cuenta() {
     }
@@ -68,12 +75,28 @@ public class Cuenta implements Serializable {
         this.nombre = nombre;
     }
 
-    public TipoCuenta getIdTipoCuenta() {
-        return idTipoCuenta;
+    public List<CuentaSaldada> getCuentaSaldadaList() {
+        return cuentaSaldadaList;
     }
 
-    public void setIdTipoCuenta(TipoCuenta idTipoCuenta) {
-        this.idTipoCuenta = idTipoCuenta;
+    public void setCuentaSaldadaList(List<CuentaSaldada> cuentaSaldadaList) {
+        this.cuentaSaldadaList = cuentaSaldadaList;
+    }
+
+    public TipoCuenta getTipoCuenta() {
+        return tipoCuenta;
+    }
+
+    public void setTipoCuenta(TipoCuenta tipoCuenta) {
+        this.tipoCuenta = tipoCuenta;
+    }
+
+    public List<Movimiento> getMovimientoList() {
+        return movimientoList;
+    }
+
+    public void setMovimientoList(List<Movimiento> movimientoList) {
+        this.movimientoList = movimientoList;
     }
 
     @Override
@@ -98,7 +121,7 @@ public class Cuenta implements Serializable {
 
     @Override
     public String toString() {
-        return "SIC.Entidades.Cuenta[ idCuenta=" + idCuenta + " ]";
+        return nombre;
     }
     
 }

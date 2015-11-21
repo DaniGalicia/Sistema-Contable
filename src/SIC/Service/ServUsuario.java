@@ -2,54 +2,35 @@ package SIC.Service;
 
 import SIC.Entidades.Usuario;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**
  *
  * @author GALICIA
  */
-public class ServUsuario {
-
-    private static EntityManagerFactory factory;
-    private EntityManager entityManager;
-    private String persistenceUnit;
+public class ServUsuario extends BasicService{
 
     public ServUsuario(String persistenceUnit) {
-        this.persistenceUnit = persistenceUnit;
-        factory = Persistence.createEntityManagerFactory(persistenceUnit);
-        entityManager = factory.createEntityManager();
-        this.persistenceUnit = persistenceUnit;
+        super(persistenceUnit);
     }
 
-    public boolean eliminar(Usuario usuario) {
-        entityManager.getTransaction().begin();
-        entityManager.remove(usuario);
-        entityManager.getTransaction().commit();
-        return true;
+    public boolean login(String usuario,String clave){
+      Query q=getEntityManager().createQuery("SELECT c FROM Usuario c WHERE c.clave = :clave AND c.usuario = :usuario");
+      q.setParameter("usuario", usuario);
+      q.setParameter("clave", clave);
+      
+      if(q.getSingleResult().equals(null))
+          return false;
+      
+      return true;
     }
-
-    public boolean guardar(Usuario usuario) {
-
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(usuario);
-            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            return false;
-        }
-
-        return true;
-    }
-
+    
     public Usuario getUsuarioByCodigoEmpleado(String codigoEmpleado) {
 
-        Query q = entityManager.createNamedQuery("Usuario.findByCodigoEmpleado");
+        Query q = getEntityManager().createNamedQuery("Usuario.findByCodigoEmpleado");
 
         q.setParameter("codigoEmpleado", codigoEmpleado);
-
+        
         try {
             return (Usuario) q.getSingleResult();
         } catch (Exception e) {
@@ -59,7 +40,7 @@ public class ServUsuario {
     }
 
     public List<Usuario> getListado() {
-        Query q = entityManager.createNamedQuery("Usuario.findAll");
+        Query q = getEntityManager().createNamedQuery("Usuario.findAll");
         return q.getResultList();
     }
 }

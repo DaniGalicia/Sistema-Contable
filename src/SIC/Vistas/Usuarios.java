@@ -36,7 +36,7 @@ public class Usuarios extends javax.swing.JFrame {
     public void cargarDatos() {
         usuarioTableModel.usuarios.clear();
         usuarioTableModel.usuarios = SICService.getServUsuario().getListado();
-        tablaUsuarios.repaint();
+      tablaUsuarios.repaint();
     }
 
     public void inicializarColumnas() {
@@ -213,10 +213,10 @@ public class Usuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (usuarioSelected != null) {
             SICService.getServUsuario().eliminar(usuarioSelected);
-            JOptionPane.showMessageDialog(null, "Eliminado con éxito");
+            codigoEmpleado.setEnabled(true);
             actualizarTextos(false);
             cargarDatos();
-            codigoEmpleado.setEnabled(true);
+            JOptionPane.showMessageDialog(null, "Eliminado con éxito");
         } else {
             JOptionPane.showMessageDialog(null, "No hay usuario seleccionado");
         }
@@ -224,16 +224,17 @@ public class Usuarios extends javax.swing.JFrame {
 
     private void tablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsuariosMouseClicked
         // TODO add your handling code here:
-        int clics = evt.getClickCount();
-
-        if (clics == 2 && tablaUsuarios.getSelectedRow() != -1) {
+        empleadoSelected=null;
+        usuarioSelected=null;
+        
+        if (evt.getClickCount() == 2 && tablaUsuarios.getSelectedRow() != -1) {
             usuarioSelected = usuarioTableModel.usuarios.get(tablaUsuarios.getSelectedRow());
-
             empleadoSelected = usuarioSelected.getEmpleado();
             codigoEmpleado.setText(empleadoSelected.getCodigoEmpleado());
             codigoEmpleado.setEnabled(false);
-            actualizarTextos(true);
+            actualizarTextos(true);    
         }
+        
     }//GEN-LAST:event_tablaUsuariosMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -242,21 +243,21 @@ public class Usuarios extends javax.swing.JFrame {
         if (empleadoSelected == null || usuario.getText().isEmpty() || clave.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor complete los datos");
         } else {
-            Usuario addUsuario;
-            if (codigoEmpleado.isEnabled()) {
-                addUsuario = new Usuario(empleadoSelected.getCodigoEmpleado());
-            } else {
-                addUsuario = usuarioSelected;
+            if (usuarioSelected==null && empleadoSelected!=null) {
+                usuarioSelected = new Usuario(empleadoSelected.getCodigoEmpleado());
             }
- 
-            addUsuario.setUsuario(usuario.getText());
-            addUsuario.setClave(clave.getText());
-            SICService.getServUsuario().guardar(addUsuario);
+
+            usuarioSelected.setUsuario(usuario.getText());
+            usuarioSelected.setClave(clave.getText());
+            SICService.getServUsuario().guardar(usuarioSelected);
             actualizarTextos(false);
             JOptionPane.showMessageDialog(null, "Datos guardados");
         }
         cargarDatos();
         codigoEmpleado.setText("");
+        codigoEmpleado.setEnabled(true);
+        usuarioSelected = null;
+        empleadoSelected = null;
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

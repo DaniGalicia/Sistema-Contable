@@ -134,15 +134,15 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-/*
-        if (SICService.getServUsuario().getUsuario(identificador.getText(), clave.getText()) != null) {
+
+        if (SICService.getServUsuario().login(identificador.getText(), clave.getText())) {
             IngresoCuenta ingreso = new IngresoCuenta();
             ingreso.setVisible(true);
             this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "Datos incorrectos","Iniciar sesion", JOptionPane.ERROR_MESSAGE);
         }
-*/
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

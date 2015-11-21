@@ -8,7 +8,6 @@ package SIC.Vistas;
 import SIC.Vistas.tableModels.CargosTableModel;
 import SIC.Entidades.Cargo;
 import SIC.Service.SICService;
-import java.math.BigDecimal;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -22,8 +21,8 @@ public class Cargos extends javax.swing.JFrame {
     public CargosTableModel CargoTModel = new CargosTableModel();
     Cargo cargoActual;
     boolean guardar;
+
     public Cargos() {
-        CargoTModel.cargos.clear();
 
         initComponents();
         inicializarColumnas();
@@ -33,16 +32,13 @@ public class Cargos extends javax.swing.JFrame {
 
     private void inicializarColumnas() {
         TableColumnModel tColumnModel = new DefaultTableColumnModel();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             TableColumn col = new TableColumn(i);
             switch (i) {
                 case 0:
-                    col.setHeaderValue("Codigo");
-                    break;
-                case 1:
                     col.setHeaderValue("Sueldo");
                     break;
-                case 2:
+                case 1:
                     col.setHeaderValue("Nombre Cargo");
                     break;
             }
@@ -52,10 +48,9 @@ public class Cargos extends javax.swing.JFrame {
     }
 
     private void cargarListaCargos() {
-
+        CargoTModel.cargos.clear();
         CargoTModel.cargos = SICService.getServCargo().getListado();
         tablaCargos.repaint();
-
     }
 
     /**
@@ -76,7 +71,6 @@ public class Cargos extends javax.swing.JFrame {
         BtonGuardarCargo = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCargos = new javax.swing.JTable();
-        BotonActualizar = new javax.swing.JButton();
         BtonEliminarCargo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -89,7 +83,7 @@ public class Cargos extends javax.swing.JFrame {
 
         jLabel3.setText("Sueldo:");
 
-        BtonGuardarCargo.setText("Agregar");
+        BtonGuardarCargo.setText("Guardar");
         BtonGuardarCargo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtonGuardarCargoActionPerformed(evt);
@@ -103,13 +97,6 @@ public class Cargos extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tablaCargos);
-
-        BotonActualizar.setText("Actualizar");
-        BotonActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonActualizarActionPerformed(evt);
-            }
-        });
 
         BtonEliminarCargo.setText("Eliminar");
         BtonEliminarCargo.addActionListener(new java.awt.event.ActionListener() {
@@ -140,15 +127,14 @@ public class Cargos extends javax.swing.JFrame {
                                 .addComponent(nombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(BtonGuardarCargo)
-                        .addGap(48, 48, 48)
-                        .addComponent(BotonActualizar)
-                        .addGap(35, 35, 35)
-                        .addComponent(BtonEliminarCargo)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(42, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(94, 94, 94)
+                .addComponent(BtonGuardarCargo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BtonEliminarCargo)
+                .addGap(89, 89, 89))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,9 +154,8 @@ public class Cargos extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtonGuardarCargo)
-                    .addComponent(BotonActualizar)
                     .addComponent(BtonEliminarCargo))
-                .addContainerGap(199, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -178,73 +163,57 @@ public class Cargos extends javax.swing.JFrame {
 
     private void BtonGuardarCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtonGuardarCargoActionPerformed
         // TODO add your handling code here:
-        String nombre = nombreTxt.getText();
-        Float sueldo = Float.parseFloat(sueldoTxt.getText());
 
-        Cargo cargo = new Cargo();
-        cargo.setNombreCargo(nombre);
-        cargo.setSueldo(sueldo);
-        if (nombre != null || sueldo != null) {
-            SICService.getServCargo().guardar(cargo);
-            CargoTModel.cargos.add(cargo);
-            tablaCargos.repaint();
-            JOptionPane.showMessageDialog(null, "Cargo Guardado Con exito");
+        if (nombreTxt.getText().isEmpty() || sueldoTxt.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Datos incorrectos");
+        } else {
+            String nombre = nombreTxt.getText();
+            Float sueldo = Float.parseFloat(sueldoTxt.getText());
+
+            if (cargoActual == null) {
+                cargoActual = new Cargo();
+            }
+            cargoActual.setNombreCargo(nombre);
+            cargoActual.setSueldo(sueldo);
         }
-        else{
-        JOptionPane.showMessageDialog(null, "Campos Vacios ingrese correctamente los datos");
-        }
+        SICService.getServCargo().guardar(cargoActual);
+
+        //Independientemente si era actualizacion o nuevo, despues de la operacion se
+        //debe dejar como nulo, tambien se debe actualizar la lista
+        cargoActual = null;       
+        cargarListaCargos();
     }//GEN-LAST:event_BtonGuardarCargoActionPerformed
 
     private void BtonEliminarCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtonEliminarCargoActionPerformed
         // TODO add your handling code here:
-        int filaSelec = tablaCargos.getSelectedRow();
-        if (filaSelec == -1 || tablaCargos.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "Error no hay fila seleccionada");
-        } else {
-            CargoTModel.cargos.remove(filaSelec);
+
+        if (cargoActual != null) {
             SICService.getServCargo().eliminar(cargoActual);
-            JOptionPane.showMessageDialog(this, "Elemento Seleccionado con Exito");
+            JOptionPane.showMessageDialog(null, "Eliminado con éxito");
+            cargarListaCargos();
+            cargoActual = null;
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay cargo seleccionado");
         }
-        tablaCargos.repaint();
-                           
+
+
     }//GEN-LAST:event_BtonEliminarCargoActionPerformed
 
     private void tablaCargosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCargosMouseClicked
         // TODO add your handling code here:
+        cargoActual = null;
         int clics = evt.getClickCount();
         int row = tablaCargos.rowAtPoint(evt.getPoint());
         if (clics == 2) {
-            Cargo cargo = CargoTModel.cargos.get(row);
-            cargoActual = cargo;
-            nombreTxt.setText(cargo.getNombreCargo());
-            sueldoTxt.setText(String.valueOf(cargo.getSueldo()));
-              guardar = false;
-            }
+            cargoActual = CargoTModel.cargos.get(row);
+            nombreTxt.setText(cargoActual.getNombreCargo());
+            sueldoTxt.setText(String.valueOf(cargoActual.getSueldo()));
+        }
     }//GEN-LAST:event_tablaCargosMouseClicked
 
-    private void BotonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonActualizarActionPerformed
-        // TODO add your handling code here:
-        if (guardar) {
-                Cargo cargo = new Cargo();
-                cargo.setNombreCargo(nombreTxt.getText());
-                cargo.setSueldo(Float.parseFloat(sueldoTxt.getText()));
-                CargoTModel.cargos.add(cargo);
-                SICService.getServCargo().guardar(cargo);
-                tablaCargos.repaint();
-                JOptionPane.showMessageDialog(this, "Cargo Modificado con exito");
-               
-        }
-        else{
-            cargoActual.setNombreCargo(nombreTxt.getText());
-            cargoActual.setSueldo(Float.parseFloat(sueldoTxt.getText()));
-            SICService.getServCargo().guardar(cargoActual);
-            tablaCargos.repaint();
-                JOptionPane.showMessageDialog(this, "Cargo Modificado con exito");
-            
-        }
-    }//GEN-LAST:event_BotonActualizarActionPerformed
-
-    /**no
+    /**
+     * no
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -280,7 +249,6 @@ public class Cargos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotonActualizar;
     private javax.swing.JButton BtonEliminarCargo;
     private javax.swing.JButton BtonGuardarCargo;
     private javax.persistence.EntityManager entityManager1;
