@@ -29,7 +29,7 @@ public class Usuarios extends javax.swing.JFrame {
      */
     public Usuarios() {
         initComponents();
-        inicializarColumnas();
+        tablaUsuarios.setColumnModel(Comunes.crearModeloColumnas("Codigo empleado,Usuario,Contraseña"));
         cargarDatos();
         this.setLocationRelativeTo(null);
     }
@@ -40,25 +40,6 @@ public class Usuarios extends javax.swing.JFrame {
       tablaUsuarios.repaint();
     }
 
-    public void inicializarColumnas() {
-        TableColumnModel tColumnModel = new DefaultTableColumnModel();
-        for (int i = 0; i < 3; i++) {
-            TableColumn col = new TableColumn(i);
-            switch (i) {
-                case 0:
-                    col.setHeaderValue("Codigo empleado");
-                    break;
-                case 1:
-                    col.setHeaderValue("Usuario");
-                    break;
-                case 2:
-                    col.setHeaderValue("Contraseña");
-                    break;
-            }
-            tColumnModel.addColumn(col);
-        }
-        tablaUsuarios.setColumnModel(tColumnModel);
-    }
 
     private void actualizarTextos(boolean llenar) {
         if (llenar) {
@@ -148,7 +129,7 @@ public class Usuarios extends javax.swing.JFrame {
                     .addComponent(codigoEmpleado)
                     .addComponent(usuario)
                     .addComponent(clave))
-                .addGap(24, 24, 24))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
