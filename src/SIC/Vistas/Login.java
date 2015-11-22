@@ -29,6 +29,7 @@ public class Login extends javax.swing.JFrame {
         }
         bienvenida.setVisible(false);
         initComponents();
+        this.setLocationRelativeTo(null);
 
     }
 

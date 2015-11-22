@@ -22,6 +22,7 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JFrame {
      */
     public MantenimientoEstadosFinancieros() {
         initComponents();
+        this.setLocationRelativeTo(null);
         tablaCuentasEF.setColumnModel(Comunes.crearModeloColumnas("Cuenta,Debe,Haber"));
        // tiposEstadoFinanciero.setModel(SICService.GET);
 

@@ -31,6 +31,7 @@ public class Usuarios extends javax.swing.JFrame {
         initComponents();
         inicializarColumnas();
         cargarDatos();
+        this.setLocationRelativeTo(null);
     }
 
     public void cargarDatos() {
