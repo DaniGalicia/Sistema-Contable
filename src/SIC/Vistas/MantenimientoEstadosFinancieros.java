@@ -5,10 +5,13 @@
  */
 package SIC.Vistas;
 
+import SIC.Entidades.CuentaSaldada;
 import SIC.Entidades.EstadoFinanciero;
 import SIC.Entidades.TipoEstadoFinanciero;
 import SIC.Service.SICService;
 import SIC.Vistas.tableModels.CuentasEFModel;
+import javax.swing.ComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,15 +19,13 @@ import SIC.Vistas.tableModels.CuentasEFModel;
  */
 public class MantenimientoEstadosFinancieros extends javax.swing.JFrame {
     CuentasEFModel tableModel= new CuentasEFModel();
-    EstadoFinanciero estadoFinanciero=new EstadoFinanciero();
     /**
      * Creates new form EstadosFinancieros
      */
     public MantenimientoEstadosFinancieros() {
         initComponents();
         tablaCuentasEF.setColumnModel(Comunes.crearModeloColumnas("Cuenta,Debe,Haber"));
-       // tiposEstadoFinanciero.setModel(SICService.GET);
-
+       tiposEstadoFinanciero.setModel(Comunes.crearModeloComboBox(SICService.getServTipoEstadoFinanciero().getListado()));
     }
 
 
@@ -41,6 +42,8 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JFrame {
         tablaCuentasEF = new javax.swing.JTable();
         tiposEstadoFinanciero = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
+        botonGenerar = new javax.swing.JButton();
+        total = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -48,16 +51,59 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JFrame {
         tablaCuentasEF.setModel(tableModel);
         jScrollPane1.setViewportView(tablaCuentasEF);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 438, 122));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 438, 240));
 
         tiposEstadoFinanciero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(tiposEstadoFinanciero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
+        getContentPane().add(tiposEstadoFinanciero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 230, -1));
 
         jLabel2.setText("Estado");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
+        botonGenerar.setText("Generar");
+        botonGenerar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonGenerarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, -1));
+
+        total.setText("Total:");
+        getContentPane().add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarActionPerformed
+        // TODO add your handling code here:
+        tableModel.cuentasSaldadas.clear();
+        TipoEstadoFinanciero tipoEstadoFinancieroSelected=(TipoEstadoFinanciero) tiposEstadoFinanciero.getSelectedItem();
+        if(tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("EC")){
+            tableModel.cuentasSaldadas=SICService.getServCuentaSaldada().findByTipoCuenta("K");
+        }else if(tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("ER")){
+         tableModel.cuentasSaldadas=SICService.getServCuentaSaldada().findByTipoCuenta("R");
+        }else if(tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("BG")){
+         tableModel.cuentasSaldadas=SICService.getServCuentaSaldada().findByTipoCuenta("A");
+        }else if(tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("BC")){
+         tableModel.cuentasSaldadas=SICService.getServCuentaSaldada().getListado();
+         tableModel.cuentasSaldadas.removeIf(cs -> cs.getCuenta().getTipoCuenta().getIdTipoCuenta().equals("R"));
+        }
+        
+        tableModel.fireTableDataChanged();
+       
+        double t=0;
+        for(CuentaSaldada cuentaSaldada:tableModel.cuentasSaldadas)
+        {
+                t += cuentaSaldada.getSaldo();
+        }
+        
+        if(t > 0)
+            total.setText("Saldo deudor: " + t );
+        else{
+            t=-t;
+            total.setText("Saldo acreedor: " + t);
+        }
+            
+    }//GEN-LAST:event_botonGenerarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -96,9 +142,11 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonGenerar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaCuentasEF;
     private javax.swing.JComboBox<String> tiposEstadoFinanciero;
+    private javax.swing.JLabel total;
     // End of variables declaration//GEN-END:variables
 }

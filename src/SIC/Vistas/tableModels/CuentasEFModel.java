@@ -31,8 +31,8 @@ public class CuentasEFModel extends AbstractTableModel {
                 valor = cuentaSaldada.getSaldo();
             break;
             case 2:
-                if(cuentaSaldada.getSaldo()<0)
-                valor = cuentaSaldada.getSaldo();
+                if(cuentaSaldada.getSaldo()< 0)
+                valor = -cuentaSaldada.getSaldo();
         }
         return valor;
     }

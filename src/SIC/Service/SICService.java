@@ -26,6 +26,7 @@ public class SICService {
     private static ServCargo servCargo;
     private static ServTipoCuenta servTipoCuenta;
     private static ServTipoEstadoFinanciero servTipoEstadoFinanciero;
+    private static ServPeriodo servPeriodo;
 
    
     
@@ -35,6 +36,13 @@ public class SICService {
         entityManager = factory.createEntityManager();
     }
 
+    public static ServPeriodo getServPeriodo() {
+        if(servPeriodo==null)
+            servPeriodo=new ServPeriodo(PERSISTENCE_UNIT_NAME);
+        return servPeriodo;
+    }
+
+    
     public static ServTipoEstadoFinanciero getServTipoEstadoFinanciero() {
         if(servTipoEstadoFinanciero==null)
             servTipoEstadoFinanciero=new ServTipoEstadoFinanciero(PERSISTENCE_UNIT_NAME);

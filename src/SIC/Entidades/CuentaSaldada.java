@@ -10,11 +10,13 @@ import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -34,6 +36,8 @@ public class CuentaSaldada implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "ID_CUENTA_SALDADA")
+    @GeneratedValue(generator="InvSeqCS")
+    @SequenceGenerator(name="InvSeqCS",sequenceName="SECUENCIA_CUENTA_SALDADA", allocationSize=5)
     private BigDecimal idCuentaSaldada;
     @Basic(optional = false)
     @Column(name = "SALDO")

@@ -30,10 +30,10 @@ public class Comunes {
         return tColumnModel;
     }
     
-    public static DefaultComboBoxModel cargarListaCuentas(List lista) {
+    public static DefaultComboBoxModel crearModeloComboBox(List lista) {
         DefaultComboBoxModel combo = new DefaultComboBoxModel();
-
         for (Object objeto : lista) {
+            
             combo.addElement(objeto);
         }
         return combo;

@@ -16,7 +16,7 @@ public class ServTipoEstadoFinanciero extends BasicService{
 
 
     public List<TipoEstadoFinanciero> getListado() {
-        Query q = getEntityManager().createNamedQuery("EstadoFinanciero.findAll");
+        Query q = getEntityManager().createNamedQuery("TipoEstadoFinanciero.findAll");
         return q.getResultList();
     }
 }

@@ -91,7 +91,7 @@ public class TipoEstadoFinanciero implements Serializable {
 
     @Override
     public String toString() {
-        return "SIC.Entidades.TipoEstadoFinanciero[ idTipoEstadoFinanciero=" + idTipoEstadoFinanciero + " ]";
+        return nombre;
     }
     
 }

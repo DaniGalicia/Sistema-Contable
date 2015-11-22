@@ -7,6 +7,7 @@ package SIC.Vistas;
 
 import SIC.Vistas.tableModels.MovimientosTableModel;
 import SIC.Entidades.Cuenta;
+import SIC.Entidades.CuentaSaldada;
 import SIC.Entidades.Movimiento;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,39 +34,9 @@ public class IngresoCuenta extends javax.swing.JFrame {
     public IngresoCuenta() {
         this.getContentPane().setBackground(new java.awt.Color(102, 177, 255));
         initComponents();
-        inicializarColumnas();
+        jTable1.setColumnModel(Comunes.crearModeloColumnas("Cuenta,Tipo,Monto"));
         this.setLocationRelativeTo(null);
-        cargarListaCuentas();
-    }
-
-    private void cargarListaCuentas() {
-        combo = new DefaultComboBoxModel();
-
-        for (Cuenta cuenta : cuentas) {
-            combo.addElement(cuenta);
-        }
-        comboListaCuentas.setModel(combo);
-    }
-
-    private void inicializarColumnas() {
-        TableColumnModel tColumnModel = new DefaultTableColumnModel();
-        for (int i = 0; i < 3; i++) {
-            TableColumn col = new TableColumn(i);
-            switch (i) {
-                case 0:
-                    col.setHeaderValue("Nombre de la cuenta");
-                    break;
-                case 1:
-                    col.setHeaderValue("Tipo de transacción");
-                    break;
-                case 2:
-                    col.setHeaderValue("Monto");
-                    break;
-            }
-            tColumnModel.addColumn(col);
-        }
-        jTable1.setColumnModel(tColumnModel);
-
+        comboListaCuentas.setModel(Comunes.crearModeloComboBox(cuentas));
     }
 
     public boolean isAdded(Cuenta cuenta) {
@@ -124,6 +95,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         botonEliminar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -294,7 +266,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(0, 25, 51));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Salir");
+        jButton2.setText("Saldar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -328,12 +300,19 @@ public class IngresoCuenta extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("Estados financieros");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(99, Short.MAX_VALUE)
+                .addContainerGap(65, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -343,17 +322,19 @@ public class IngresoCuenta extends javax.swing.JFrame {
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGap(421, 421, 421)
-                                    .addComponent(botonEliminar)
-                                    .addGap(38, 38, 38)
+                                    .addGap(330, 330, 330)
+                                    .addComponent(jButton4)
+                                    .addGap(140, 140, 140)
                                     .addComponent(jButton3)
-                                    .addGap(18, 18, 18)
+                                    .addGap(82, 82, 82)
                                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(58, 58, 58))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(406, 406, 406))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botonEliminar)
+                        .addGap(260, 260, 260))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,15 +344,16 @@ public class IngresoCuenta extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(botonEliminar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonEliminar)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton2)
-                        .addComponent(jButton3)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
                 .addContainerGap())
         );
 
@@ -411,11 +393,11 @@ public class IngresoCuenta extends javax.swing.JFrame {
             movimiento.setCantidad(cantidad);
             movimiento.setTipo(tipoMovimiento.getSelection().getActionCommand());
             movimiento.setCuenta((Cuenta) comboListaCuentas.getSelectedItem());
-          modeloTabla.movimientos.add(movimiento);
-          modeloTabla.fireTableDataChanged();
+            modeloTabla.movimientos.add(movimiento);
+            modeloTabla.fireTableDataChanged();
         }
 
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void comboListaCuentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboListaCuentasActionPerformed
@@ -423,7 +405,26 @@ public class IngresoCuenta extends javax.swing.JFrame {
     }//GEN-LAST:event_comboListaCuentasActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        System.exit(WIDTH);
+        for (Cuenta cuenta : SICService.getServCuenta().getListado()) {
+
+            double saldo = 0;
+            for (Movimiento movimiento : cuenta.getMovimientoList()) {
+                if (movimiento.getTipo().equals("D")) {
+                    saldo += movimiento.getCantidad();
+                } else {
+                    saldo -= movimiento.getCantidad();
+                }
+            }
+
+            if (saldo != 0) {
+                CuentaSaldada cuentaSaldada = new CuentaSaldada();
+                cuentaSaldada.setCuenta(cuenta);
+                cuentaSaldada.setPeriodo(SICService.getServPeriodo().getActivo());
+                cuentaSaldada.setSaldo(saldo);
+                SICService.getServCuentaSaldada().guardar(cuentaSaldada);
+            }
+
+        }
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -437,13 +438,12 @@ public class IngresoCuenta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Transaccion exitosa");
             modeloTabla.movimientos.clear();
         } else {
-            JOptionPane.showMessageDialog(null, "No se puedes guardar","Registrar transaccion",ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se puedes guardar", "Registrar transaccion", ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void nuevaCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaCuentaActionPerformed
 
-    
 
     }//GEN-LAST:event_nuevaCuentaActionPerformed
 
@@ -495,7 +495,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
             comboListaCuentas.setEnabled(false);
 
         }
-        
+
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
@@ -507,6 +507,12 @@ public class IngresoCuenta extends javax.swing.JFrame {
         }
         jTable1.repaint();
     }//GEN-LAST:event_botonEliminarActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        MantenimientoEstadosFinancieros mantenimientoEstadosFinancieros=new MantenimientoEstadosFinancieros();
+        mantenimientoEstadosFinancieros.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -556,6 +562,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
