@@ -48,10 +48,10 @@ public class IngresoCuenta extends javax.swing.JFrame {
 
         for (Cuenta cuenta : cuentas) {
             combo.addElement(cuenta);
-            
+
         }
         comboListaCuentas.setModel(combo);
-        
+
     }
 
     private void inicializarColumnas() {
@@ -412,12 +412,12 @@ public class IngresoCuenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (!validarMonto()) {
-            JOptionPane.showMessageDialog(null, "El monto no es correcto");
-            return;
-        }
         if (!validarFecha()) {
             JOptionPane.showMessageDialog(null, "La fecha debe ser en el formato dd/mm/yyyy");
+            return;
+        }
+        if (!validarMonto()) {
+            JOptionPane.showMessageDialog(null, "El monto no es correcto");
             return;
         }
         if (!isAdded((Cuenta) comboListaCuentas.getSelectedItem())) {
@@ -444,9 +444,10 @@ public class IngresoCuenta extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         for (Cuenta cuenta : SICService.getServCuenta().getListado()) {
-            if(cuenta.getMovimientoList().size()==0)
+            if (cuenta.getMovimientoList().size() == 0) {
                 continue;
-            
+            }
+
             double saldo = 0;
             for (Movimiento movimiento : cuenta.getMovimientoList()) {
                 if (movimiento.getTipo().equals("D")) {
@@ -510,8 +511,8 @@ public class IngresoCuenta extends javax.swing.JFrame {
         //Paso todas las restricciones, retorna true
         return true;
     }
-    
-     private boolean validarFecha() {
+
+    private boolean validarFecha() {
         //valida si esta vacio
         if (fecha.getText().isEmpty()) {
             return false;
@@ -565,7 +566,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        MantenimientoEstadosFinancieros mantenimientoEstadosFinancieros=new MantenimientoEstadosFinancieros();
+        MantenimientoEstadosFinancieros mantenimientoEstadosFinancieros = new MantenimientoEstadosFinancieros();
         mantenimientoEstadosFinancieros.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
