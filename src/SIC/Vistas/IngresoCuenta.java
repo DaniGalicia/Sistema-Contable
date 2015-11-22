@@ -348,7 +348,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(botonEliminar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
@@ -406,7 +406,9 @@ public class IngresoCuenta extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         for (Cuenta cuenta : SICService.getServCuenta().getListado()) {
-
+            if(cuenta.getMovimientoList().size()==0)
+                continue;
+            
             double saldo = 0;
             for (Movimiento movimiento : cuenta.getMovimientoList()) {
                 if (movimiento.getTipo().equals("D")) {
