@@ -183,8 +183,8 @@ public class Inicio extends javax.swing.JFrame {
 
     private void envio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio2ActionPerformed
         // TODO add your handling code here:
-        MantenimientoEstadosFinancieros estados= new MantenimientoEstadosFinancieros();
-        estados.setVisible(true);
+      //  MantenimientoEstadosFinancieros estados= new MantenimientoEstadosFinancieros();
+        //estados.setVisible(true);
     }//GEN-LAST:event_envio2ActionPerformed
 
     private void envio4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio4ActionPerformed

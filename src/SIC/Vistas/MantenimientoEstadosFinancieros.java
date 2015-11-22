@@ -10,25 +10,27 @@ import SIC.Entidades.EstadoFinanciero;
 import SIC.Entidades.TipoEstadoFinanciero;
 import SIC.Service.SICService;
 import SIC.Vistas.tableModels.CuentasEFModel;
-import javax.swing.ComboBoxModel;
-import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author HP TouchSmart
  */
-public class MantenimientoEstadosFinancieros extends javax.swing.JFrame {
-    CuentasEFModel tableModel= new CuentasEFModel();
+public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
+
+    CuentasEFModel tableModel = new CuentasEFModel();
+
+    public MantenimientoEstadosFinancieros(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+        initComponents();
+        tablaCuentasEF.setColumnModel(Comunes.crearModeloColumnas("Cuenta,Debe,Haber"));
+        tiposEstadoFinanciero.setModel(Comunes.crearModeloComboBox(SICService.getServTipoEstadoFinanciero().getListado()));
+
+    }
+
     /**
      * Creates new form EstadosFinancieros
      */
-    public MantenimientoEstadosFinancieros() {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        tablaCuentasEF.setColumnModel(Comunes.crearModeloColumnas("Cuenta,Debe,Haber"));
-       tiposEstadoFinanciero.setModel(Comunes.crearModeloComboBox(SICService.getServTipoEstadoFinanciero().getListado()));
-    }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,19 +48,16 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JFrame {
         botonGenerar = new javax.swing.JButton();
         total = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Estados finacieros");
+        setModal(true);
 
         tablaCuentasEF.setModel(tableModel);
         jScrollPane1.setViewportView(tablaCuentasEF);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 438, 240));
-
         tiposEstadoFinanciero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(tiposEstadoFinanciero, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 230, -1));
 
         jLabel2.setText("Estado");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
         botonGenerar.setText("Generar");
         botonGenerar.addActionListener(new java.awt.event.ActionListener() {
@@ -66,10 +65,44 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JFrame {
                 botonGenerarActionPerformed(evt);
             }
         });
-        getContentPane().add(botonGenerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, -1));
 
         total.setText("Total:");
-        getContentPane().add(total, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel2)
+                .addGap(12, 12, 12)
+                .addComponent(tiposEstadoFinanciero, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(botonGenerar))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(230, 230, 230)
+                .addComponent(total))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel2))
+                    .addComponent(tiposEstadoFinanciero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonGenerar))
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(total))
+        );
+
+        getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -77,33 +110,32 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JFrame {
     private void botonGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarActionPerformed
         // TODO add your handling code here:
         tableModel.cuentasSaldadas.clear();
-        TipoEstadoFinanciero tipoEstadoFinancieroSelected=(TipoEstadoFinanciero) tiposEstadoFinanciero.getSelectedItem();
-        if(tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("EC")){
-            tableModel.cuentasSaldadas=SICService.getServCuentaSaldada().findByTipoCuenta("K");
-        }else if(tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("ER")){
-         tableModel.cuentasSaldadas=SICService.getServCuentaSaldada().findByTipoCuenta("R");
-        }else if(tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("BG")){
-         tableModel.cuentasSaldadas=SICService.getServCuentaSaldada().findByTipoCuenta("A");
-        }else if(tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("BC")){
-         tableModel.cuentasSaldadas=SICService.getServCuentaSaldada().getListado();
-         tableModel.cuentasSaldadas.removeIf(cs -> cs.getCuenta().getTipoCuenta().getIdTipoCuenta().equals("R"));
+        TipoEstadoFinanciero tipoEstadoFinancieroSelected = (TipoEstadoFinanciero) tiposEstadoFinanciero.getSelectedItem();
+        if (tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("EC")) {
+            tableModel.cuentasSaldadas = SICService.getServCuentaSaldada().findByTipoCuenta("K");
+        } else if (tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("ER")) {
+            tableModel.cuentasSaldadas = SICService.getServCuentaSaldada().findByTipoCuenta("R");
+        } else if (tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("BG")) {
+            tableModel.cuentasSaldadas = SICService.getServCuentaSaldada().findByTipoCuenta("A");
+        } else if (tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("BC")) {
+            tableModel.cuentasSaldadas = SICService.getServCuentaSaldada().getListado();
+            tableModel.cuentasSaldadas.removeIf(cs -> cs.getCuenta().getTipoCuenta().getIdTipoCuenta().equals("R"));
         }
-        
+
         tableModel.fireTableDataChanged();
-       
-        double t=0;
-        for(CuentaSaldada cuentaSaldada:tableModel.cuentasSaldadas)
-        {
-                t += cuentaSaldada.getSaldo();
+
+        double t = 0;
+        for (CuentaSaldada cuentaSaldada : tableModel.cuentasSaldadas) {
+            t += cuentaSaldada.getSaldo();
         }
-        
-        if(t > 0)
-            total.setText("Saldo deudor: " + t );
-        else{
-            t=-t;
+
+        if (t > 0) {
+            total.setText("Saldo deudor: " + t);
+        } else {
+            t = -t;
             total.setText("Saldo acreedor: " + t);
         }
-            
+
     }//GEN-LAST:event_botonGenerarActionPerformed
 
     /**
@@ -120,16 +152,24 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoEstadosFinancieros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MantenimientoEstadosFinancieros.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoEstadosFinancieros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MantenimientoEstadosFinancieros.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoEstadosFinancieros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MantenimientoEstadosFinancieros.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MantenimientoEstadosFinancieros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MantenimientoEstadosFinancieros.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -137,7 +177,7 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MantenimientoEstadosFinancieros().setVisible(true);
+                //new MantenimientoEstadosFinancieros().setVisible(true);
             }
         });
     }
