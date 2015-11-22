@@ -16,6 +16,7 @@ public class RegistroEmpleado extends javax.swing.JFrame {
      */
     public RegistroEmpleado() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

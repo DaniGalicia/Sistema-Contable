@@ -17,7 +17,11 @@ import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import SIC.Service.SICService;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
 /**
@@ -37,6 +41,37 @@ public class IngresoCuenta extends javax.swing.JFrame {
         jTable1.setColumnModel(Comunes.crearModeloColumnas("Cuenta,Tipo,Monto"));
         this.setLocationRelativeTo(null);
         comboListaCuentas.setModel(Comunes.crearModeloComboBox(cuentas));
+    }
+
+    private void cargarListaCuentas() {
+        combo = new DefaultComboBoxModel();
+
+        for (Cuenta cuenta : cuentas) {
+            combo.addElement(cuenta);
+            
+        }
+        comboListaCuentas.setModel(combo);
+        
+    }
+
+    private void inicializarColumnas() {
+        TableColumnModel tColumnModel = new DefaultTableColumnModel();
+        for (int i = 0; i < 3; i++) {
+            TableColumn col = new TableColumn(i);
+            switch (i) {
+                case 0:
+                    col.setHeaderValue("Nombre de la cuenta");
+                    break;
+                case 1:
+                    col.setHeaderValue("Tipo de transacción");
+                    break;
+                case 2:
+                    col.setHeaderValue("Monto");
+                    break;
+            }
+            tColumnModel.addColumn(col);
+        }
+        jTable1.setColumnModel(tColumnModel);
     }
 
     public boolean isAdded(Cuenta cuenta) {
@@ -381,7 +416,10 @@ public class IngresoCuenta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El monto no es correcto");
             return;
         }
-
+        if (!validarFecha()) {
+            JOptionPane.showMessageDialog(null, "La fecha debe ser en el formato dd/mm/yyyy");
+            return;
+        }
         if (!isAdded((Cuenta) comboListaCuentas.getSelectedItem())) {
             Movimiento movimiento = new Movimiento();
             //Obtiene el tipo de movimiento
@@ -470,6 +508,21 @@ public class IngresoCuenta extends javax.swing.JFrame {
         }
 
         //Paso todas las restricciones, retorna true
+        return true;
+    }
+    
+     private boolean validarFecha() {
+        //valida si esta vacio
+        if (fecha.getText().isEmpty()) {
+            return false;
+        }
+        try {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            formatoFecha.setLenient(false);
+            formatoFecha.parse(fecha.getText());
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
 

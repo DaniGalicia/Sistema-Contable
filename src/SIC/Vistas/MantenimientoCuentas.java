@@ -23,6 +23,7 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
     public MantenimientoCuentas() {
         initComponents();
         llenarCombo();
+        this.setLocationRelativeTo(null);
     }
     
     private void llenarCombo(){

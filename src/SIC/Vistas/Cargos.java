@@ -27,6 +27,7 @@ public class Cargos extends javax.swing.JFrame {
         initComponents();
         inicializarColumnas();
         cargarListaCargos();
+        this.setLocationRelativeTo(null);
 
     }
 

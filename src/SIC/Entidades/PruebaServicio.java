@@ -16,9 +16,13 @@ public class PruebaServicio {
 
     public static void main(String[] args) {
         
-        for(TipoEstadoFinanciero tef:SICService.getServTipoEstadoFinanciero().getListado())
-        {
-            System.out.println(tef);
-        }   
+
+        
+        Cargo c=(Cargo) SICService.getServCargo().getByPK(Cargo.class,BigDecimal.valueOf(11));
+        if(c!=null){
+            System.out.println(c.getNombreCargo());
+        }else{
+            System.out.println("No find");
+        }
     }
 }
