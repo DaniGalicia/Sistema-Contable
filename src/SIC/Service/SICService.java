@@ -25,14 +25,9 @@ public class SICService {
     private static ServEmpleado servEmpleado;
     private static ServCargo servCargo;
     private static ServTipoCuenta servTipoCuenta;
-    private static BasicService administradorEntidades;
+    private static ServTipoEstadoFinanciero servTipoEstadoFinanciero;
 
-    public static BasicService getAdministradorEntidades() {
-        if(administradorEntidades==null)
-            administradorEntidades=new BasicService(PERSISTENCE_UNIT_NAME);
-        return administradorEntidades;
-    }
-    
+   
     
 
     public SICService() {
@@ -40,6 +35,13 @@ public class SICService {
         entityManager = factory.createEntityManager();
     }
 
+    public static ServTipoEstadoFinanciero getServTipoEstadoFinanciero() {
+        if(servTipoEstadoFinanciero==null)
+            servTipoEstadoFinanciero=new ServTipoEstadoFinanciero(PERSISTENCE_UNIT_NAME);
+        return servTipoEstadoFinanciero;
+    }
+
+    
     public static ServEmpleado getServEmpleado() {
         if(servEmpleado==null)
             servEmpleado=new ServEmpleado(PERSISTENCE_UNIT_NAME);
