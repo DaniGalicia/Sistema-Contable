@@ -5,8 +5,10 @@
  */
 package SIC.Vistas;
 
+import SIC.Service.SICService;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -29,13 +31,19 @@ public class Comunes {
 
         return tColumnModel;
     }
-    
+
     public static DefaultComboBoxModel crearModeloComboBox(List lista) {
         DefaultComboBoxModel combo = new DefaultComboBoxModel();
         for (Object objeto : lista) {
-            
+
             combo.addElement(objeto);
         }
         return combo;
+    }
+
+    public static void actualizarTabla(JTable tabla, Class clase, List lista) {
+        lista.clear();
+        lista = SICService.getServUsuario().getListado(clase);
+        tabla.repaint();
     }
 }

@@ -39,7 +39,6 @@ public class Cargos extends javax.swing.JFrame {
 
     private void actualizarTextos(boolean llenar) {
         if (llenar) {
-
             nombreTxt.setText(cargoActual.getNombreCargo());
             sueldoTxt.setText(String.valueOf(cargoActual.getSueldo()));
 
@@ -195,7 +194,7 @@ public class Cargos extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "El dato es incorrecto, ingrese nuevamente");
             }
         }
-        //SICService.getServCargo().guardar(cargoActual);
+        SICService.getServCargo().guardar(cargoActual);
         actualizarTextos(false);
         JOptionPane.showMessageDialog(null, "Datos guardados");
 

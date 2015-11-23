@@ -1,12 +1,10 @@
 package SIC.Service;
 
-import SIC.Entidades.Cargo;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import sv.gob.mined.accesodatos.AdministradorEntidades;
 
 /**
  *
@@ -41,7 +39,7 @@ public class BasicService {
         return ret;
     }
 
-    public boolean guardar(Object entidad){
+    public boolean guardar(Object entidad) {
         boolean guardado = false;
         try {
             entityManager.getTransaction().begin();
@@ -62,8 +60,25 @@ public class BasicService {
         return entityManager.find(clase, PK);
     }
 
-    public List getListado(Class clase) {        
+    public List getListado(Class clase) {
         Query q = getEntityManager().createNamedQuery(clase.getSimpleName() + ".findAll");
         return q.getResultList();
+    }
+    
+    public boolean guardar(List entidades){
+        boolean guardado=false;
+        
+        try {
+            entityManager.getTransaction().begin();
+            for(Object object:entidades)
+            {
+                entityManager.persist(object);
+            }
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+           if(entityManager.getTransaction().isActive())
+                entityManager.getTransaction().rollback();
+        }
+        return guardado;
     }
 }

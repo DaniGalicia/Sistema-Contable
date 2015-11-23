@@ -13,14 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableColumnModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import SIC.Service.SICService;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 
@@ -31,48 +26,15 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
 public class IngresoCuenta extends javax.swing.JFrame {
 
     public MovimientosTableModel modeloTabla = new MovimientosTableModel();
-    List<Cuenta> cuentas = SICService.getServCuenta().getListado();
     DefaultComboBoxModel combo = new DefaultComboBoxModel();
     List<Cuenta> cuentasNuevas = new ArrayList<>();
 
     public IngresoCuenta() {
-        this.getContentPane().setBackground(new java.awt.Color(102, 177, 255));
         initComponents();
         jTable1.setColumnModel(Comunes.crearModeloColumnas("Cuenta,Tipo,Monto"));
         this.setLocationRelativeTo(null);
-        comboListaCuentas.setModel(Comunes.crearModeloComboBox(cuentas));
+        comboListaCuentas.setModel(Comunes.crearModeloComboBox(SICService.getServCuenta().getListado(Cuenta.class)));
     }
-
-    private void cargarListaCuentas() {
-        combo = new DefaultComboBoxModel();
-
-        for (Cuenta cuenta : cuentas) {
-            combo.addElement(cuenta);
-
-        }
-        comboListaCuentas.setModel(combo);
-
-    }
-
-  /*  private void inicializarColumnas() {
-        TableColumnModel tColumnModel = new DefaultTableColumnModel();
-        for (int i = 0; i < 3; i++) {
-            TableColumn col = new TableColumn(i);
-            switch (i) {
-                case 0:
-                    col.setHeaderValue("Nombre de la cuenta");
-                    break;
-                case 1:
-                    col.setHeaderValue("Tipo de transacción");
-                    break;
-                case 2:
-                    col.setHeaderValue("Monto");
-                    break;
-            }
-            tColumnModel.addColumn(col);
-        }
-        jTable1.setColumnModel(tColumnModel);
-    }*/
 
     public boolean isAdded(Cuenta cuenta) {
         for (Movimiento movimiento : modeloTabla.movimientos) {
@@ -424,7 +386,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        for (Cuenta cuenta : SICService.getServCuenta().getListado()) {
+        for (Cuenta cuenta : (List<Cuenta>)SICService.getServCuenta().getListado(Cuenta.class)) {
             if (cuenta.getMovimientoList().isEmpty()) {
                 continue;
             }

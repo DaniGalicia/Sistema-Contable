@@ -8,6 +8,7 @@ package SIC.Entidades;
 import SIC.Service.BasicService;
 import SIC.Service.SICService;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 /**
  *
@@ -17,10 +18,7 @@ public class PruebaServicio {
 
     public static void main(String[] args) {
         
-        BasicService bs=new BasicService("SistemaContablePU");
-        for(Cuenta cuenta:(List<Cuenta>)bs.getListado(Cuenta.class))
-        {
+        for(Cuenta cuenta:(List<Cuenta>)SICService.getServCuenta().getListado(Cuenta.class))
             System.out.println(cuenta.getNombre());
-        }
     }
 }

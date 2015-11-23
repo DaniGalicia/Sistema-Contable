@@ -198,9 +198,9 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
             cuenta.setNombre(nombreCuenta.getText());
             cuenta.setTipoCuenta((TipoCuenta) comboTiposCuenta.getSelectedItem());
             
-         //   if(SICService.getServCuenta().guardar(cuenta))
-           //     JOptionPane.showMessageDialog(null, "Guardado");
-            //else
+            if(SICService.getServCuenta().guardar(cuenta))
+                JOptionPane.showMessageDialog(null, "Guardado");
+            else
                 JOptionPane.showMessageDialog(null, "Ocurrio un error al guardar");
         }
     }//GEN-LAST:event_botonGuardarActionPerformed
