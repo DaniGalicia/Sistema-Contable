@@ -25,13 +25,13 @@ public class Cargos extends javax.swing.JFrame {
     public Cargos() {
 
         initComponents();
-        inicializarColumnas();
+       tablaCargos.setColumnModel(Comunes.crearModeloColumnas("Sueldo, Nombre Cargo"));
         cargarListaCargos();
         this.setLocationRelativeTo(null);
 
     }
 
-    private void inicializarColumnas() {
+  /*  private void inicializarColumnas() {
         TableColumnModel tColumnModel = new DefaultTableColumnModel();
         for (int i = 0; i < 2; i++) {
             TableColumn col = new TableColumn(i);
@@ -47,7 +47,7 @@ public class Cargos extends javax.swing.JFrame {
         }
         tablaCargos.setColumnModel(tColumnModel);
     }
-
+*/
     private void cargarListaCargos() {
         CargoTModel.cargos.clear();
         CargoTModel.cargos = SICService.getServCargo().getListado();

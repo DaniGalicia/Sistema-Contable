@@ -10,9 +10,6 @@ import SIC.Entidades.Empleado;
 import SIC.Entidades.Usuario;
 import SIC.Service.SICService;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableColumnModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -228,7 +225,7 @@ public class Usuarios extends javax.swing.JFrame {
             actualizarTextos(true);
         } else {//Sino existe se prepara para agregarlo
             actualizarTextos(false);
-            empleadoSelected = SICService.getServEmpleado().getEmpleadoByCodigo(codigoEmpleado.getText());
+            empleadoSelected = (Empleado) SICService.getServEmpleado().getByPK(Empleado.class,codigoEmpleado.getText());
             if (empleadoSelected != null) {
                 nombreEmpleado.setText(empleadoSelected.getNombres() + " " + empleadoSelected.getApellidos());
                 usuario.setEnabled(true);
