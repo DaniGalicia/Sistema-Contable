@@ -16,7 +16,6 @@ import javax.persistence.Persistence;
  */
 public class SICService {
   private static final String PERSISTENCE_UNIT_NAME = "SistemaContablePU";
-  private EntityManager entityManager;
   private static EntityManagerFactory factory;
     private static ServCuenta servCuenta;
     private static ServMovimiento servMovimiento;
@@ -27,14 +26,6 @@ public class SICService {
     private static ServTipoCuenta servTipoCuenta;
     private static ServTipoEstadoFinanciero servTipoEstadoFinanciero;
     private static ServPeriodo servPeriodo;
-
-   
-    
-
-    public SICService() {
-        factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        entityManager = factory.createEntityManager();
-    }
 
     public static ServPeriodo getServPeriodo() {
         if(servPeriodo==null)

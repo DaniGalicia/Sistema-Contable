@@ -1,12 +1,8 @@
 package SIC.Service;
 
-import SIC.Entidades.Cargo;
-import java.math.BigDecimal;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 /**
  *
