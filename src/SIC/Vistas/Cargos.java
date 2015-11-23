@@ -206,6 +206,7 @@ public class Cargos extends javax.swing.JFrame {
                 cargoActual.setSueldo(sueldo);
                 actualizarTextos(false);
                 JOptionPane.showMessageDialog(null, "Datos guardados");
+                
 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "El dato es incorrecto, ingrese nuevamente");
