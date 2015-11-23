@@ -1,8 +1,12 @@
 package SIC.Service;
 
+import SIC.Entidades.Cargo;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import sv.gob.mined.accesodatos.AdministradorEntidades;
 
 /**
  *
@@ -23,45 +27,43 @@ public class BasicService {
     }
 
     public boolean eliminar(Object entidad) {
-
+        boolean ret = false;
         try {
             entityManager.getTransaction().begin();
             entityManager.remove(entidad);
             entityManager.getTransaction().commit();
-            return true;
-
+            ret = true;
         } catch (Exception e) {
-            e.printStackTrace();
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
         }
-        return false;
+        return ret;
     }
 
-    public boolean guardar(Object entidad) {
-
+    public boolean guardar(Object entidad){
+        boolean guardado = false;
         try {
             entityManager.getTransaction().begin();
             entityManager.persist(entidad);
             entityManager.getTransaction().commit();
+            guardado = true;
         } catch (Exception e) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public Object getByPK(Class clase, Object PK) {
-        
-        try {
-            
-            
-            return entityManager.find(clase, PK);
-        } catch (Exception e) {
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
             e.printStackTrace();
         }
 
-        return null;
-
+        return guardado;
     }
-    
-    
+
+    public Object getByPK(Class clase, Object PK) {
+        return entityManager.find(clase, PK);
+    }
+
+    public List getListado(Class clase) {        
+        Query q = getEntityManager().createNamedQuery(clase.getSimpleName() + ".findAll");
+        return q.getResultList();
+    }
 }

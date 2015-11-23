@@ -13,12 +13,14 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -48,6 +50,8 @@ public class OrdenFabricacion implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "ID_ORDEN")
+    @GeneratedValue(generator="InvSeqOF")
+    @SequenceGenerator(name="InvSeqOF",sequenceName="SECUENCIA_ORDEN_FABRICACION", allocationSize=5) 
     private BigDecimal idOrden;
     @Column(name = "REF_PEDIDO")
     private BigInteger refPedido;

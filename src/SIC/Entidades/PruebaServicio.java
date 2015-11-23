@@ -8,6 +8,7 @@ package SIC.Entidades;
 import SIC.Service.BasicService;
 import SIC.Service.SICService;
 import java.math.BigDecimal;
+import java.util.List;
 /**
  *
  * @author dannier
@@ -16,13 +17,10 @@ public class PruebaServicio {
 
     public static void main(String[] args) {
         
-
-        
-        Cargo c=(Cargo) SICService.getServCargo().getByPK(Cargo.class,BigDecimal.valueOf(11));
-        if(c!=null){
-            System.out.println(c.getNombreCargo());
-        }else{
-            System.out.println("No find");
+        BasicService bs=new BasicService("SistemaContablePU");
+        for(Cuenta cuenta:(List<Cuenta>)bs.getListado(Cuenta.class))
+        {
+            System.out.println(cuenta.getNombre());
         }
     }
 }

@@ -278,7 +278,7 @@ public class Usuarios extends javax.swing.JFrame {
 
             usuarioSelected.setUsuario(usuario.getText());
             usuarioSelected.setClave(clave.getText());
-            SICService.getServUsuario().guardar(usuarioSelected);
+//            SICService.getServUsuario().guardar(usuarioSelected);
             actualizarTextos(false);
             JOptionPane.showMessageDialog(null, "Datos guardados");
         }

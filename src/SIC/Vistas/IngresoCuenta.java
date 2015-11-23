@@ -443,7 +443,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
                 cuentaSaldada.setCuenta(cuenta);
                 cuentaSaldada.setPeriodo(SICService.getServPeriodo().getActivo());
                 cuentaSaldada.setSaldo(saldo);
-                SICService.getServCuentaSaldada().guardar(cuentaSaldada);
+//                SICService.getServCuentaSaldada().guardar(cuentaSaldada);
             }
 
         }
@@ -454,7 +454,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
         if (total()) {
 
             for (Movimiento mNuevo : modeloTabla.movimientos) {
-                SICService.getServMovimiento().guardar(mNuevo);
+                //SICService.getServMovimiento().guardar(mNuevo);
             }
 
             JOptionPane.showMessageDialog(null, "Transaccion exitosa");

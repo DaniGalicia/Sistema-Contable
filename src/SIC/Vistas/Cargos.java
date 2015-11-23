@@ -37,6 +37,19 @@ public class Cargos extends javax.swing.JFrame {
         tablaCargos.repaint();
     }
 
+    private void actualizarTextos(boolean llenar) {
+        if (llenar) {
+
+            nombreTxt.setText(cargoActual.getNombreCargo());
+            sueldoTxt.setText(String.valueOf(cargoActual.getSueldo()));
+
+        } else {
+            nombreTxt.setText("");
+            sueldoTxt.setText("");
+
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -163,20 +176,32 @@ public class Cargos extends javax.swing.JFrame {
         if (nombreTxt.getText().isEmpty() || sueldoTxt.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Datos incorrectos");
         } else {
-            String nombre = nombreTxt.getText();
-            Float sueldo = Float.parseFloat(sueldoTxt.getText());
+            
+            try {
+              String nombre = nombreTxt.getText();
+              Float sueldo = Float.parseFloat(sueldoTxt.getText());
+                if (sueldo >= 0) {
+                    if (cargoActual == null) {
+                        cargoActual = new Cargo();
+                    }
+                }
+                cargoActual.setNombreCargo(nombre);
+                cargoActual.setSueldo(sueldo);
+                actualizarTextos(false);
+                JOptionPane.showMessageDialog(null, "Datos guardados");
+                
 
-            if (cargoActual == null) {
-                cargoActual = new Cargo();
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "El dato es incorrecto, ingrese nuevamente");
             }
-            cargoActual.setNombreCargo(nombre);
-            cargoActual.setSueldo(sueldo);
         }
-       // SICService.getServCargo().guardar(cargoActual);
+        //SICService.getServCargo().guardar(cargoActual);
+        actualizarTextos(false);
+        JOptionPane.showMessageDialog(null, "Datos guardados");
 
         //Independientemente si era actualizacion o nuevo, despues de la operacion se
         //debe dejar como nulo, tambien se debe actualizar la lista
-        cargoActual = null;       
+        cargoActual = null;
         cargarListaCargos();
     }//GEN-LAST:event_BtonGuardarCargoActionPerformed
 
@@ -186,6 +211,7 @@ public class Cargos extends javax.swing.JFrame {
         if (cargoActual != null) {
             SICService.getServCargo().eliminar(cargoActual);
             JOptionPane.showMessageDialog(null, "Eliminado con éxito");
+            actualizarTextos(false);
             cargarListaCargos();
             cargoActual = null;
         } else {
