@@ -31,23 +31,6 @@ public class Cargos extends javax.swing.JFrame {
 
     }
 
-  /*  private void inicializarColumnas() {
-        TableColumnModel tColumnModel = new DefaultTableColumnModel();
-        for (int i = 0; i < 2; i++) {
-            TableColumn col = new TableColumn(i);
-            switch (i) {
-                case 0:
-                    col.setHeaderValue("Sueldo");
-                    break;
-                case 1:
-                    col.setHeaderValue("Nombre Cargo");
-                    break;
-            }
-            tColumnModel.addColumn(col);
-        }
-        tablaCargos.setColumnModel(tColumnModel);
-    }
-*/
     private void cargarListaCargos() {
         CargoTModel.cargos.clear();
         CargoTModel.cargos = SICService.getServCargo().getListado();
@@ -189,7 +172,7 @@ public class Cargos extends javax.swing.JFrame {
             cargoActual.setNombreCargo(nombre);
             cargoActual.setSueldo(sueldo);
         }
-        SICService.getServCargo().guardar(cargoActual);
+       // SICService.getServCargo().guardar(cargoActual);
 
         //Independientemente si era actualizacion o nuevo, despues de la operacion se
         //debe dejar como nulo, tambien se debe actualizar la lista
