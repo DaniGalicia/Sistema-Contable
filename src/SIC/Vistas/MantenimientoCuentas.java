@@ -8,6 +8,8 @@ package SIC.Vistas;
 import SIC.Entidades.Cuenta;
 import SIC.Entidades.TipoCuenta;
 import SIC.Service.SICService;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -17,16 +19,21 @@ import javax.swing.JOptionPane;
  */
 public class MantenimientoCuentas extends javax.swing.JDialog {
 
+    List<TipoCuenta> tipocuentas = SICService.getServTipoCuenta().getListado();
+    DefaultComboBoxModel combo= new DefaultComboBoxModel();
+    List<TipoCuenta> tipoCuentasNuevas= new ArrayList<>();
+            
     /**
      * Creates new form MantenimientoCuentas
      */
     public MantenimientoCuentas() {
-        initComponents();
-        llenarCombo();
-        this.setLocationRelativeTo(null);
+        
+         comboTiposCuenta.setModel(Comunes.crearModeloComboBox(tipocuentas));
+//llenarCombo();
+      //  this.setLocationRelativeTo(null);
     }
     
-    private void llenarCombo(){
+    /*private void llenarCombo(){
 
           DefaultComboBoxModel combo = new DefaultComboBoxModel();
             for(TipoCuenta tipoCuenta:SICService.getServTipoCuenta().getListado())
@@ -35,6 +42,7 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
          comboTiposCuenta.setModel(combo);
     
     }
+    */
  
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,7 +61,7 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
         idCuenta = new javax.swing.JTextField();
         nombreCuenta = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        comboTiposCuenta = new javax.swing.JComboBox<>();
+        comboTiposCuenta = new javax.swing.JComboBox<String>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -84,7 +92,12 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
 
         jLabel3.setText("Tipo");
 
-        comboTiposCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "P", "R", "K" }));
+        comboTiposCuenta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "P", "R", "K" }));
+        comboTiposCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboTiposCuentaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -207,6 +220,10 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(null, "Ocurrio un error al guardar");
         }
     }//GEN-LAST:event_botonGuardarActionPerformed
+
+    private void comboTiposCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTiposCuentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboTiposCuentaActionPerformed
 
     /**
      * @param args the command line arguments

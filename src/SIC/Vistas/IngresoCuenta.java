@@ -37,7 +37,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
 
     public IngresoCuenta() {
         this.getContentPane().setBackground(new java.awt.Color(102, 177, 255));
-        initComponents();
+        //initComponents();
         jTable1.setColumnModel(Comunes.crearModeloColumnas("Cuenta,Tipo,Monto"));
         this.setLocationRelativeTo(null);
         comboListaCuentas.setModel(Comunes.crearModeloComboBox(cuentas));
@@ -54,7 +54,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
 
     }
 
-    private void inicializarColumnas() {
+  /*  private void inicializarColumnas() {
         TableColumnModel tColumnModel = new DefaultTableColumnModel();
         for (int i = 0; i < 3; i++) {
             TableColumn col = new TableColumn(i);
@@ -72,7 +72,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
             tColumnModel.addColumn(col);
         }
         jTable1.setColumnModel(tColumnModel);
-    }
+    }*/
 
     public boolean isAdded(Cuenta cuenta) {
         for (Movimiento movimiento : modeloTabla.movimientos) {

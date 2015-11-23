@@ -119,7 +119,7 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
             tableModel.cuentasSaldadas = SICService.getServCuentaSaldada().findByTipoCuenta("A");
         } else if (tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("BC")) {
             tableModel.cuentasSaldadas = SICService.getServCuentaSaldada().getListado();
-            tableModel.cuentasSaldadas.removeIf(cs -> cs.getCuenta().getTipoCuenta().getIdTipoCuenta().equals("R"));
+         //   tableModel.cuentasSaldadas.removeIf(cs -> cs.getCuenta().getTipoCuenta().getIdTipoCuenta().equals("R"));
         }
 
         tableModel.fireTableDataChanged();

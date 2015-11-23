@@ -31,7 +31,7 @@ public class ServCuentaSaldada extends BasicService{
 
         List<CuentaSaldada> aux= getListado();
         
-        aux.removeIf(p -> !p.getCuenta().getTipoCuenta().getIdTipoCuenta().equals(tipoCuenta));
+   //     aux.removeIf(p -> !p.getCuenta().getTipoCuenta().getIdTipoCuenta().equals(tipoCuenta));
  
         return aux;
     }
