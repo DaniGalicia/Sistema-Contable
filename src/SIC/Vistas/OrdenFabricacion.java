@@ -5,6 +5,8 @@
  */
 package SIC.Vistas;
 
+import SIC.Service.Comunes;
+
 /**
  *
  * @author Escobar

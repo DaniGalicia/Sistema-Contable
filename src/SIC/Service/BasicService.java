@@ -19,8 +19,8 @@ public class BasicService {
         return entityManager;
     }
 
-    public BasicService(String persistenceUnit) {
-        factory = Persistence.createEntityManagerFactory(persistenceUnit);
+    public BasicService() {
+        factory = Persistence.createEntityManagerFactory("SistemaContablePU");
         entityManager = factory.createEntityManager();
     }
 

@@ -22,20 +22,7 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
-        this.setLayout(null);
-        this.setTitle("DELIFRUTAL");
-        this.setLocationRelativeTo(null);
-        this.getContentPane().setBackground(new java.awt.Color(102,177,255));
-        this.setSize(968,504); 
-        this.setResizable(false); 
-        envio1.setSize(230,40);
-        envio2.setSize(230,40);
-        envio3.setSize(230,40);
-        envio4.setSize(230,40);
-        envio5.setSize(230,40);
-        ImageIcon fot = new ImageIcon(getClass().getResource("/SIC/Imagenes/logo.png"));
-        ImageIcon icono = new ImageIcon(fot.getImage().getScaledInstance(logo.getWidth(), logo.getHeight(), Image.SCALE_DEFAULT));
-        logo.setIcon(icono);
+        new Login(this, true).setVisible(true);
     }
 
     /**
@@ -51,13 +38,12 @@ public class Inicio extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         envio1 = new javax.swing.JButton();
         envio2 = new javax.swing.JButton();
-        envio3 = new javax.swing.JButton();
         envio4 = new javax.swing.JButton();
-        envio5 = new javax.swing.JButton();
         imagen = new javax.swing.JLabel();
         logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 177, 255));
         setMinimumSize(new java.awt.Dimension(900, 700));
 
         jLabel1.setFont(new java.awt.Font("Aharoni", 0, 36)); // NOI18N
@@ -87,14 +73,6 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        envio3.setFont(new java.awt.Font("Aharoni", 1, 14)); // NOI18N
-        envio3.setText("REGISTRAR EMPLEADO");
-        envio3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                envio3ActionPerformed(evt);
-            }
-        });
-
         envio4.setFont(new java.awt.Font("Aharoni", 1, 14)); // NOI18N
         envio4.setText("MANTENIMIENTO DE CUENTAS");
         envio4.addActionListener(new java.awt.event.ActionListener() {
@@ -103,15 +81,7 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        envio5.setFont(new java.awt.Font("Aharoni", 1, 14)); // NOI18N
-        envio5.setText("CARGOS");
-        envio5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                envio5ActionPerformed(evt);
-            }
-        });
-
-        logo.setText("jLabel3");
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SIC/Imagenes/logo.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,84 +90,64 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(384, 384, 384)
-                        .addComponent(imagen)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(envio2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(envio4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(envio5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(envio1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(envio3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(405, 405, 405)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(353, 353, 353)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(405, 405, 405)
-                        .addComponent(jLabel1)))
-                .addContainerGap(536, Short.MAX_VALUE))
+                        .addComponent(jLabel2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(imagen)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(envio4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(envio1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(envio2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18))
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel1)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(57, 57, 57)
+                                .addComponent(imagen))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(imagen)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)))
-                .addComponent(envio1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(envio2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(envio3)
-                .addGap(27, 27, 27)
-                .addComponent(envio4)
-                .addGap(27, 27, 27)
-                .addComponent(envio5)
-                .addGap(20, 20, 20))
+                        .addGap(199, 199, 199)
+                        .addComponent(envio4)
+                        .addGap(18, 18, 18)
+                        .addComponent(envio1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(envio2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(363, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void envio3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio3ActionPerformed
-        // TODO add your handling code here:
-        RegistroEmpleado empleado= new RegistroEmpleado();
-        empleado.setVisible(true);
-    }//GEN-LAST:event_envio3ActionPerformed
-
     private void envio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio1ActionPerformed
         // TODO add your handling code here:
-        IngresoCuenta ingreso=new IngresoCuenta();
-        ingreso.setVisible(true);
+        new IngresoCuenta(this, true).setVisible(true);
     }//GEN-LAST:event_envio1ActionPerformed
 
     private void envio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio2ActionPerformed
-        // TODO add your handling code here:
-      //  MantenimientoEstadosFinancieros estados= new MantenimientoEstadosFinancieros();
-        //estados.setVisible(true);
+        new MantenimientoEstadosFinancieros(this, true).setVisible(true);
     }//GEN-LAST:event_envio2ActionPerformed
 
     private void envio4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio4ActionPerformed
-        // TODO add your handling code here:
-        MantenimientoCuentas cuentas= new MantenimientoCuentas();
-        cuentas.setVisible(true);
+    new MantenimientoCuentas(this, true).setVisible(true);
     }//GEN-LAST:event_envio4ActionPerformed
-
-    private void envio5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio5ActionPerformed
-        // TODO add your handling code here:
-        Cargos cargos= new Cargos();
-        cargos.setVisible(true);
-    }//GEN-LAST:event_envio5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,7 +183,6 @@ public class Inicio extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Inicio().setVisible(true);
-                new Inicio().setLocationRelativeTo(null);
             }
         });
     }
@@ -241,9 +190,7 @@ public class Inicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton envio1;
     private javax.swing.JButton envio2;
-    private javax.swing.JButton envio3;
     private javax.swing.JButton envio4;
-    private javax.swing.JButton envio5;
     private javax.swing.JLabel imagen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

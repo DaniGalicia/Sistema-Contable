@@ -15,7 +15,7 @@ public class ServTipoCuenta extends BasicService{
 
  
     public ServTipoCuenta(String persistenceUnit) {
-        super(persistenceUnit);
+        super();
     }
 
     public List<TipoCuenta> getListado() {

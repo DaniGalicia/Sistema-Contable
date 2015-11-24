@@ -5,6 +5,7 @@
  */
 package SIC.Vistas;
 
+import SIC.Service.Comunes;
 import SIC.Entidades.CuentaSaldada;
 import SIC.Entidades.EstadoFinanciero;
 import SIC.Entidades.TipoEstadoFinanciero;

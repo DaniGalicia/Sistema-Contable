@@ -12,7 +12,7 @@ import javax.persistence.Query;
 public class ServPeriodo extends BasicService{
 
     public ServPeriodo(String persistenceUnit) {
-        super(persistenceUnit);
+        super();
     }
 
 public Periodo getActivo(){

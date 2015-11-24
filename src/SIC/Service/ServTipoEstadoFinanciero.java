@@ -11,7 +11,7 @@ import javax.persistence.Query;
 public class ServTipoEstadoFinanciero extends BasicService{
 
     public ServTipoEstadoFinanciero(String persistenceUnit) {
-        super(persistenceUnit);
+        super();
     }
 
 

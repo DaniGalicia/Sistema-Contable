@@ -11,7 +11,7 @@ import javax.persistence.Query;
 public class ServOrdenFabricacionDetalle extends BasicService{
 
     public ServOrdenFabricacionDetalle(String persistenceUnit) {
-        super(persistenceUnit);
+        super();
     }
 
     public List<Cargo> getListado() {

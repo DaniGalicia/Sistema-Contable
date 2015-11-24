@@ -11,7 +11,7 @@ import javax.persistence.Query;
 public class ServCuentaSaldada extends BasicService{
 
     public ServCuentaSaldada(String persistenceUnit) {
-        super(persistenceUnit);
+        super();
     }
     
     public CuentaSaldada findByIdCuentaSaldada(String idCuentaSaldada) {

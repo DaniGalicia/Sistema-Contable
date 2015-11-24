@@ -11,7 +11,7 @@ import javax.persistence.Query;
 public class ServUsuario extends BasicService{
 
     public ServUsuario(String persistenceUnit) {
-        super(persistenceUnit);
+        super();
     }
 
     public boolean login(String usuario,String clave){

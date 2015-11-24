@@ -113,7 +113,7 @@ public class Cargo implements Serializable {
 
     @Override
     public String toString() {
-        return "SIC.Entidades.Cargo[ idCargo=" + idCargo + " ]";
+        return nombreCargo;
     }
     
 }

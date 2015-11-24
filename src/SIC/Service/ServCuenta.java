@@ -8,6 +8,6 @@ package SIC.Service;
 public class ServCuenta extends BasicService{
 
     public ServCuenta(String persistenceUnit) {
-        super(persistenceUnit);
+        super();
     }
 }

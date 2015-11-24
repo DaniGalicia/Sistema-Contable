@@ -5,16 +5,11 @@
  */
 package SIC.Vistas;
 
+import SIC.Service.Comunes;
 import SIC.Vistas.tableModels.CargosTableModel;
 import SIC.Entidades.Cargo;
 import SIC.Service.SICService;
-import java.util.List;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableColumnModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
-import javax.xml.ws.Service;
 
 public class Cargos extends javax.swing.JFrame {
 
@@ -33,7 +28,7 @@ public class Cargos extends javax.swing.JFrame {
 
     private void cargarListaCargos() {
         CargoTModel.cargos.clear();
-        CargoTModel.cargos = SICService.getServCargo().getListado();
+        CargoTModel.cargos = SICService.getServCargo().getListado(Cargo.class);
         tablaCargos.repaint();
     }
 

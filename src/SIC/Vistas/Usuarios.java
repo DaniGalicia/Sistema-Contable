@@ -5,21 +5,25 @@
  */
 package SIC.Vistas;
 
+import SIC.Service.Comunes;
 import SIC.Vistas.tableModels.UsuariosTableModel;
 import SIC.Entidades.Empleado;
 import SIC.Entidades.Usuario;
 import SIC.Service.SICService;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author dannier
  */
 public class Usuarios extends javax.swing.JFrame {
-
+UsuariosTableModel tableModel=new UsuariosTableModel();
     Empleado empleadoSelected;
     Usuario usuarioSelected;
     UsuariosTableModel usuarioTableModel = new UsuariosTableModel();
+    
 
     /**
      * Creates new form Usuario
@@ -32,7 +36,7 @@ public class Usuarios extends javax.swing.JFrame {
     }
 
     public void cargarDatos() {
-        usuarioTableModel.usuarios.clear();
+       usuarioTableModel.usuarios.clear();
         usuarioTableModel.usuarios = SICService.getServUsuario().getListado();
       tablaUsuarios.repaint();
     }
@@ -151,7 +155,7 @@ public class Usuarios extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de usuarios"));
 
-        tablaUsuarios.setModel(usuarioTableModel);
+        tablaUsuarios.setModel(tableModel);
         tablaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaUsuariosMouseClicked(evt);

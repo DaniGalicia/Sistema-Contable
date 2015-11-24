@@ -5,6 +5,7 @@
  */
 package SIC.Vistas;
 
+import SIC.Service.Comunes;
 import SIC.Vistas.tableModels.MovimientosTableModel;
 import SIC.Entidades.Cuenta;
 import SIC.Entidades.CuentaSaldada;
@@ -23,18 +24,20 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
  *
  * @author Escobar
  */
-public class IngresoCuenta extends javax.swing.JFrame {
+public class IngresoCuenta extends javax.swing.JDialog {
 
     public MovimientosTableModel modeloTabla = new MovimientosTableModel();
     DefaultComboBoxModel combo = new DefaultComboBoxModel();
     List<Cuenta> cuentasNuevas = new ArrayList<>();
 
-    public IngresoCuenta() {
+    public IngresoCuenta(java.awt.Frame parent, boolean modal) {
+        super(parent,modal);
         initComponents();
-        jTable1.setColumnModel(Comunes.crearModeloColumnas("Cuenta,Tipo,Monto"));
+        tablaMovimientos.setColumnModel(Comunes.crearModeloColumnas("Cuenta,Tipo,Monto"));
         this.setLocationRelativeTo(null);
         comboListaCuentas.setModel(Comunes.crearModeloComboBox(SICService.getServCuenta().getListado(Cuenta.class)));
     }
+    
 
     public boolean isAdded(Cuenta cuenta) {
         for (Movimiento movimiento : modeloTabla.movimientos) {
@@ -92,7 +95,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaMovimientos = new javax.swing.JTable();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -105,8 +108,9 @@ public class IngresoCuenta extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro de transacciones");
+        setAlwaysOnTop(true);
         setAutoRequestFocus(false);
         setResizable(false);
 
@@ -290,14 +294,14 @@ public class IngresoCuenta extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cuentas afectadas por la transaccion"));
 
-        jTable1.setModel(modeloTabla);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablaMovimientos.setModel(modeloTabla);
+        tablaMovimientos.getTableHeader().setReorderingAllowed(false);
+        tablaMovimientos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
+                tablaMovimientosMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaMovimientos);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -465,10 +469,10 @@ public class IngresoCuenta extends javax.swing.JFrame {
         return true;
     }
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void tablaMovimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMovimientosMouseClicked
         // TODO add your handling code here:
         int clicks = evt.getClickCount();
-        int row = jTable1.rowAtPoint(evt.getPoint());
+        int row = tablaMovimientos.rowAtPoint(evt.getPoint());
 
         if (clicks == 2) {
             Movimiento movimiento = modeloTabla.movimientos.get(row);
@@ -486,22 +490,20 @@ public class IngresoCuenta extends javax.swing.JFrame {
 
         }
 
-    }//GEN-LAST:event_jTable1MouseClicked
+    }//GEN-LAST:event_tablaMovimientosMouseClicked
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
-        int filaSelec = jTable1.getSelectedRow();
-        if (filaSelec == -1 || jTable1.getRowCount() == 0) {
+        int filaSelec = tablaMovimientos.getSelectedRow();
+        if (filaSelec == -1 || tablaMovimientos.getRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Error no hay fila seleccionada");
         } else {
             modeloTabla.movimientos.remove(filaSelec);
         }
-        jTable1.repaint();
+        tablaMovimientos.repaint();
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        //MantenimientoEstadosFinancieros mantenimientoEstadosFinancieros = new MantenimientoEstadosFinancieros();
-        //mantenimientoEstadosFinancieros.setVisible(true);
-        new MantenimientoEstadosFinancieros(this, true).setVisible(true);
+        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void nuevaCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaCuentaActionPerformed
@@ -567,7 +569,7 @@ public class IngresoCuenta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new IngresoCuenta().setVisible(true);
+               // new IngresoCuenta().setVisible(true);
             }
         });
     }
@@ -592,9 +594,9 @@ public class IngresoCuenta extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField montoMovimiento;
     private javax.swing.JCheckBox nuevaCuenta;
+    private javax.swing.JTable tablaMovimientos;
     private javax.swing.ButtonGroup tipoMovimiento;
     // End of variables declaration//GEN-END:variables
 }

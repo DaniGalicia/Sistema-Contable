@@ -43,7 +43,7 @@ public class SICService {
     
     public static ServEmpleado getServEmpleado() {
         if(servEmpleado==null)
-            servEmpleado=new ServEmpleado(PERSISTENCE_UNIT_NAME);
+            servEmpleado=new ServEmpleado();
         return servEmpleado;
     }
 
@@ -55,7 +55,7 @@ public class SICService {
 
     public static ServCargo getServCargo() {
         if(servCargo==null)
-            servCargo=new ServCargo(PERSISTENCE_UNIT_NAME);
+            servCargo=new ServCargo();
         return servCargo;
     }
 

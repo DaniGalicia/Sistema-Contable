@@ -17,7 +17,7 @@ import javax.persistence.Query;
 public class ServMovimiento extends BasicService{
 
     public ServMovimiento(String persistenceUnit) {
-        super(persistenceUnit);
+        super();
     }
 
     public List<Movimiento> getListado() {

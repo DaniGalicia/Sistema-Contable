@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package SIC.Vistas;
+package SIC.Service;
 
 import SIC.Service.SICService;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
@@ -40,10 +41,11 @@ public class Comunes {
         }
         return combo;
     }
-
-    public static void actualizarTabla(JTable tabla, Class clase, List lista) {
-        lista.clear();
-        lista = SICService.getServUsuario().getListado(clase);
-        tabla.repaint();
+    
+    public static void actualizarTabla(DefaultTableModel modelo){
+        while (modelo.getRowCount()>0)
+            modelo.removeRow(0);
+        
+ 
     }
 }
