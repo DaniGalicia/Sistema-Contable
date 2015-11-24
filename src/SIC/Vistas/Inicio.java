@@ -22,6 +22,10 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
+         ImageIcon fot =  new ImageIcon("/src/SIC/Imagenes/logo.png");
+            ImageIcon icono = new ImageIcon(fot.getImage().getScaledInstance(logo.getWidth(), logo.getHeight(), Image.SCALE_DEFAULT));
+            logo.setIcon(icono);
+            
         new Login(this, true).setVisible(true);
     }
 

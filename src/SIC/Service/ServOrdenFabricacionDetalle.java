@@ -10,12 +10,4 @@ import javax.persistence.Query;
  */
 public class ServOrdenFabricacionDetalle extends BasicService{
 
-    public ServOrdenFabricacionDetalle(String persistenceUnit) {
-        super();
-    }
-
-    public List<Cargo> getListado() {
-        Query q = getEntityManager().createNamedQuery("OrdenFabricacionDetalle.findAll");
-        return q.getResultList();
-    }
 }

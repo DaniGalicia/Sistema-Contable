@@ -13,13 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author dannier
  */
 public class MantenimientoCuentas extends javax.swing.JDialog {
-
+    List<Cuenta> cuentas=new ArrayList<>();
     
     /**
      * Creates new form MantenimientoCuentas
@@ -29,6 +30,23 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
         initComponents();
          comboTiposCuenta.setModel(Comunes.crearModeloComboBox(SICService.getServTipoCuenta().getListado()));
         this.setLocationRelativeTo(null);
+        cargarDatos();
+    }
+    
+    private void cargarDatos(){
+        cuentas=(List<Cuenta>)SICService.getServCuenta().getListado(Cuenta.class);
+        DefaultTableModel defaultTableModel=(DefaultTableModel) tablaCuentas.getModel();
+        
+        while(defaultTableModel.getRowCount() > 0)
+            defaultTableModel.removeRow(0);
+        for(Cuenta cuenta:cuentas)
+        {
+          Object [] linea={cuenta.getIdCuenta(),
+              cuenta.getNombre(),
+              cuenta.getTipoCuenta().getNombre()
+          };
+          defaultTableModel.addRow(linea);
+        }
     }
         /**
      * This method is called from within the constructor to initialize the form.
@@ -50,7 +68,7 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
         comboTiposCuenta = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaCuentas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Mantenimiento de cuentas");
@@ -125,18 +143,15 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Catalogo de cuentas"))));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaCuentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Identificador", "Nombre", "Tipo"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaCuentas);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -223,7 +238,7 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField nombreCuenta;
+    private javax.swing.JTable tablaCuentas;
     // End of variables declaration//GEN-END:variables
 }
