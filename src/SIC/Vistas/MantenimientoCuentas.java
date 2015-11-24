@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MantenimientoCuentas extends javax.swing.JDialog {
     List<Cuenta> cuentas=new ArrayList<>();
+    Cuenta cuentaActual;
     
     /**
      * Creates new form MantenimientoCuentas
@@ -88,6 +89,12 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
 
         jLabel2.setText("Nombre");
 
+        idCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idCuentaActionPerformed(evt);
+            }
+        });
+
         nombreCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombreCuentaActionPerformed(evt);
@@ -151,6 +158,11 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
                 "Identificador", "Nombre", "Tipo"
             }
         ));
+        tablaCuentas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaCuentasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaCuentas);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -225,6 +237,25 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
     private void comboTiposCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTiposCuentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboTiposCuentaActionPerformed
+
+    private void idCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idCuentaActionPerformed
+        // TODO add your handling code here:
+        cuentaActual=(Cuenta) SICService.getServCuenta().getByPK(Cuenta.class, idCuenta.getText());
+        if(cuentaActual!=null){
+            nombreCuenta.setText(cuentaActual.getNombre());
+            comboTiposCuenta.setSelectedItem(cuentaActual.getTipoCuenta());
+        }else{
+        nombreCuenta.setText("");
+        }
+    }//GEN-LAST:event_idCuentaActionPerformed
+
+    private void tablaCuentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCuentasMouseClicked
+        // TODO add your handling code here:
+        if(evt.getClickCount()==2)
+        {
+            
+        }
+    }//GEN-LAST:event_tablaCuentasMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

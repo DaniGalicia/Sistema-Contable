@@ -98,7 +98,7 @@ public class TipoCuenta implements Serializable {
 
     @Override
     public String toString() {
-        return "SIC.Entidades.TipoCuenta[ idTipoCuenta=" + idTipoCuenta + " ]";
+        return nombre;
     }
     
 }

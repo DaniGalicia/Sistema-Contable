@@ -25,7 +25,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author dannier
+ * @author Escobar
  */
 @Entity
 @Table(name = "ORDEN_FABRICACION")
@@ -42,14 +42,13 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "OrdenFabricacion.findByCantidad", query = "SELECT o FROM OrdenFabricacion o WHERE o.cantidad = :cantidad"),
     @NamedQuery(name = "OrdenFabricacion.findByFinalizada", query = "SELECT o FROM OrdenFabricacion o WHERE o.finalizada = :finalizada")})
 public class OrdenFabricacion implements Serializable {
-
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
-    @Column(name = "ID_ORDEN")
     @GeneratedValue(generator="InvSeqOF")
     @SequenceGenerator(name="InvSeqOF",sequenceName="SECUENCIA_ORDEN_FABRICACION", allocationSize=5)
+    @Column(name = "ID_ORDEN")
     private BigDecimal idOrden;
     @Column(name = "REF_PEDIDO")
     private String refPedido;
@@ -71,7 +70,6 @@ public class OrdenFabricacion implements Serializable {
     @Column(name = "FECHA_FINALIZADO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaFinalizado;
-    @Basic(optional = false)
     @Column(name = "CANTIDAD")
     private BigInteger cantidad;
     @Column(name = "FINALIZADA")
@@ -87,11 +85,10 @@ public class OrdenFabricacion implements Serializable {
         this.idOrden = idOrden;
     }
 
-    public OrdenFabricacion(BigDecimal idOrden, Date fechaExpedicion, Date fechaEntrega, BigInteger cantidad) {
+    public OrdenFabricacion(BigDecimal idOrden, Date fechaExpedicion, Date fechaEntrega) {
         this.idOrden = idOrden;
         this.fechaExpedicion = fechaExpedicion;
         this.fechaEntrega = fechaEntrega;
-        this.cantidad = cantidad;
     }
 
     public BigDecimal getIdOrden() {
