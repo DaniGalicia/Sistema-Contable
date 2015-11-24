@@ -99,7 +99,7 @@ public class Departamento implements Serializable {
 
     @Override
     public String toString() {
-        return "SIC.Entidades.Departamento[ idDepartamento=" + idDepartamento + " ]";
+        return  nombre;
     }
     
 }

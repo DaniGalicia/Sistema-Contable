@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +18,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -27,7 +25,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author dannier
+ * @author Escobar
  */
 @Entity
 @Table(name = "ORDEN_FABRICACION")
@@ -44,17 +42,16 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "OrdenFabricacion.findByCantidad", query = "SELECT o FROM OrdenFabricacion o WHERE o.cantidad = :cantidad"),
     @NamedQuery(name = "OrdenFabricacion.findByFinalizada", query = "SELECT o FROM OrdenFabricacion o WHERE o.finalizada = :finalizada")})
 public class OrdenFabricacion implements Serializable {
-
     private static final long serialVersionUID = 1L;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
-    @Column(name = "ID_ORDEN")
     @GeneratedValue(generator="InvSeqOF")
-    @SequenceGenerator(name="InvSeqOF",sequenceName="SECUENCIA_ORDEN_FABRICACION", allocationSize=5) 
+    @SequenceGenerator(name="InvSeqOF",sequenceName="SECUENCIA_ORDEN_FABRICACION", allocationSize=5)
+    @Column(name = "ID_ORDEN")
     private BigDecimal idOrden;
     @Column(name = "REF_PEDIDO")
-    private BigInteger refPedido;
+    private String refPedido;
     @Basic(optional = false)
     @Column(name = "FECHA_EXPEDICION")
     @Temporal(TemporalType.TIMESTAMP)
@@ -80,8 +77,6 @@ public class OrdenFabricacion implements Serializable {
     @JoinColumn(name = "ID_DEPARTAMENTO", referencedColumnName = "ID_DEPARTAMENTO")
     @ManyToOne
     private Departamento departamento;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "ordenFabricacion")
-    private OrdenFabricacionDetalle ordenFabricacionDetalle;
 
     public OrdenFabricacion() {
     }
@@ -104,11 +99,11 @@ public class OrdenFabricacion implements Serializable {
         this.idOrden = idOrden;
     }
 
-    public BigInteger getRefPedido() {
+    public String getRefPedido() {
         return refPedido;
     }
 
-    public void setRefPedido(BigInteger refPedido) {
+    public void setRefPedido(String refPedido) {
         this.refPedido = refPedido;
     }
 
@@ -182,14 +177,6 @@ public class OrdenFabricacion implements Serializable {
 
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
-    }
-
-    public OrdenFabricacionDetalle getOrdenFabricacionDetalle() {
-        return ordenFabricacionDetalle;
-    }
-
-    public void setOrdenFabricacionDetalle(OrdenFabricacionDetalle ordenFabricacionDetalle) {
-        this.ordenFabricacionDetalle = ordenFabricacionDetalle;
     }
 
     @Override

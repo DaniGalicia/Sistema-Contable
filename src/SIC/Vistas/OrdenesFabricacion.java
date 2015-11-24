@@ -5,22 +5,74 @@
  */
 package SIC.Vistas;
 
+import SIC.Entidades.Departamento;
+import SIC.Entidades.Movimiento;
+import SIC.Entidades.OrdenFabricacion;
 import SIC.Service.Comunes;
+import SIC.Service.SICService;
+import SIC.Vistas.tableModels.CargosTableModel;
+import SIC.Vistas.tableModels.EncabezadoOrdenTableModel;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
  * @author Escobar
  */
-public class OrdenFabricacion extends javax.swing.JFrame {
+public class OrdenesFabricacion extends javax.swing.JFrame {
+    public EncabezadoOrdenTableModel EncabezadoTModel = new EncabezadoOrdenTableModel();
+    OrdenesFabricacion ordenFabricacion;
 
     /**
      * Creates new form OrdenFabricacion
      */
-    public OrdenFabricacion() {
+    public OrdenesFabricacion() {
         initComponents();
         this.setTitle("ORDEN DE FABRICACIÓN");
         tablaOrdenes.setColumnModel(Comunes.crearModeloColumnas("N° de Orden,Fecha Expedición,Fecha Requerida"));
         tablaOrden.setColumnModel(Comunes.crearModeloColumnas("Material,Cantidad,P.U, Total,# Obreros, P/Hora,# Horas, Total, Tasa,Importe"));
+        departamento.setModel(Comunes.crearModeloComboBox(SICService.getServDepartamento().getListado(Departamento.class)));
+    }
+    
+    private void cargarOrdenes() {
+        EncabezadoTModel.ordenes.clear();
+        EncabezadoTModel.ordenes = SICService.getServOrdenFabricacion().getListado(OrdenesFabricacion.class);
+        tablaOrdenes.repaint();
+    }
+    
+    private boolean validarFecha(JTextField fecha) {
+        if (fecha.getText().isEmpty()) {
+            return false;
+        }
+        try {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            formatoFecha.setLenient(false);
+            formatoFecha.parse(fecha.getText());
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+    
+       private boolean validarCantidad(JTextField numero) {
+        if (numero.getText().isEmpty()) {
+            return false;
+        }
+        int var = 0;
+        try {
+            var = Integer.parseInt(numero.getText());
+        } catch (Exception e) {
+            return false;
+        }
+        if (var < 0) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -45,7 +97,6 @@ public class OrdenFabricacion extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         expedicion = new javax.swing.JTextField();
-        departamento = new javax.swing.JTextField();
         orden = new javax.swing.JTextField();
         fechaCliente = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -59,6 +110,7 @@ public class OrdenFabricacion extends javax.swing.JFrame {
         tablaOrdenes = new javax.swing.JTable();
         guardar = new javax.swing.JButton();
         eliminar = new javax.swing.JButton();
+        departamento = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaOrden = new javax.swing.JTable();
@@ -101,6 +153,7 @@ public class OrdenFabricacion extends javax.swing.JFrame {
             }
         });
 
+        orden.setEnabled(false);
         orden.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ordenActionPerformed(evt);
@@ -118,8 +171,16 @@ public class OrdenFabricacion extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tablaOrdenes);
 
         guardar.setText("GUARDAR");
+        guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarActionPerformed(evt);
+            }
+        });
 
         eliminar.setText("ELIMINAR");
+
+        departamento.setEditable(true);
+        departamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -139,16 +200,12 @@ public class OrdenFabricacion extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
                             .addComponent(jLabel3))
+                        .addGap(42, 42, 42)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(articulo)
-                                    .addComponent(iniciado)
-                                    .addComponent(referencia)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(departamento, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(articulo)
+                            .addComponent(iniciado)
+                            .addComponent(referencia)
+                            .addComponent(departamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(70, 70, 70)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
@@ -174,7 +231,7 @@ public class OrdenFabricacion extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(101, 101, 101)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,38 +258,37 @@ public class OrdenFabricacion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel12))
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel4))
-                            .addComponent(referencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel12))
+                        .addGap(15, 15, 15)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(articulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(articulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(iniciado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(terminado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10))))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(referencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel6)
-                        .addComponent(jLabel11)
-                        .addComponent(iniciado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel11))
                     .addComponent(especificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(22, 22, 22)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(guardar)
                     .addComponent(eliminar))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("ENCABEZADO", jPanel1);
@@ -348,8 +404,56 @@ public class OrdenFabricacion extends javax.swing.JFrame {
     }//GEN-LAST:event_cantidadActionPerformed
 
     private void guardarOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarOrdenActionPerformed
-        // TODO add your handling code here:
+               
     }//GEN-LAST:event_guardarOrdenActionPerformed
+
+    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+        if (!validarFecha(expedicion)) {
+            JOptionPane.showMessageDialog(null, "La fecha de expeición debe ser en el formato dd/mm/yyyy");
+            return;
+        }
+        if (!validarFecha(fechaCliente)) {
+            JOptionPane.showMessageDialog(null, "La fecha requerida por el cliente debe ser en el formato dd/mm/yyyy");
+            return;
+        }
+        if (!validarFecha(iniciado)) {
+            JOptionPane.showMessageDialog(null, "La fecha de inicio debe ser en el formato dd/mm/yyyy");
+            return;
+        }
+        if (!validarFecha(terminado)) {
+            JOptionPane.showMessageDialog(null, "La fecha de terminación debe ser en el formato dd/mm/yyyy");
+            return;
+        }
+        if (!validarCantidad(cantidad)) {
+            JOptionPane.showMessageDialog(null, "La cantidad no es correcta");
+            return;
+        }
+        if (!validarCantidad(referencia)) {
+            JOptionPane.showMessageDialog(null, "El número de referencia no es correcto");
+            return;
+        }
+        if(referencia.getText().isEmpty() && orden.getText().isEmpty()
+           && fechaCliente.getText().isEmpty()&& cantidad.getText().isEmpty()&& iniciado.getText().isEmpty()
+           && terminado.getText().isEmpty()&& referencia.getText().isEmpty()&& especificacion.getText().isEmpty())
+            JOptionPane.showMessageDialog(null, "Datos incompletos");
+        else{
+            OrdenFabricacion ordenFab=new OrdenFabricacion();
+            ordenFab.setRefPedido(referencia.getText());
+            ordenFab.setFechaExpedicion(new Date(expedicion.getText()));
+            ordenFab.setDepartamento((Departamento) departamento.getSelectedItem());
+            ordenFab.setFechaEntrega(new Date(fechaCliente.getText()));
+            ordenFab.setCantidad(BigInteger.valueOf(Long.valueOf(cantidad.getText())));
+            ordenFab.setArticulo(articulo.getText());
+            ordenFab.setFechaIniciado(new Date(iniciado.getText()));
+            ordenFab.setFechaFinalizado(new Date(terminado.getText()));
+            ordenFab.setEspecificaciones(especificacion.getText());
+            
+            if(SICService.getServOrdenFabricacion().guardar(ordenFab))
+                JOptionPane.showMessageDialog(null, "Guardado");
+            else
+                JOptionPane.showMessageDialog(null, "Ocurrio un error al guardar");
+        }
+    }//GEN-LAST:event_guardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -368,20 +472,21 @@ public class OrdenFabricacion extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(OrdenFabricacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OrdenesFabricacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(OrdenFabricacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OrdenesFabricacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(OrdenFabricacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OrdenesFabricacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(OrdenFabricacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(OrdenesFabricacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new OrdenFabricacion().setVisible(true);
+                new OrdenesFabricacion().setVisible(true);
             }
         });
     }
@@ -391,7 +496,7 @@ public class OrdenFabricacion extends javax.swing.JFrame {
     private javax.swing.JTextField cantidad;
     private javax.swing.JTextField costoTotal;
     private javax.swing.JTextField costoUnitario;
-    private javax.swing.JTextField departamento;
+    private javax.swing.JComboBox departamento;
     private javax.swing.JButton eliminar;
     private javax.swing.JTextField especificacion;
     private javax.swing.JTextField expedicion;
