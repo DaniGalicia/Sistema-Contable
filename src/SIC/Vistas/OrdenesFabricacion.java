@@ -12,21 +12,27 @@ import SIC.Service.Comunes;
 import SIC.Service.SICService;
 import SIC.Vistas.tableModels.CargosTableModel;
 import SIC.Vistas.tableModels.EncabezadoOrdenTableModel;
+import java.awt.Frame;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Escobar
  */
 public class OrdenesFabricacion extends javax.swing.JFrame {
-    public EncabezadoOrdenTableModel EncabezadoTModel = new EncabezadoOrdenTableModel();
-    OrdenesFabricacion ordenFabricacion;
+    OrdenFabricacion ordenFabricacion;
+    List<OrdenFabricacion> ordenes=new ArrayList<>();
+
 
     /**
      * Creates new form OrdenFabricacion
@@ -34,15 +40,10 @@ public class OrdenesFabricacion extends javax.swing.JFrame {
     public OrdenesFabricacion() {
         initComponents();
         this.setTitle("ORDEN DE FABRICACIÓN");
-        tablaOrdenes.setColumnModel(Comunes.crearModeloColumnas("N° de Orden,Fecha Expedición,Fecha Requerida"));
+        this.setLocationRelativeTo(null);
         tablaOrden.setColumnModel(Comunes.crearModeloColumnas("Material,Cantidad,P.U, Total,# Obreros, P/Hora,# Horas, Total, Tasa,Importe"));
         departamento.setModel(Comunes.crearModeloComboBox(SICService.getServDepartamento().getListado(Departamento.class)));
-    }
-    
-    private void cargarOrdenes() {
-        EncabezadoTModel.ordenes.clear();
-        EncabezadoTModel.ordenes = SICService.getServOrdenFabricacion().getListado(OrdenesFabricacion.class);
-        tablaOrdenes.repaint();
+        cargarOrdenes();
     }
     
     private boolean validarFecha(JTextField fecha) {
@@ -73,6 +74,23 @@ public class OrdenesFabricacion extends javax.swing.JFrame {
             return false;
         }
         return true;
+    }
+       
+    private void cargarOrdenes(){
+        ordenes=(List<OrdenFabricacion>)SICService.getServOrdenFabricacion().getListado(OrdenFabricacion.class);
+        DefaultTableModel defaultTableModel =(DefaultTableModel)tablaOrdenes.getModel();
+        DateFormat fechas = new SimpleDateFormat("dd/MM/yyyy");
+        while(defaultTableModel.getRowCount() > 0)
+            defaultTableModel.removeRow(0);
+        for(OrdenFabricacion ordenfabricacion:ordenes)
+        {
+          Date aux= ordenfabricacion.getFechaExpedicion();
+          Date aux1= ordenfabricacion.getFechaEntrega();
+          String fecha1=fechas.format(aux);
+          String fecha2=fechas.format(aux1);
+          defaultTableModel.addRow(new Object []{ordenfabricacion.getIdOrden(),
+              fecha1,fecha2});
+        }
     }
 
     /**
@@ -168,6 +186,22 @@ public class OrdenesFabricacion extends javax.swing.JFrame {
             }
         });
 
+        tablaOrdenes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "N° de Orden", "Fecha Expedición", "Fecha Entrega"
+            }
+        ));
+        tablaOrdenes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaOrdenesMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tablaOrdenesMousePressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(tablaOrdenes);
 
         guardar.setText("GUARDAR");
@@ -178,6 +212,11 @@ public class OrdenesFabricacion extends javax.swing.JFrame {
         });
 
         eliminar.setText("ELIMINAR");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarActionPerformed(evt);
+            }
+        });
 
         departamento.setEditable(true);
         departamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -432,6 +471,23 @@ public class OrdenesFabricacion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El número de referencia no es correcto");
             return;
         }
+        if(!orden.getText().isEmpty()){
+            OrdenFabricacion orden1=(OrdenFabricacion)SICService.getServOrdenFabricacion().getByPK(OrdenFabricacion.class, BigDecimal.valueOf(Long.valueOf(orden.getText())));
+            orden1.setRefPedido(referencia.getText());
+            orden1.setFechaExpedicion(new Date(expedicion.getText()));
+            orden1.setDepartamento((Departamento) departamento.getSelectedItem());
+            orden1.setFechaEntrega(new Date(fechaCliente.getText()));
+            orden1.setCantidad(BigInteger.valueOf(Long.valueOf(cantidad.getText())));
+            orden1.setArticulo(articulo.getText());
+            orden1.setFechaIniciado(new Date(iniciado.getText()));
+            orden1.setFechaFinalizado(new Date(terminado.getText()));
+            orden1.setEspecificaciones(especificacion.getText());
+            if(SICService.getServOrdenFabricacion().guardar(orden1)){
+                JOptionPane.showMessageDialog(null, "Guardado");
+                orden.setText(null);}
+            else
+                JOptionPane.showMessageDialog(null, "Ocurrio un error al guardar");
+        }else{
         if(referencia.getText().isEmpty() && orden.getText().isEmpty()
            && fechaCliente.getText().isEmpty()&& cantidad.getText().isEmpty()&& iniciado.getText().isEmpty()
            && terminado.getText().isEmpty()&& referencia.getText().isEmpty()&& especificacion.getText().isEmpty())
@@ -453,7 +509,58 @@ public class OrdenesFabricacion extends javax.swing.JFrame {
             else
                 JOptionPane.showMessageDialog(null, "Ocurrio un error al guardar");
         }
+        }
+        cargarOrdenes();
     }//GEN-LAST:event_guardarActionPerformed
+
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+             if (ordenFabricacion != null) {
+            SICService.getServOrdenFabricacion().eliminar(ordenFabricacion);
+            JOptionPane.showMessageDialog(null, "Eliminado con éxito");
+            cargarOrdenes();
+            ordenFabricacion = null;
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay cargo seleccionado");
+        }
+    }//GEN-LAST:event_eliminarActionPerformed
+
+    
+    
+ 
+    private void tablaOrdenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaOrdenesMouseClicked
+        ordenFabricacion = null;
+        int filaSelec = tablaOrdenes.getSelectedRow();
+        ordenFabricacion = ordenes.get(filaSelec);
+    }//GEN-LAST:event_tablaOrdenesMouseClicked
+
+    private void tablaOrdenesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaOrdenesMousePressed
+        ordenFabricacion = null;
+        int filaSelec = tablaOrdenes.getSelectedRow();
+        ordenFabricacion = ordenes.get(filaSelec);
+        DefaultTableModel defaultTableModel =(DefaultTableModel)tablaOrdenes.getModel();
+        DateFormat fechas = new SimpleDateFormat("dd/MM/yyyy");
+        String fecha1=new String();
+        Date aux= new Date();
+        aux=ordenFabricacion.getFechaExpedicion();
+        fecha1=fechas.format(aux);
+        expedicion.setText(fecha1);
+        aux=ordenFabricacion.getFechaEntrega();
+        fecha1=fechas.format(aux);
+        fechaCliente.setText(fecha1);
+        aux=ordenFabricacion.getFechaIniciado();
+        fecha1=fechas.format(aux);
+        iniciado.setText(fecha1);
+        aux=ordenFabricacion.getFechaFinalizado();
+        fecha1=fechas.format(aux);
+        terminado.setText(fecha1);
+        orden.setText(ordenFabricacion.getIdOrden().toString());
+        cantidad.setText(ordenFabricacion.getCantidad().toString());
+        articulo.setText(ordenFabricacion.getArticulo().toString());
+        referencia.setText(ordenFabricacion.getRefPedido().toString());
+        especificacion.setText(ordenFabricacion.getEspecificaciones().toString());
+        departamento.setSelectedItem(ordenFabricacion.getDepartamento());
+        
+    }//GEN-LAST:event_tablaOrdenesMousePressed
 
     /**
      * @param args the command line arguments
