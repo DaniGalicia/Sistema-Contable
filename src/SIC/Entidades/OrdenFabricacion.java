@@ -9,16 +9,17 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,7 +32,7 @@ import javax.persistence.TemporalType;
 @Table(name = "ORDEN_FABRICACION")
 @NamedQueries({
     @NamedQuery(name = "OrdenFabricacion.findAll", query = "SELECT o FROM OrdenFabricacion o"),
-    @NamedQuery(name = "OrdenFabricacion.findByIdOrden", query = "SELECT o FROM OrdenFabricacion o WHERE o.idOrden = :idOrden"),
+    @NamedQuery(name = "OrdenFabricacion.findByIdOrdenFabricacion", query = "SELECT o FROM OrdenFabricacion o WHERE o.idOrdenFabricacion = :idOrdenFabricacion"),
     @NamedQuery(name = "OrdenFabricacion.findByRefPedido", query = "SELECT o FROM OrdenFabricacion o WHERE o.refPedido = :refPedido"),
     @NamedQuery(name = "OrdenFabricacion.findByFechaExpedicion", query = "SELECT o FROM OrdenFabricacion o WHERE o.fechaExpedicion = :fechaExpedicion"),
     @NamedQuery(name = "OrdenFabricacion.findByFechaEntrega", query = "SELECT o FROM OrdenFabricacion o WHERE o.fechaEntrega = :fechaEntrega"),
@@ -46,10 +47,8 @@ public class OrdenFabricacion implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
-    @GeneratedValue(generator="InvSeqOF")
-    @SequenceGenerator(name="InvSeqOF",sequenceName="SECUENCIA_ORDEN_FABRICACION", allocationSize=5)
-    @Column(name = "ID_ORDEN")
-    private BigDecimal idOrden;
+    @Column(name = "ID_ORDEN_FABRICACION")
+    private BigDecimal idOrdenFabricacion;
     @Column(name = "REF_PEDIDO")
     private String refPedido;
     @Basic(optional = false)
@@ -70,6 +69,7 @@ public class OrdenFabricacion implements Serializable {
     @Column(name = "FECHA_FINALIZADO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaFinalizado;
+    @Basic(optional = false)
     @Column(name = "CANTIDAD")
     private BigInteger cantidad;
     @Column(name = "FINALIZADA")
@@ -77,26 +77,29 @@ public class OrdenFabricacion implements Serializable {
     @JoinColumn(name = "ID_DEPARTAMENTO", referencedColumnName = "ID_DEPARTAMENTO")
     @ManyToOne
     private Departamento departamento;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ordenFabricacion")
+    private List<OrdenFabricacionDetalle> ordenFabricacionDetalleList;
 
     public OrdenFabricacion() {
     }
 
-    public OrdenFabricacion(BigDecimal idOrden) {
-        this.idOrden = idOrden;
+    public OrdenFabricacion(BigDecimal idOrdenFabricacion) {
+        this.idOrdenFabricacion = idOrdenFabricacion;
     }
 
-    public OrdenFabricacion(BigDecimal idOrden, Date fechaExpedicion, Date fechaEntrega) {
-        this.idOrden = idOrden;
+    public OrdenFabricacion(BigDecimal idOrdenFabricacion, Date fechaExpedicion, Date fechaEntrega, BigInteger cantidad) {
+        this.idOrdenFabricacion = idOrdenFabricacion;
         this.fechaExpedicion = fechaExpedicion;
         this.fechaEntrega = fechaEntrega;
+        this.cantidad = cantidad;
     }
 
-    public BigDecimal getIdOrden() {
-        return idOrden;
+    public BigDecimal getIdOrdenFabricacion() {
+        return idOrdenFabricacion;
     }
 
-    public void setIdOrden(BigDecimal idOrden) {
-        this.idOrden = idOrden;
+    public void setIdOrdenFabricacion(BigDecimal idOrdenFabricacion) {
+        this.idOrdenFabricacion = idOrdenFabricacion;
     }
 
     public String getRefPedido() {
@@ -179,10 +182,18 @@ public class OrdenFabricacion implements Serializable {
         this.departamento = departamento;
     }
 
+    public List<OrdenFabricacionDetalle> getOrdenFabricacionDetalleList() {
+        return ordenFabricacionDetalleList;
+    }
+
+    public void setOrdenFabricacionDetalleList(List<OrdenFabricacionDetalle> ordenFabricacionDetalleList) {
+        this.ordenFabricacionDetalleList = ordenFabricacionDetalleList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idOrden != null ? idOrden.hashCode() : 0);
+        hash += (idOrdenFabricacion != null ? idOrdenFabricacion.hashCode() : 0);
         return hash;
     }
 
@@ -193,7 +204,7 @@ public class OrdenFabricacion implements Serializable {
             return false;
         }
         OrdenFabricacion other = (OrdenFabricacion) object;
-        if ((this.idOrden == null && other.idOrden != null) || (this.idOrden != null && !this.idOrden.equals(other.idOrden))) {
+        if ((this.idOrdenFabricacion == null && other.idOrdenFabricacion != null) || (this.idOrdenFabricacion != null && !this.idOrdenFabricacion.equals(other.idOrdenFabricacion))) {
             return false;
         }
         return true;
@@ -201,7 +212,7 @@ public class OrdenFabricacion implements Serializable {
 
     @Override
     public String toString() {
-        return "SIC.Entidades.OrdenFabricacion[ idOrden=" + idOrden + " ]";
+        return "SIC.Entidades.OrdenFabricacion[ idOrdenFabricacion=" + idOrdenFabricacion + " ]";
     }
     
 }

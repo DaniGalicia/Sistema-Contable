@@ -68,7 +68,7 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
         idCuenta = new javax.swing.JTextField();
         nombreCuenta = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        comboTiposCuenta = new javax.swing.JComboBox<>();
+        comboTiposCuenta = new javax.swing.JComboBox<String>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaCuentas = new javax.swing.JTable();
@@ -110,7 +110,7 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
 
         jLabel3.setText("Tipo");
 
-        comboTiposCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "P", "R", "K" }));
+        comboTiposCuenta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A", "P", "R", "K" }));
         comboTiposCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboTiposCuentaActionPerformed(evt);
@@ -248,7 +248,7 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
 
             if (SICService.getServCuenta().guardar(cuentaActual)) {
                 JOptionPane.showMessageDialog(null, "Guardado");
-                limpiarTextos();
+               // limpiarTextos();
 
             } else {
                 JOptionPane.showMessageDialog(null, "Ocurrio un error al guardar");
@@ -281,21 +281,8 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tablaCuentasMouseClicked
 
-    private void limpiarTextos(){
-        cuentaActual = null;
-        nombreCuenta.setText("");
-        idCuenta.setText("");
-        cargarDatos();
-    }
-    
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         // TODO add your handling code here:
-        if(cuentaActual!=null){
-            SICService.getServCuenta().eliminar(cuentaActual);
-            limpiarTextos();
-        }else{
-            JOptionPane.showMessageDialog(null, "NO hay cuenta seleccionada");
-        }
     }//GEN-LAST:event_botonEliminarActionPerformed
 
 

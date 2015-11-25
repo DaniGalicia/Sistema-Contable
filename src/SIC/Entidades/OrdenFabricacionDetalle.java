@@ -13,41 +13,36 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
  *
- * @author dannier
+ * @author Escobar
  */
 @Entity
 @Table(name = "ORDEN_FABRICACION_DETALLE")
 @NamedQueries({
     @NamedQuery(name = "OrdenFabricacionDetalle.findAll", query = "SELECT o FROM OrdenFabricacionDetalle o"),
-    @NamedQuery(name = "OrdenFabricacionDetalle.findByIdOrden", query = "SELECT o FROM OrdenFabricacionDetalle o WHERE o.idOrden = :idOrden"),
     @NamedQuery(name = "OrdenFabricacionDetalle.findByCantidadObreros", query = "SELECT o FROM OrdenFabricacionDetalle o WHERE o.cantidadObreros = :cantidadObreros"),
     @NamedQuery(name = "OrdenFabricacionDetalle.findByMaterial", query = "SELECT o FROM OrdenFabricacionDetalle o WHERE o.material = :material"),
     @NamedQuery(name = "OrdenFabricacionDetalle.findByCantidadMaterial", query = "SELECT o FROM OrdenFabricacionDetalle o WHERE o.cantidadMaterial = :cantidadMaterial"),
     @NamedQuery(name = "OrdenFabricacionDetalle.findByPrecioUnitario", query = "SELECT o FROM OrdenFabricacionDetalle o WHERE o.precioUnitario = :precioUnitario"),
     @NamedQuery(name = "OrdenFabricacionDetalle.findByPrecioHora", query = "SELECT o FROM OrdenFabricacionDetalle o WHERE o.precioHora = :precioHora"),
     @NamedQuery(name = "OrdenFabricacionDetalle.findByCantidadHoras", query = "SELECT o FROM OrdenFabricacionDetalle o WHERE o.cantidadHoras = :cantidadHoras"),
-    @NamedQuery(name = "OrdenFabricacionDetalle.findByTasaCif", query = "SELECT o FROM OrdenFabricacionDetalle o WHERE o.tasaCif = :tasaCif")})
+    @NamedQuery(name = "OrdenFabricacionDetalle.findByTasaCif", query = "SELECT o FROM OrdenFabricacionDetalle o WHERE o.tasaCif = :tasaCif"),
+    @NamedQuery(name = "OrdenFabricacionDetalle.findByIdOrdenFrabricacionDetalle", query = "SELECT o FROM OrdenFabricacionDetalle o WHERE o.idOrdenFrabricacionDetalle = :idOrdenFrabricacionDetalle")})
 public class OrdenFabricacionDetalle implements Serializable {
-
     private static final long serialVersionUID = 1L;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Id
-    @Basic(optional = false)
-    @Column(name = "ID_ORDEN")
-    private BigDecimal idOrden;
     @Column(name = "CANTIDAD_OBREROS")
     private BigInteger cantidadObreros;
     @Column(name = "MATERIAL")
     private String material;
     @Column(name = "CANTIDAD_MATERIAL")
     private BigInteger cantidadMaterial;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "PRECIO_UNITARIO")
     private Double precioUnitario;
     @Column(name = "PRECIO_HORA")
@@ -56,23 +51,19 @@ public class OrdenFabricacionDetalle implements Serializable {
     private BigInteger cantidadHoras;
     @Column(name = "TASA_CIF")
     private Double tasaCif;
-    @JoinColumn(name = "ID_ORDEN", referencedColumnName = "ID_ORDEN", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @Id
+    @Basic(optional = false)
+    @Column(name = "ID_ORDEN_FRABRICACION_DETALLE")
+    private BigDecimal idOrdenFrabricacionDetalle;
+    @JoinColumn(name = "ID_ORDEN_FABRICACION", referencedColumnName = "ID_ORDEN_FABRICACION")
+    @ManyToOne(optional = false)
     private OrdenFabricacion ordenFabricacion;
 
     public OrdenFabricacionDetalle() {
     }
 
-    public OrdenFabricacionDetalle(BigDecimal idOrden) {
-        this.idOrden = idOrden;
-    }
-
-    public BigDecimal getIdOrden() {
-        return idOrden;
-    }
-
-    public void setIdOrden(BigDecimal idOrden) {
-        this.idOrden = idOrden;
+    public OrdenFabricacionDetalle(BigDecimal idOrdenFrabricacionDetalle) {
+        this.idOrdenFrabricacionDetalle = idOrdenFrabricacionDetalle;
     }
 
     public BigInteger getCantidadObreros() {
@@ -131,6 +122,14 @@ public class OrdenFabricacionDetalle implements Serializable {
         this.tasaCif = tasaCif;
     }
 
+    public BigDecimal getIdOrdenFrabricacionDetalle() {
+        return idOrdenFrabricacionDetalle;
+    }
+
+    public void setIdOrdenFrabricacionDetalle(BigDecimal idOrdenFrabricacionDetalle) {
+        this.idOrdenFrabricacionDetalle = idOrdenFrabricacionDetalle;
+    }
+
     public OrdenFabricacion getOrdenFabricacion() {
         return ordenFabricacion;
     }
@@ -142,7 +141,7 @@ public class OrdenFabricacionDetalle implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idOrden != null ? idOrden.hashCode() : 0);
+        hash += (idOrdenFrabricacionDetalle != null ? idOrdenFrabricacionDetalle.hashCode() : 0);
         return hash;
     }
 
@@ -153,7 +152,7 @@ public class OrdenFabricacionDetalle implements Serializable {
             return false;
         }
         OrdenFabricacionDetalle other = (OrdenFabricacionDetalle) object;
-        if ((this.idOrden == null && other.idOrden != null) || (this.idOrden != null && !this.idOrden.equals(other.idOrden))) {
+        if ((this.idOrdenFrabricacionDetalle == null && other.idOrdenFrabricacionDetalle != null) || (this.idOrdenFrabricacionDetalle != null && !this.idOrdenFrabricacionDetalle.equals(other.idOrdenFrabricacionDetalle))) {
             return false;
         }
         return true;
@@ -161,7 +160,7 @@ public class OrdenFabricacionDetalle implements Serializable {
 
     @Override
     public String toString() {
-        return "SIC.Entidades.OrdenFabricacionDetalle[ idOrden=" + idOrden + " ]";
+        return "SIC.Entidades.OrdenFabricacionDetalle[ idOrdenFrabricacionDetalle=" + idOrdenFrabricacionDetalle + " ]";
     }
     
 }
