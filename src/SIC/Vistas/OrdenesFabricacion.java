@@ -8,11 +8,13 @@ package SIC.Vistas;
 import SIC.Entidades.Departamento;
 import SIC.Entidades.Movimiento;
 import SIC.Entidades.OrdenFabricacion;
+import SIC.Entidades.OrdenFabricacionDetalle;
 import SIC.Service.Comunes;
 import SIC.Service.SICService;
 import SIC.Vistas.tableModels.CargosTableModel;
 import SIC.Vistas.tableModels.EncabezadoOrdenTableModel;
 import java.awt.Frame;
+import static java.lang.String.valueOf;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -41,7 +44,6 @@ public class OrdenesFabricacion extends javax.swing.JFrame {
         initComponents();
         this.setTitle("ORDEN DE FABRICACIÓN");
         this.setLocationRelativeTo(null);
-        tablaOrden.setColumnModel(Comunes.crearModeloColumnas("Material,Cantidad,P.U, Total,# Obreros, P/Hora,# Horas, Total, Tasa,Importe"));
         departamento.setModel(Comunes.crearModeloComboBox(SICService.getServDepartamento().getListado(Departamento.class)));
         cargarOrdenes();
     }
@@ -88,11 +90,27 @@ public class OrdenesFabricacion extends javax.swing.JFrame {
           Date aux1= ordenfabricacion.getFechaEntrega();
           String fecha1=fechas.format(aux);
           String fecha2=fechas.format(aux1);
-          defaultTableModel.addRow(new Object []{ordenfabricacion.getIdOrden(),
+          defaultTableModel.addRow(new Object []{ordenfabricacion.getIdOrdenFabricacion(),
               fecha1,fecha2});
         }
     }
 
+     private void cargarOrden(){
+        //OrdenFabricacionDetalle ordenfab=(OrdenFabricacionDetalle)SICService.getServOrdenFabricacionDetalle().getByPK(OrdenFabricacionDetalle.class, BigDecimal.valueOf(Long.valueOf(orden.getText())));
+        ordenFabricacion.getOrdenFabricacionDetalleList();
+        DefaultTableModel defaultTableModel1 =(DefaultTableModel)tablaOrden.getModel();
+        while(defaultTableModel1.getRowCount() > 0)
+            defaultTableModel1.removeRow(0);
+        for(OrdenFabricacionDetalle ordenfab: ordenFabricacion.getOrdenFabricacionDetalleList()){
+        double totalMaterial=Integer.parseInt(ordenfab.getCantidadMaterial().toString())*Double.parseDouble(ordenfab.getPrecioUnitario().toString());
+        double totalHoras=Double.parseDouble(ordenfab.getCantidadHoras().toString())*Double.parseDouble(ordenfab.getPrecioHora().toString())*Integer.parseInt(ordenfab.getCantidadObreros().toString());
+        double importe=(totalMaterial+totalHoras)*Double.parseDouble(ordenfab.getTasaCif().toString());
+        defaultTableModel1.addRow(new Object []{ordenfab.getOrdenFabricacion().getIdOrdenFabricacion(),ordenfab.getMaterial(),ordenfab.getCantidadMaterial(),ordenfab.getPrecioUnitario(),totalMaterial,ordenfab.getCantidadObreros(),
+              ordenfab.getPrecioHora(),ordenfab.getCantidadHoras(),totalHoras,ordenfab.getTasaCif(),importe});
+        costoTotal.setText(String.format("%.2f",totalMaterial+totalHoras+importe));
+        costoUnitario.setText(String.format("%.2f",(totalMaterial+totalHoras+importe)/Integer.parseInt(cantidad.getText())));
+    }
+ }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -193,7 +211,15 @@ public class OrdenesFabricacion extends javax.swing.JFrame {
             new String [] {
                 "N° de Orden", "Fecha Expedición", "Fecha Entrega"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tablaOrdenes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaOrdenesMouseClicked(evt);
@@ -332,6 +358,14 @@ public class OrdenesFabricacion extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("ENCABEZADO", jPanel1);
 
+        tablaOrden.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "N° Orden", "Material", "Cantidad", "PU", "Total", "# Obreros", "Hora", "# Hora", "Total", "Tasa", "Importe"
+            }
+        ));
         jScrollPane1.setViewportView(tablaOrden);
 
         jLabel13.setText("MATERIALES");
@@ -528,9 +562,17 @@ public class OrdenesFabricacion extends javax.swing.JFrame {
     
  
     private void tablaOrdenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaOrdenesMouseClicked
-        ordenFabricacion = null;
-        int filaSelec = tablaOrdenes.getSelectedRow();
-        ordenFabricacion = ordenes.get(filaSelec);
+        if(evt.getClickCount()==2){
+            jTabbedPane1.setEnabledAt(1, true);
+            jTabbedPane1.setSelectedIndex(1);
+            cargarOrden();
+        }else{
+            if(evt.getClickCount()==1){
+                ordenFabricacion = null;
+                int filaSelec = tablaOrdenes.getSelectedRow();
+                ordenFabricacion = ordenes.get(filaSelec);
+            }
+        }
     }//GEN-LAST:event_tablaOrdenesMouseClicked
 
     private void tablaOrdenesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaOrdenesMousePressed
@@ -553,11 +595,11 @@ public class OrdenesFabricacion extends javax.swing.JFrame {
         aux=ordenFabricacion.getFechaFinalizado();
         fecha1=fechas.format(aux);
         terminado.setText(fecha1);
-        orden.setText(ordenFabricacion.getIdOrden().toString());
+        orden.setText(ordenFabricacion.getIdOrdenFabricacion().toString());
         cantidad.setText(ordenFabricacion.getCantidad().toString());
-        articulo.setText(ordenFabricacion.getArticulo().toString());
-        referencia.setText(ordenFabricacion.getRefPedido().toString());
-        especificacion.setText(ordenFabricacion.getEspecificaciones().toString());
+        articulo.setText(ordenFabricacion.getArticulo());
+        referencia.setText(ordenFabricacion.getRefPedido());
+        especificacion.setText(ordenFabricacion.getEspecificaciones());
         departamento.setSelectedItem(ordenFabricacion.getDepartamento());
         
     }//GEN-LAST:event_tablaOrdenesMousePressed

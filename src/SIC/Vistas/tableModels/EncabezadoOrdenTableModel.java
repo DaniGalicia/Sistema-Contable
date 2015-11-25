@@ -34,7 +34,7 @@ public class EncabezadoOrdenTableModel extends AbstractTableModel{
         OrdenFabricacion orden = ordenes.get(rowIndex);
         Object valor = null;
         switch(columnIndex){
-           case 0: valor = orden.getIdOrden();
+           case 0: valor = orden.getIdOrdenFabricacion();
             break;
             case 1: valor = orden.getFechaExpedicion();
             break;
