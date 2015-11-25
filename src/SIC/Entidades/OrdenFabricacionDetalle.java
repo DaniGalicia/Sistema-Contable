@@ -11,11 +11,13 @@ import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -53,6 +55,8 @@ public class OrdenFabricacionDetalle implements Serializable {
     private Double tasaCif;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(generator="InvSeqOFD")
+    @SequenceGenerator(name="InvSeqOFD",sequenceName="SECUENCIA_OF_DETALLE", allocationSize=5)
     @Column(name = "ID_ORDEN_FRABRICACION_DETALLE")
     private BigDecimal idOrdenFrabricacionDetalle;
     @JoinColumn(name = "ID_ORDEN_FABRICACION", referencedColumnName = "ID_ORDEN_FABRICACION")
@@ -133,7 +137,22 @@ public class OrdenFabricacionDetalle implements Serializable {
     public OrdenFabricacion getOrdenFabricacion() {
         return ordenFabricacion;
     }
-
+    
+    public Double getTotalMaterial() {
+        return cantidadMaterial.floatValue()*precioUnitario;
+    }
+    public Double getTotalManoObra() {
+        return cantidadObreros.floatValue()*cantidadHoras.floatValue()*precioHora;
+    }
+    public Double getImporte() {
+        return tasaCif*(getTotalMaterial()+getTotalManoObra());
+    }
+    public Double getCostoTotal() {
+        return getTotalMaterial()+getTotalManoObra()+getImporte();
+    }
+    public Double getCostoUnitario(int cantidad) {
+        return getCostoTotal()/cantidad;
+    }
     public void setOrdenFabricacion(OrdenFabricacion ordenFabricacion) {
         this.ordenFabricacion = ordenFabricacion;
     }
