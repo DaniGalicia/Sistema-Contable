@@ -10,6 +10,7 @@ import SIC.Vistas.tableModels.UsuariosTableModel;
 import SIC.Entidades.Empleado;
 import SIC.Entidades.Usuario;
 import SIC.Service.SICService;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +20,9 @@ import javax.swing.table.DefaultTableModel;
  * @author dannier
  */
 public class Usuarios extends javax.swing.JFrame {
+    
+    List<Usuario> usuarios = new ArrayList<>();
+        
 UsuariosTableModel tableModel=new UsuariosTableModel();
     Empleado empleadoSelected;
     Usuario usuarioSelected;
@@ -30,15 +34,25 @@ UsuariosTableModel tableModel=new UsuariosTableModel();
      */
     public Usuarios() {
         initComponents();
-        tablaUsuarios.setColumnModel(Comunes.crearModeloColumnas("Codigo empleado,Usuario,Contraseña"));
+       // tablaUsuarios.setColumnModel(Comunes.crearModeloColumnas("Codigo empleado,Usuario,Contraseña"));
         cargarDatos();
         this.setLocationRelativeTo(null);
     }
 
     public void cargarDatos() {
-       usuarioTableModel.usuarios.clear();
-        usuarioTableModel.usuarios = SICService.getServUsuario().getListado();
-      tablaUsuarios.repaint();
+      usuarios = (List<Usuario>) SICService.getServUsuario().getListado(Usuario.class);
+       DefaultTableModel defaultTableModel = (DefaultTableModel) tablaUsuarios.getModel();
+       
+       while (defaultTableModel.getRowCount() > 0) {
+           defaultTableModel.removeRow(0);
+       }
+       for (Usuario usuario1 : usuarios) {
+           Object[] linea = {usuario1.getCodigoEmpleado(),
+               usuario1.getEmpleado().getNombres(),
+               usuario1.getClave()
+           };
+           defaultTableModel.addRow(linea);
+       }
     }
 
 
@@ -155,7 +169,14 @@ UsuariosTableModel tableModel=new UsuariosTableModel();
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de usuarios"));
 
-        tablaUsuarios.setModel(tableModel);
+        tablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Nombre", "Clave"
+            }
+        ));
         tablaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaUsuariosMouseClicked(evt);
