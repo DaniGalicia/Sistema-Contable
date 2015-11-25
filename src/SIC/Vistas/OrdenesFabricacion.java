@@ -46,6 +46,7 @@ public class OrdenesFabricacion extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         departamento.setModel(Comunes.crearModeloComboBox(SICService.getServDepartamento().getListado(Departamento.class)));
         cargarOrdenes();
+                  
     }
     
     private boolean validarFecha(JTextField fecha) {

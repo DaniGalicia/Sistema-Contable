@@ -29,11 +29,18 @@ public class SICService {
     private static ServOrdenFabricacion servOrdenFabricacion;
     private static ServOrdenFabricacionDetalle servOrdenFabricacionDetalle;
     private static ServDepartamento servDepartamento;
+    private static ServEstadoFinanciero servEstadoFinanciero;
 
     public static ServPeriodo getServPeriodo() {
         if(servPeriodo==null)
             servPeriodo=new ServPeriodo(PERSISTENCE_UNIT_NAME);
         return servPeriodo;
+    }
+
+    public static ServEstadoFinanciero getServEstadoFinanciero() {
+        if(servEstadoFinanciero==null)
+            servEstadoFinanciero=new ServEstadoFinanciero();
+        return servEstadoFinanciero;
     }
 
     
