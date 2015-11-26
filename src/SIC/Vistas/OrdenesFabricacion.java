@@ -37,6 +37,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     OrdenFabricacion ordenFabricacion;
     OrdenFabricacionDetalle detalleActual;
     List<OrdenFabricacion> ordenes = new ArrayList<>();
+    List<OrdenFabricacionDetalle> ordendetalle = new ArrayList<>();
 
     /**
      * Creates new form OrdenFabricacion
@@ -122,11 +123,16 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     }
 
     private void cargarOrdenDetalle() {
+        ordendetalle=ordenFabricacion.getOrdenFabricacionDetalleList();
         DefaultTableModel defaultTableModel =(DefaultTableModel) tablaOrden.getModel();
-        while (defaultTableModel.getRowCount() > 0) {
+        /*while (defaultTableModel.getRowCount() > 0) {
             defaultTableModel.removeRow(0);
+        }*/
+        int rowCount = defaultTableModel.getRowCount();
+        for (int i = rowCount - 1; i >= 0; i--) {
+        defaultTableModel.removeRow(i);
         }
-        for (OrdenFabricacionDetalle ordenfab : ordenFabricacion.getOrdenFabricacionDetalleList()) {
+        for (OrdenFabricacionDetalle ordenfab : ordendetalle) {
             defaultTableModel.addRow(new Object[]{ordenfab.getOrdenFabricacion().getIdOrdenFabricacion(),
                 ordenfab.getMaterial(), 
                 ordenfab.getCantidadMaterial(),
@@ -135,18 +141,11 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
                 ordenfab.getPrecioHora(), ordenfab.getCantidadHoras(),
                 ordenfab.getTotalManoObra(), ordenfab.getTasaCif(),
                 ordenfab.getImporte()});
-            JOptionPane.showMessageDialog(null, new Object[]{ordenfab.getOrdenFabricacion().getIdOrdenFabricacion(),
-                ordenfab.getMaterial(), 
-                ordenfab.getCantidadMaterial(),
-                ordenfab.getPrecioUnitario(), 
-                ordenfab.getTotalMaterial(), ordenfab.getCantidadObreros(),
-                ordenfab.getPrecioHora(), ordenfab.getCantidadHoras(),
-                ordenfab.getTotalManoObra(), ordenfab.getTasaCif(),
-                ordenfab.getImporte()}.toString());
             costoTotal.setText(String.format("%.2f", ordenfab.getCostoTotal()));
             costoUnitario.setText(String.format("%.2f", ordenfab.getCostoUnitario(Integer.parseInt(cantidad.getText()))));
-        }
     }
+    defaultTableModel.fireTableDataChanged();
+ }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -748,12 +747,30 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "La tasa no es correcta");
             return;
         }
+        if(detalleActual!=null){
+            OrdenFabricacionDetalle orden2 = (OrdenFabricacionDetalle)SICService.getServOrdenFabricacionDetalle().getByPK(OrdenFabricacionDetalle.class, detalleActual.getIdOrdenFrabricacionDetalle());
+            orden2.setMaterial(descripcion.getText());
+            orden2.setCantidadMaterial(BigInteger.valueOf(Long.valueOf(cantidadMaterial.getText())));
+            orden2.setPrecioUnitario(Double.parseDouble(preciounitario.getText()));
+            orden2.setCantidadObreros(BigInteger.valueOf(Long.valueOf(cantidadObreros.getText())));
+            orden2.setCantidadHoras(BigInteger.valueOf(Long.valueOf(numHoras.getText())));          
+            orden2.setPrecioHora(Double.parseDouble(precioHoras.getText()));           
+            orden2.setTasaCif(Double.parseDouble(tasa.getText()));
+            orden2.setOrdenFabricacion(ordenFabricacion);
+            if (SICService.getServOrdenFabricacionDetalle().guardar(orden2)) {
+                cargarOrdenDetalle();
+                JOptionPane.showMessageDialog(null, "Guardado");  
+                limpiar();
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocurrio un error al guardar");
+            }
+        }else{
         if (cantidadMaterial.getText().isEmpty() && descripcion.getText().isEmpty()
                 && preciounitario.getText().isEmpty() && cantidadObreros.getText().isEmpty() && numHoras.getText().isEmpty()
                 && precioHoras.getText().isEmpty() && tasa.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Datos incompletos");
         } else {
-            OrdenFabricacionDetalle detalle = new OrdenFabricacionDetalle();
+            OrdenFabricacionDetalle detalle= new OrdenFabricacionDetalle();
             detalle.setMaterial(descripcion.getText());
             detalle.setCantidadMaterial(BigInteger.valueOf(Long.valueOf(cantidadMaterial.getText())));
             detalle.setPrecioUnitario(Double.parseDouble(preciounitario.getText()));
@@ -762,15 +779,18 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
             detalle.setPrecioHora(Double.parseDouble(precioHoras.getText()));
             detalle.setTasaCif(Double.parseDouble(tasa.getText()));
             detalle.setOrdenFabricacion(ordenFabricacion);
-
             if (SICService.getServOrdenFabricacionDetalle().guardar(detalle)) {
-                JOptionPane.showMessageDialog(null, "Guardado");
                 cargarOrdenDetalle();
+                JOptionPane.showMessageDialog(null, "Guardado");
+                
+                limpiar();
             } else {
                 JOptionPane.showMessageDialog(null, "Ocurrio un error al guardar");
             }
         }
 
+     }
+    cargarOrdenDetalle();
     }//GEN-LAST:event_guardarOrdenActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
@@ -925,6 +945,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
 
     private void nuevoDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoDetalleActionPerformed
         limpiar();
+        detalleActual=null;
     }//GEN-LAST:event_nuevoDetalleActionPerformed
 
     private void eliminarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarDetalleActionPerformed
@@ -939,11 +960,9 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     }//GEN-LAST:event_eliminarDetalleActionPerformed
 
     private void tablaOrdenMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaOrdenMousePressed
-        detalleActual = null;
         int filaSelec = tablaOrden.getSelectedRow();
         ordenFabricacion.getOrdenFabricacionDetalleList();
-        detalleActual=ordenFabricacion.getOrdenFabricacionDetalleList().get(filaSelec);
-        DefaultTableModel defaultTableModel = (DefaultTableModel) tablaOrden.getModel();
+        detalleActual = ordenFabricacion.getOrdenFabricacionDetalleList().get(filaSelec);
         descripcion.setText(detalleActual.getMaterial());
         cantidadMaterial.setText(detalleActual.getCantidadMaterial().toString());
         preciounitario.setText(detalleActual.getPrecioUnitario().toString());
