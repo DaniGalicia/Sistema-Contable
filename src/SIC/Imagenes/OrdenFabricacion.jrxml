@@ -12,8 +12,8 @@
 	<pageHeader>
 		<band height="165" splitType="Stretch">
 			<staticText>
-				<reportElement x="189" y="73" width="100" height="20" uuid="54e2b6ef-b7fd-4bb9-90f2-efa86c95412e"/>
-				<text><![CDATA[Giasdfja]]></text>
+				<reportElement x="256" y="102" width="100" height="20" uuid="08591bc8-467e-44f4-b504-4bbb130fd8ea"/>
+				<text><![CDATA[hola mundo]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
