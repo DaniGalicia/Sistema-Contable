@@ -46,7 +46,7 @@ public class SICService {
     
     public static ServTipoEstadoFinanciero getServTipoEstadoFinanciero() {
         if(servTipoEstadoFinanciero==null)
-            servTipoEstadoFinanciero=new ServTipoEstadoFinanciero(PERSISTENCE_UNIT_NAME);
+            servTipoEstadoFinanciero=new ServTipoEstadoFinanciero();
         return servTipoEstadoFinanciero;
     }
 

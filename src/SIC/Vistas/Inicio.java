@@ -30,8 +30,6 @@ public class Inicio extends javax.swing.JFrame {
         ImageIcon fot = new ImageIcon(getClass().getResource("/SIC/Imagenes/logo.png"));
         ImageIcon icono = new ImageIcon(fot.getImage().getScaledInstance(logo.getWidth(), logo.getHeight(), Image.SCALE_DEFAULT));
         logo.setIcon(icono);
-        
-        rootPane.add(new NewJInternalFrame());
     }
 
     /**

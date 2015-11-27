@@ -23,13 +23,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
 
-    List<CuentaSaldada> cuentasSaldadas=new ArrayList<>();
+    List<CuentaSaldada> cuentasSaldadas = new ArrayList<>();
 
     public MantenimientoEstadosFinancieros(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        tiposEstadoFinanciero.setModel(Comunes.crearModeloComboBox(SICService.getServTipoEstadoFinanciero().getListado()));
-this.rootPane.setContentPane(new Inicio());
+        tiposEstadoFinanciero.setModel(Comunes.crearModeloComboBox(SICService.getServTipoEstadoFinanciero().getListado(TipoEstadoFinanciero.class)));
     }
 
     /**
@@ -149,11 +148,11 @@ this.rootPane.setContentPane(new Inicio());
         cuentasSaldadas.clear();
         TipoEstadoFinanciero tipoEstadoFinancieroSelected = (TipoEstadoFinanciero) tiposEstadoFinanciero.getSelectedItem();
         if (tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("EC")) {
-            EstadoFinanciero estadoResultados = SICService.getServEstadoFinanciero().getEstadoFinacieroPeriodoActivo();
+            EstadoFinanciero estadoResultados = SICService.getServEstadoFinanciero().getEstadoFinacieroPeriodoActivo("ER");
             if (estadoResultados != null) {
                 cuentasSaldadas = SICService.getServCuentaSaldada().findByTipoCuenta("K");
-                cargarDatos(new Object[]{"Reinversion(50% utilidad)",estadoResultados.getSaldo()*0.5,""});
-                
+                cargarDatos(new Object[]{"Reinversion(50% utilidad)", estadoResultados.getSaldo() * 0.5, ""});
+
             } else {
                 JOptionPane.showMessageDialog(null, "Falta el estado de resultados", "Generar estado financiero", JOptionPane.ERROR_MESSAGE);
             }
@@ -164,12 +163,24 @@ this.rootPane.setContentPane(new Inicio());
             cuentasSaldadas = SICService.getServCuentaSaldada().findByTipoCuenta("A");
             cuentasSaldadas.addAll(SICService.getServCuentaSaldada().findByTipoCuenta("P"));
 
+            EstadoFinanciero estadoCapital = SICService.getServEstadoFinanciero().getEstadoFinacieroPeriodoActivo("EC");
+            
+            //Verifica si ya se creo el estado financiero
+            if (estadoCapital != null) {
+                     cargarDatos(new Object[]{"Capital contable", estadoCapital.getSaldo(), ""});
+                cuentasSaldadas = SICService.getServCuentaSaldada().findByTipoCuenta("K");
+                cargarDatos(new Object[]{"Utilidades", SICService.getServEstadoFinanciero().getEstadoFinacieroPeriodoActivo("ER").getSaldo() * 0.5, ""});
+                                
+            } else {
+                JOptionPane.showMessageDialog(null, "No se puede generar\nFalta el estado de capital", "Generar estado financiero", JOptionPane.ERROR_MESSAGE);
+
+            }
+
             //Balance comprobacion
         } else if (tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("BC")) {
-            cuentasSaldadas = SICService.getServCuentaSaldada().getListado();
+            cuentasSaldadas = SICService.getServCuentaSaldada().getListado(CuentaSaldada.class);
             cuentasSaldadas.removeIf(cs -> cs.getCuenta().getTipoCuenta().getIdTipoCuenta().equals("R"));
         }
-
 
         double t = 0;
         for (CuentaSaldada cuentaSaldada : cuentasSaldadas) {
@@ -182,11 +193,11 @@ this.rootPane.setContentPane(new Inicio());
             t = -t;
             total.setText("Saldo acreedor: " + t);
         }
-        
-        if(tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("BC") && t!=0)
-            JOptionPane.showMessageDialog(null, "Datos inconsistentes","Balance comprobacion",JOptionPane.ERROR_MESSAGE);
-            
-        
+
+        if (tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("BC") && t != 0) {
+            JOptionPane.showMessageDialog(null, "Datos inconsistentes", "Balance comprobacion", JOptionPane.ERROR_MESSAGE);
+        }
+
         //cargarDatos(null);
     }//GEN-LAST:event_botonGenerarActionPerformed
 
@@ -195,9 +206,10 @@ this.rootPane.setContentPane(new Inicio());
 
         DefaultTableModel defaultTableModel = (DefaultTableModel) tablaCuentasEF.getModel();
         if (valor == null) {
-            while(defaultTableModel.getRowCount()>0)
+            while (defaultTableModel.getRowCount() > 0) {
                 defaultTableModel.removeRow(0);
-            
+            }
+
             for (CuentaSaldada cuenta : cuentasSaldadas) {
                 Double saldo = cuenta.getSaldo();
                 String debe = "", haber = "";
@@ -212,7 +224,7 @@ this.rootPane.setContentPane(new Inicio());
 
             }
             tablaCuentasEF.setModel(defaultTableModel);
-        }else{
+        } else {
             defaultTableModel.addRow(valor);
         }
 

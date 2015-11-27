@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb724539-59e8-4897-b6fb-982d778ec52c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="CuentaSaldada" class="SIC.Entidades.CuentaSaldada"/>
+	<group name="TIPO">
+		<groupExpression><![CDATA[$F{CuentaSaldada}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="555" height="20" uuid="c130c426-0626-40b1-9f5d-1be0e0f46c3f"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{CuentaSaldada}.getCuenta().getTipoCuenta().getNombre()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="68" splitType="Stretch">
+			<staticText>
+				<reportElement x="202" y="23" width="164" height="20" uuid="a04dfe6c-1967-4e77-996c-c9b244013f1a"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BALANCE COMPROBACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="116" y="3" width="353" height="20" uuid="137ddd16-8f52-4ace-95d0-013ea948515c"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROCESADORA DE SORBETE ARTESANAL DELIFRUTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="152" y="43" width="250" height="20" uuid="fe8ae785-4bf8-45d1-a470-fc200e1cbfdb"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEL  01 AL 31 DE NOVIEMBRE DEL 2015]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="34" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="177" y="2" width="189" height="20" uuid="8ec4cfd7-240f-4519-a617-e555d0171f6a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[DEBE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="366" y="2" width="189" height="20" uuid="03e1e5be-2a4f-4c88-9c42-82affbc54ff9"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[HABER]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="220" y="11" width="100" height="20" uuid="4d472e2a-a0c7-48ad-9c50-c442fbfece72"/>
+				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="412" y="11" width="100" height="20" uuid="85d10e87-4c43-45b0-84f4-0a78abc5e445"/>
+				<textFieldExpression><![CDATA[$F{field}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="77" y="11" width="100" height="20" uuid="723fb0e7-469d-4c15-a5ef-c804d2589283"/>
+				<textFieldExpression><![CDATA[$F{CuentaSaldada}.getCuenta().getNombre()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

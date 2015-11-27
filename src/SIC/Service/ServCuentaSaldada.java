@@ -22,14 +22,10 @@ public class ServCuentaSaldada extends BasicService{
 
     }
 
-    public List<CuentaSaldada> getListado() {
-        Query q = getEntityManager().createNamedQuery("CuentaSaldada.findAll");
-        return q.getResultList();
-    }
     
     public List<CuentaSaldada> findByTipoCuenta(String tipoCuenta){
 
-        List<CuentaSaldada> aux= getListado();
+        List<CuentaSaldada> aux= getListado(CuentaSaldada.class);
         
         aux.removeIf(p -> !p.getCuenta().getTipoCuenta().getIdTipoCuenta().equals(tipoCuenta));
  

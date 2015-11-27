@@ -1,7 +1,6 @@
 package SIC.Service;
 
 import SIC.Entidades.TipoEstadoFinanciero;
-import java.util.List;
 import javax.persistence.Query;
 
 /**
@@ -9,14 +8,18 @@ import javax.persistence.Query;
  * @author GALICIA
  */
 public class ServTipoEstadoFinanciero extends BasicService{
-
-    public ServTipoEstadoFinanciero(String persistenceUnit) {
-        super();
+    
+    public TipoEstadoFinanciero findByIdTipoEstadoFinanciero(String idTipoEstadoFinanciero){
+        
+       Query q=getEntityManager().createNamedQuery("TipoEstadoFinanciero.findByIdTipoEstadoFinanciero");
+       q.setParameter("idTipoEstadoFinanciero", idTipoEstadoFinanciero);
+        try {
+            return (TipoEstadoFinanciero) q.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    return null;
     }
-
-
-    public List<TipoEstadoFinanciero> getListado() {
-        Query q = getEntityManager().createNamedQuery("TipoEstadoFinanciero.findAll");
-        return q.getResultList();
-    }
+    
+         
 }
