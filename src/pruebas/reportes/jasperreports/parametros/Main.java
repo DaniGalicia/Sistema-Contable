@@ -14,6 +14,9 @@
 package pruebas.reportes.jasperreports.parametros;
 
 import SIC.Entidades.Departamento;
+import SIC.Entidades.OrdenFabricacion;
+import SIC.Service.SICService;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +45,7 @@ public class Main
     public static void main(String[] args) throws Exception
     {
         List<Participante> listaPariticipantes = new ArrayList<Participante>();
-        for (int i = 1; i <= 10; i++)
+        for (int i = 1; i <= 3; i++)
         {
             Participante p = new Participante(i, "Participante " + i, "Usuario " + i, "Pass " + i, "Comentarios para " + i);
             p.setPuntos(i);
@@ -50,11 +53,13 @@ public class Main
             listaPariticipantes.add(p);
         }
 
-        JasperReport reporte = (JasperReport) JasperCompileManager.compileReport("src/SIC/Imagenes/OrdenFabricacion.jrxml");
+        JasperReport reporte = (JasperReport) JasperCompileManager.compileReport("src/Reportes/OrdenFabricacion.jrxml");
 
+        
+        
+        OrdenFabricacion or=(OrdenFabricacion) SICService.getServOrdenFabricacion().getByPK(OrdenFabricacion.class, BigDecimal.valueOf(29));
         Map<String, Object> parametros = new HashMap<String,Object>();
-        parametros.put("autor", new Departamento());
-        parametros.put("titulo", "Reporte Participantes");
+        parametros.put("orden",or);
 
         JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, new JRBeanCollectionDataSource(listaPariticipantes));
 
