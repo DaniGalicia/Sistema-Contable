@@ -10,14 +10,6 @@ import javax.persistence.Query;
  */
 public class ServTipoCuenta extends BasicService{
 
- 
-    public ServTipoCuenta(String persistenceUnit) {
-        super();
-    }
-
-    public List<TipoCuenta> getListado() {
-        Query q = getEntityManager().createNamedQuery("TipoCuenta.findAll");
-        return q.getResultList();
-    }
-
+    
+    
 }

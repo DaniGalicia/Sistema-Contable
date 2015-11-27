@@ -5,6 +5,8 @@
  */
 package SIC.Vistas;
 
+import SIC.Service.Comunes;
+import SIC.Vistas.tableModels.UsuariosTableModel;
 import SIC.Entidades.Empleado;
 import SIC.Entidades.Usuario;
 import SIC.Service.SICService;
@@ -21,10 +23,10 @@ public class Usuarios extends javax.swing.JFrame {
     
     List<Usuario> usuarios = new ArrayList<>();
         
-
+UsuariosTableModel tableModel=new UsuariosTableModel();
     Empleado empleadoSelected;
     Usuario usuarioSelected;
- 
+    UsuariosTableModel usuarioTableModel = new UsuariosTableModel();
     
 
     /**
@@ -280,7 +282,7 @@ public class Usuarios extends javax.swing.JFrame {
         usuarioSelected=null;
         
         if (evt.getClickCount() == 2 && tablaUsuarios.getSelectedRow() != -1) {
-            usuarioSelected = usuarios.get(tablaUsuarios.getSelectedRow());
+            usuarioSelected = usuarioTableModel.usuarios.get(tablaUsuarios.getSelectedRow());
             empleadoSelected = usuarioSelected.getEmpleado();
             codigoEmpleado.setText(empleadoSelected.getCodigoEmpleado());
             codigoEmpleado.setEnabled(false);

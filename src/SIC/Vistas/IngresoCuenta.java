@@ -6,6 +6,7 @@
 package SIC.Vistas;
 
 import SIC.Service.Comunes;
+import SIC.Vistas.tableModels.MovimientosTableModel;
 import SIC.Entidades.Cuenta;
 import SIC.Entidades.CuentaSaldada;
 import SIC.Entidades.Movimiento;
@@ -14,7 +15,6 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import SIC.Service.SICService;
-import SIC.Vistas.tableModels.MovimientosTableModel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;

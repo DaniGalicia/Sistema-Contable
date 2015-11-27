@@ -9,10 +9,7 @@ import javax.persistence.Query;
  */
 public class ServPeriodo extends BasicService{
 
-    public ServPeriodo(String persistenceUnit) {
-        super();
-    }
-
+    
 public Periodo getActivo(){
     Query q=getEntityManager().createNamedQuery("Periodo.findByActivo");
     q.setParameter("activo", "1");
