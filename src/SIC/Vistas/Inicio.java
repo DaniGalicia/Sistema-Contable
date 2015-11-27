@@ -9,6 +9,9 @@ import java.awt.Image;
 import java.util.Locale;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 
 /**
@@ -27,7 +30,8 @@ public class Inicio extends javax.swing.JFrame {
         ImageIcon fot = new ImageIcon(getClass().getResource("/SIC/Imagenes/logo.png"));
         ImageIcon icono = new ImageIcon(fot.getImage().getScaledInstance(logo.getWidth(), logo.getHeight(), Image.SCALE_DEFAULT));
         logo.setIcon(icono);
-        this.setLocationRelativeTo(null);
+        
+        rootPane.add(new NewJInternalFrame());
     }
 
     /**
@@ -49,21 +53,17 @@ public class Inicio extends javax.swing.JFrame {
         envio3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema informatico DELIFRUTAL");
         setBackground(new java.awt.Color(102, 177, 255));
-        setMinimumSize(new java.awt.Dimension(900, 700));
-        getContentPane().setLayout(null);
+        setExtendedState(6);
 
         jLabel1.setFont(new java.awt.Font("Aharoni", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 0, 0));
         jLabel1.setText("DELIFRUTAL");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(405, 30, 221, 43);
 
         jLabel2.setFont(new java.awt.Font("Aharoni", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 0, 0));
         jLabel2.setText("EL SABOR DE LO NATURAL ");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(353, 79, 360, 29);
 
         envio1.setFont(new java.awt.Font("Aharoni", 1, 14)); // NOI18N
         envio1.setText("REGISTRAR TRANSACCIÓN");
@@ -74,8 +74,6 @@ public class Inicio extends javax.swing.JFrame {
                 envio1ActionPerformed(evt);
             }
         });
-        getContentPane().add(envio1);
-        envio1.setBounds(396, 248, 300, 31);
 
         envio2.setFont(new java.awt.Font("Aharoni", 1, 14)); // NOI18N
         envio2.setText("ESTADOS FINANCIEROS");
@@ -85,8 +83,6 @@ public class Inicio extends javax.swing.JFrame {
                 envio2ActionPerformed(evt);
             }
         });
-        getContentPane().add(envio2);
-        envio2.setBounds(396, 298, 300, 31);
 
         envio4.setFont(new java.awt.Font("Aharoni", 1, 14)); // NOI18N
         envio4.setText("MANTENIMIENTO DE CUENTAS");
@@ -95,14 +91,8 @@ public class Inicio extends javax.swing.JFrame {
                 envio4ActionPerformed(evt);
             }
         });
-        getContentPane().add(envio4);
-        envio4.setBounds(396, 199, 300, 31);
-        getContentPane().add(imagen);
-        imagen.setBounds(384, 165, 0, 0);
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SIC/Imagenes/logo.png"))); // NOI18N
-        getContentPane().add(logo);
-        logo.setBounds(0, 149, 349, 286);
 
         envio3.setFont(new java.awt.Font("Aharoni", 1, 14)); // NOI18N
         envio3.setText("ORDEN DE FABRICACION");
@@ -112,8 +102,53 @@ public class Inicio extends javax.swing.JFrame {
                 envio3ActionPerformed(evt);
             }
         });
-        getContentPane().add(envio3);
-        envio3.setBounds(400, 340, 300, 31);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(405, 405, 405)
+                .addComponent(jLabel1))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(353, 353, 353)
+                .addComponent(jLabel2))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(imagen)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(envio4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(envio1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(envio2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(envio3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel1)
+                .addGap(6, 6, 6)
+                .addComponent(jLabel2)
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(imagen))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(envio4)
+                        .addGap(18, 18, 18)
+                        .addComponent(envio1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(envio2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(envio3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -133,6 +168,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void envio3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio3ActionPerformed
         // TODO add your handling code here:
+        new OrdenesFabricacion(this, true).setVisible(true);
     }//GEN-LAST:event_envio3ActionPerformed
 
     /**

@@ -6,15 +6,10 @@
 package SIC.Vistas;
 
 import SIC.Entidades.Departamento;
-import SIC.Entidades.Movimiento;
 import SIC.Entidades.OrdenFabricacion;
 import SIC.Entidades.OrdenFabricacionDetalle;
 import SIC.Service.Comunes;
 import SIC.Service.SICService;
-import SIC.Vistas.tableModels.CargosTableModel;
-import SIC.Vistas.tableModels.EncabezadoOrdenTableModel;
-import java.awt.Frame;
-import static java.lang.String.valueOf;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DateFormat;
@@ -23,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -42,9 +36,9 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     /**
      * Creates new form OrdenFabricacion
      */
-    public OrdenesFabricacion() {
+    public OrdenesFabricacion(java.awt.Frame parent, boolean modal) {
+        super(parent,modal);
         initComponents();
-        this.setTitle("ORDEN DE FABRICACIÓN");
         this.setLocationRelativeTo(null);
         departamento.setModel(Comunes.crearModeloComboBox(SICService.getServDepartamento().getListado(Departamento.class)));
         cargarOrdenes();
@@ -971,42 +965,6 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         precioHoras.setText(detalleActual.getPrecioHora().toString());
         tasa.setText(detalleActual.getTasaCif().toString());
     }//GEN-LAST:event_tablaOrdenMousePressed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(OrdenesFabricacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(OrdenesFabricacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(OrdenesFabricacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(OrdenesFabricacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new OrdenesFabricacion().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField articulo;

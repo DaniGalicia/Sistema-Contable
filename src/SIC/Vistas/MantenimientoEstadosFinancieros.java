@@ -5,16 +5,17 @@
  */
 package SIC.Vistas;
 
-import SIC.Entidades.Cuenta;
 import SIC.Service.Comunes;
 import SIC.Entidades.CuentaSaldada;
 import SIC.Entidades.EstadoFinanciero;
 import SIC.Entidades.EstadoFinancieroPK;
 import SIC.Entidades.TipoEstadoFinanciero;
 import SIC.Service.SICService;
-import SIC.Vistas.tableModels.CuentasEFModel;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,14 +23,13 @@ import javax.swing.JOptionPane;
  */
 public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
 
-    CuentasEFModel tableModel = new CuentasEFModel();
+    List<CuentaSaldada> cuentasSaldadas=new ArrayList<>();
 
     public MantenimientoEstadosFinancieros(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        tablaCuentasEF.setColumnModel(Comunes.crearModeloColumnas("Cuenta,Debe,Haber"));
         tiposEstadoFinanciero.setModel(Comunes.crearModeloComboBox(SICService.getServTipoEstadoFinanciero().getListado()));
-
+this.rootPane.setContentPane(new Inicio());
     }
 
     /**
@@ -53,8 +53,29 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
         setTitle("Estados finacieros");
         setModal(true);
 
-        tablaCuentasEF.setModel(tableModel);
+        tablaCuentasEF.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Cuenta", "Debe", "Haber"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaCuentasEF.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablaCuentasEF);
+        if (tablaCuentasEF.getColumnModel().getColumnCount() > 0) {
+            tablaCuentasEF.getColumnModel().getColumn(0).setResizable(false);
+            tablaCuentasEF.getColumnModel().getColumn(1).setResizable(false);
+            tablaCuentasEF.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         tiposEstadoFinanciero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -81,20 +102,24 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel2)
-                .addGap(12, 12, 12)
-                .addComponent(tiposEstadoFinanciero, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(botonGenerar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(230, 230, 230)
-                .addComponent(total))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel2)
+                                .addGap(12, 12, 12)
+                                .addComponent(tiposEstadoFinanciero, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(botonGenerar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(230, 230, 230)
+                                .addComponent(total)))
+                        .addGap(0, 439, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,31 +146,33 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
 
     private void botonGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarActionPerformed
         // TODO add your handling code here:
-        tableModel.cuentasSaldadas.clear();
+        cuentasSaldadas.clear();
         TipoEstadoFinanciero tipoEstadoFinancieroSelected = (TipoEstadoFinanciero) tiposEstadoFinanciero.getSelectedItem();
         if (tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("EC")) {
-            tableModel.cuentasSaldadas = SICService.getServCuentaSaldada().findByTipoCuenta("K");
             EstadoFinanciero estadoResultados = SICService.getServEstadoFinanciero().getEstadoFinacieroPeriodoActivo();
-            CuentaSaldada cuentaReinvierte = new CuentaSaldada();
-            cuentaReinvierte.setSaldo(estadoResultados.getSaldo());
-            tableModel.cuentasSaldadas.add(cuentaReinvierte);
+            if (estadoResultados != null) {
+                cuentasSaldadas = SICService.getServCuentaSaldada().findByTipoCuenta("K");
+                cargarDatos(new Object[]{"Reinversion(50% utilidad)",estadoResultados.getSaldo()*0.5,""});
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Falta el estado de resultados", "Generar estado financiero", JOptionPane.ERROR_MESSAGE);
+            }
+
         } else if (tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("ER")) {
-            tableModel.cuentasSaldadas = SICService.getServCuentaSaldada().findByTipoCuenta("R");
+            cuentasSaldadas = SICService.getServCuentaSaldada().findByTipoCuenta("R");
         } else if (tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("BG")) {
-            tableModel.cuentasSaldadas = SICService.getServCuentaSaldada().findByTipoCuenta("A");
-            tableModel.cuentasSaldadas.addAll(SICService.getServCuentaSaldada().findByTipoCuenta("P"));
-            
+            cuentasSaldadas = SICService.getServCuentaSaldada().findByTipoCuenta("A");
+            cuentasSaldadas.addAll(SICService.getServCuentaSaldada().findByTipoCuenta("P"));
 
             //Balance comprobacion
         } else if (tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("BC")) {
-            tableModel.cuentasSaldadas = SICService.getServCuentaSaldada().getListado();
-            tableModel.cuentasSaldadas.removeIf(cs -> cs.getCuenta().getTipoCuenta().getIdTipoCuenta().equals("R"));
+            cuentasSaldadas = SICService.getServCuentaSaldada().getListado();
+            cuentasSaldadas.removeIf(cs -> cs.getCuenta().getTipoCuenta().getIdTipoCuenta().equals("R"));
         }
 
-        tableModel.fireTableDataChanged();
 
         double t = 0;
-        for (CuentaSaldada cuentaSaldada : tableModel.cuentasSaldadas) {
+        for (CuentaSaldada cuentaSaldada : cuentasSaldadas) {
             t += cuentaSaldada.getSaldo();
         }
 
@@ -155,15 +182,48 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
             t = -t;
             total.setText("Saldo acreedor: " + t);
         }
-
+        
+        if(tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("BC") && t!=0)
+            JOptionPane.showMessageDialog(null, "Datos inconsistentes","Balance comprobacion",JOptionPane.ERROR_MESSAGE);
+            
+        
+        //cargarDatos(null);
     }//GEN-LAST:event_botonGenerarActionPerformed
+
+    @SuppressWarnings("empty-statement")
+    private void cargarDatos(Object[] valor) {
+
+        DefaultTableModel defaultTableModel = (DefaultTableModel) tablaCuentasEF.getModel();
+        if (valor == null) {
+            while(defaultTableModel.getRowCount()>0)
+                defaultTableModel.removeRow(0);
+            
+            for (CuentaSaldada cuenta : cuentasSaldadas) {
+                Double saldo = cuenta.getSaldo();
+                String debe = "", haber = "";
+                if (saldo < 0) {
+                    saldo = -saldo;
+                    haber = saldo.toString();
+                } else {
+                    debe = saldo.toString();
+                }
+
+                defaultTableModel.addRow(new Object[]{cuenta.getCuenta().getNombre(), debe, haber});
+
+            }
+            tablaCuentasEF.setModel(defaultTableModel);
+        }else{
+            defaultTableModel.addRow(valor);
+        }
+
+    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         EstadoFinanciero estadoFinanciero = new EstadoFinanciero();
         estadoFinanciero.setTipoEstadoFinanciero((TipoEstadoFinanciero) tiposEstadoFinanciero.getSelectedItem());
         double t = 0;
-        for (CuentaSaldada cuentaSaldada : tableModel.cuentasSaldadas) {
+        for (CuentaSaldada cuentaSaldada : cuentasSaldadas) {
             t += cuentaSaldada.getSaldo();
         }
         estadoFinanciero.setSaldo(t);
