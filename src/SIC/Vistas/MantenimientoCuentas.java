@@ -30,7 +30,7 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
     public MantenimientoCuentas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        comboTiposCuenta.setModel(Comunes.crearModeloComboBox(SICService.getServTipoCuenta().getListado()));
+        comboTiposCuenta.setModel(Comunes.crearModeloComboBox(SICService.getServTipoCuenta().getListado(TipoCuenta.class)));
         this.setLocationRelativeTo(null);
         cargarDatos();
     }

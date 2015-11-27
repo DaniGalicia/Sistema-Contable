@@ -16,10 +16,7 @@ import javax.persistence.Query;
  */
 public class ServMovimiento extends BasicService{
 
-    public ServMovimiento(String persistenceUnit) {
-        super();
-    }
-
+    
     public List<Movimiento> getListado() {
         Query q = getEntityManager().createNamedQuery("Movimiento.findAll");
         return q.getResultList();

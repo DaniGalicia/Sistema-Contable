@@ -9,11 +9,7 @@ import javax.persistence.Query;
  * @author GALICIA
  */
 public class ServUsuario extends BasicService{
-
-    public ServUsuario(String persistenceUnit) {
-        super();
-    }
-
+   
     public boolean login(String usuario,String clave){
       Query q=getEntityManager().createQuery("SELECT c FROM Usuario c WHERE c.clave = :clave AND c.usuario = :usuario");
       q.setParameter("usuario", usuario);
@@ -39,8 +35,4 @@ public class ServUsuario extends BasicService{
         return null;
     }
 
-    public List<Usuario> getListado() {
-        Query q = getEntityManager().createNamedQuery("Usuario.findAll");
-        return q.getResultList();
-    }
 }

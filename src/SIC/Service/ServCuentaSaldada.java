@@ -10,10 +10,7 @@ import javax.persistence.Query;
  */
 public class ServCuentaSaldada extends BasicService{
 
-    public ServCuentaSaldada(String persistenceUnit) {
-        super();
-    }
-    
+        
     public CuentaSaldada findByIdCuentaSaldada(String idCuentaSaldada) {
         Query q = getEntityManager().createNamedQuery("CuentaSaldada.findByIdCuentaSaldada");
         q.setParameter("idCuentaSaldada", idCuentaSaldada);

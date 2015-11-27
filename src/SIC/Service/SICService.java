@@ -33,7 +33,7 @@ public class SICService {
 
     public static ServPeriodo getServPeriodo() {
         if(servPeriodo==null)
-            servPeriodo=new ServPeriodo(PERSISTENCE_UNIT_NAME);
+            servPeriodo=new ServPeriodo();
         return servPeriodo;
     }
 
@@ -59,7 +59,7 @@ public class SICService {
 
     public static ServTipoCuenta getServTipoCuenta() {
         if(servTipoCuenta==null)
-            servTipoCuenta=new ServTipoCuenta(PERSISTENCE_UNIT_NAME);
+            servTipoCuenta=new ServTipoCuenta();
         return servTipoCuenta;
     }
 
@@ -73,28 +73,28 @@ public class SICService {
     
     public static ServUsuario getServUsuario() {
         if(servUsuario==null)
-            servUsuario=new ServUsuario(PERSISTENCE_UNIT_NAME);
+            servUsuario=new ServUsuario();
         
         return servUsuario;
     }
     
     public static ServCuenta getServCuenta() {
         if (servCuenta == null) {
-            SICService.servCuenta = new ServCuenta(PERSISTENCE_UNIT_NAME);
+            SICService.servCuenta = new ServCuenta();
         }
         return servCuenta;
     }
 
     public static ServMovimiento getServMovimiento() {
         if (servMovimiento == null) {
-            SICService.servMovimiento = new ServMovimiento(PERSISTENCE_UNIT_NAME);
+            SICService.servMovimiento = new ServMovimiento();
         }
         return servMovimiento;
     }
 
     public static ServCuentaSaldada getServCuentaSaldada() {
         if(servCuentaSaldada==null)
-            servCuentaSaldada=new ServCuentaSaldada(PERSISTENCE_UNIT_NAME);
+            servCuentaSaldada=new ServCuentaSaldada();
         
         return servCuentaSaldada;
     }
