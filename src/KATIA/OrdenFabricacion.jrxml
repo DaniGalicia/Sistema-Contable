@@ -3,14 +3,15 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="orden" class="SIC.Entidades.OrdenFabricacion"/>
+	<field name="OrdenFabricacion" class="SIC.Entidades.OrdenFabricacion"/>
+	<field name="Detalle Orden" class="SIC.Entidades.OrdenFabricacionDetalle"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="35" splitType="Stretch">
 			<staticText>
-				<reportElement x="127" y="0" width="301" height="20" uuid="4f616ce6-a616-4a3b-a41b-5c63e3ba3fea"/>
+				<reportElement x="122" y="0" width="301" height="20" uuid="4f616ce6-a616-4a3b-a41b-5c63e3ba3fea"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -99,43 +100,43 @@
 			</staticText>
 			<textField>
 				<reportElement x="460" y="0" width="95" height="20" uuid="c59ead7d-1de8-47c9-9ddd-2b0978188490"/>
-				<textFieldExpression><![CDATA[$P{orden}$P{orden}.getIdOrdenFabricacion()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{OrdenFabricacion}.getIdOrdenFabricacion()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="460" y="20" width="95" height="20" uuid="a7945774-e1d8-4144-bc4d-8272d96b68f4"/>
-				<textFieldExpression><![CDATA[$P{orden}.getFechaEntrega()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{OrdenFabricacion}.getFechaEntrega()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="460" y="80" width="95" height="20" uuid="49a13500-c6e2-40a2-917e-73e21c55201c"/>
-				<textFieldExpression><![CDATA[$P{orden}.getFechaFinalizado()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{OrdenFabricacion}.getFinalizada()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="460" y="60" width="95" height="20" uuid="b92265de-226d-4722-aebe-2a0c8708128e"/>
-				<textFieldExpression><![CDATA[$P{orden}.getCantidad()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{OrdenFabricacion}.getCantidad()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="460" y="100" width="95" height="20" uuid="bda6c94a-a996-4486-9432-edabf3acd039"/>
-				<textFieldExpression><![CDATA[$P{orden}.getEspecificaciones()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{OrdenFabricacion}.getEspecificaciones()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="148" y="60" width="95" height="20" uuid="443edf07-54bb-4f3f-b58a-cd2000031c84"/>
-				<textFieldExpression><![CDATA[$P{orden}.getArticulo()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{OrdenFabricacion}.getArticulo()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="148" y="100" width="95" height="20" uuid="318d4587-4edf-4fe3-9a3d-37831c5c9372"/>
-				<textFieldExpression><![CDATA[$P{orden}.getRefPedido()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{OrdenFabricacion}.getRefPedido()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="148" y="80" width="95" height="20" uuid="80ddef86-2b89-4697-9297-05663d284b70"/>
-				<textFieldExpression><![CDATA[$P{orden}.getFechaIniciado()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{OrdenFabricacion}.getFechaIniciado()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="148" y="20" width="95" height="20" uuid="5b6288ca-0976-4f87-a5b3-d849176b38db"/>
-				<textFieldExpression><![CDATA[$P{orden}.getDepartamento()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{OrdenFabricacion}.getDepartamento()]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy">
+			<textField>
 				<reportElement x="148" y="0" width="95" height="20" uuid="88b4fc7e-bc28-42fe-ac68-d157f4eeb216"/>
-				<textFieldExpression><![CDATA[$P{orden}.getFechaExpedicion()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{OrdenFabricacion}.getFechaExpedicion()]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -340,54 +341,54 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="125" splitType="Stretch">
 			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="0" width="74" height="20" uuid="ce4dc930-901f-487f-97a9-737a8bdf7192"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 			</textField>
-			<staticText>
-				<reportElement x="74" y="0" width="48" height="20" uuid="5ac7655b-ff85-452c-bdc3-5786eb8240e8"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
-				<text><![CDATA[$F{Detalle Orden}.getMaterial()]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="122" y="0" width="41" height="20" uuid="48afdef2-ab23-4f94-8de7-394edbe9a880"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
-				<text><![CDATA[$F{Detalle Orden}.getCantidadMaterial()]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="163" y="0" width="46" height="20" uuid="fa23ac1a-5705-4db4-94e2-10671c1ac3d9"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
-				<text><![CDATA[$F{Detalle Orden}.getPrecioUnitario()]]></text>
-			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="74" y="0" width="48" height="20" uuid="970af32e-9b96-4c91-ac46-e06544c07fd2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Detalle Orden}.getMaterial()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="122" y="0" width="41" height="20" uuid="60c9ec57-5873-4c79-9fa7-edb77ffb2876"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Detalle Orden}.getCantidadMaterial()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="163" y="0" width="46" height="20" uuid="1fd05976-7cec-41d6-ab6a-16668ca74443"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Detalle Orden}.getPrecioUnitario()]]></textFieldExpression>
+			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="209" y="0" width="48" height="20" uuid="d66735cc-84f6-4cd1-89ee-8d8cd3a537e7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 			</textField>
-			<staticText>
-				<reportElement x="257" y="0" width="48" height="20" uuid="fedb0276-b491-4924-88a6-02ef1ef3ff1f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
-				<text><![CDATA[$F{Detalle Orden}.getCantidadObreros()]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="305" y="0" width="41" height="20" uuid="af8c2691-4ef1-4ab9-bb36-68389def8b01"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
-				<text><![CDATA[$F{Detalle Orden}.getPrecioHora()]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="346" y="0" width="46" height="20" uuid="921527ea-7b89-4729-950e-78c99a0640ea"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
-				<text><![CDATA[$F{Detalle Orden}.getCantidadHoras()]]></text>
-			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="257" y="0" width="48" height="20" uuid="1ea98869-3295-4108-ba6e-ab5879e88dd4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Detalle Orden}.getCantidadObreros()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="305" y="0" width="41" height="20" uuid="d05036c0-639d-4557-8752-0b182551395f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Detalle Orden}.getPrecioHora()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="346" y="0" width="46" height="20" uuid="6465ee0f-3e97-442d-9155-9a3ce9713023"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Detalle Orden}.getCantidadHoras()]]></textFieldExpression>
+			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="392" y="0" width="56" height="20" uuid="4e29f733-f224-4b48-afe1-b60a2265b255"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 			</textField>
-			<staticText>
-				<reportElement x="448" y="0" width="51" height="20" uuid="b8a41bdd-9559-4519-8bda-49fc0f56883d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
-				<text><![CDATA[$F{Detalle Orden}.getTasaCif()]]></text>
-			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="448" y="0" width="51" height="20" uuid="3c9e6190-9ec0-46b2-877a-0e661e38e532"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Detalle Orden}.getTasaCif()]]></textFieldExpression>
+			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="499" y="0" width="56" height="20" uuid="fcd6189b-1147-4b9d-9eb9-fe0d846dca13"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
