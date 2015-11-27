@@ -1,8 +1,6 @@
 package SIC.Service;
 
 import SIC.Entidades.Periodo;
-import SIC.Entidades.Usuario;
-import java.util.List;
 import javax.persistence.Query;
 
 /**

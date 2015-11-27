@@ -1,7 +1,6 @@
 package SIC.Service;
 
 import SIC.Entidades.EstadoFinanciero;
-import SIC.Entidades.TipoEstadoFinanciero;
 import java.util.List;
 import javax.persistence.Query;
 

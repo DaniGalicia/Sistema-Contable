@@ -5,10 +5,8 @@
  */
 package SIC.Service;
 
-import SIC.Service.SICService;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;

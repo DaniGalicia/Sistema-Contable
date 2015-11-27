@@ -11,7 +11,6 @@ import SIC.Entidades.TipoCuenta;
 import SIC.Service.SICService;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
