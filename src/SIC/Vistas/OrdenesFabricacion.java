@@ -21,6 +21,7 @@ import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.JTextComponent;
 
 /**
  *
@@ -48,7 +49,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     private void limpiar() {
         for (Object cajasTexto : jPanel3.getComponents()) {
             if (cajasTexto.getClass().getTypeName().equals("javax.swing.JTextField")) {
-                ((JTextField) cajasTexto).setText("");
+                ((JTextComponent) cajasTexto).setText("");
             }
         }
     }
@@ -100,7 +101,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     }
 
     private void cargarOrdenes() {
-        ordenes = (List<OrdenFabricacion>) SICService.getServOrdenFabricacion().getListado(OrdenFabricacion.class);
+        ordenes = SICService.getServOrdenFabricacion().getListado(OrdenFabricacion.class);
         DefaultTableModel defaultTableModel = (DefaultTableModel) tablaOrdenes.getModel();
         DateFormat fechas = new SimpleDateFormat("dd/MM/yyyy");
         while (defaultTableModel.getRowCount() > 0) {

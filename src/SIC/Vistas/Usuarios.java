@@ -40,7 +40,7 @@ UsuariosTableModel tableModel=new UsuariosTableModel();
     }
 
     public void cargarDatos() {
-      usuarios = (List<Usuario>) SICService.getServUsuario().getListado(Usuario.class);
+      usuarios = SICService.getServUsuario().getListado(Usuario.class);
        DefaultTableModel defaultTableModel = (DefaultTableModel) tablaUsuarios.getModel();
        
        while (defaultTableModel.getRowCount() > 0) {

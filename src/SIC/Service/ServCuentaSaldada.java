@@ -1,6 +1,7 @@
 package SIC.Service;
 
 import SIC.Entidades.CuentaSaldada;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
 
@@ -19,6 +20,14 @@ public class ServCuentaSaldada extends BasicService{
 
     }
 
+    public List<CuentaSaldada> findByTiposCuenta(String tipoCuentaList){
+        List<CuentaSaldada> retorno=new ArrayList<>();
+        
+        for(String tipoCuenta:tipoCuentaList.split(","))
+            retorno.addAll(findByTipoCuenta(tipoCuenta));
+        
+        return retorno;
+    }
     
     public List<CuentaSaldada> findByTipoCuenta(String tipoCuenta){
 

@@ -390,7 +390,7 @@ public class IngresoCuenta extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        for (Cuenta cuenta : (List<Cuenta>)SICService.getServCuenta().getListado(Cuenta.class)) {
+        for (Cuenta cuenta :(List<Cuenta>) SICService.getServCuenta().getListado(Cuenta.class)) {
             if (cuenta.getMovimientoList().isEmpty()) {
                 continue;
             }

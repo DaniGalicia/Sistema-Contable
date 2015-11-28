@@ -29,7 +29,7 @@ public class Main
     {
        
 
-        JasperReport reporte = (JasperReport) JasperCompileManager.compileReport("src/Reportes/OrdenFabricacion.jrxml");
+        JasperReport reporte = JasperCompileManager.compileReport("src/Reportes/OrdenFabricacion.jrxml");
 
         
         

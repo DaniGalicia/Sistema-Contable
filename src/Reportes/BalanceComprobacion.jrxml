@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b22ab1e7-ce85-4a04-8444-d0f61bb4d33a">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="172"/>
+	<parameter name="nombreEstadoFinanciero" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="periodo" class="SIC.Entidades.Periodo" isForPrompting="false"/>
+	<field name="cuenta" class="SIC.Entidades.Cuenta"/>
+	<field name="saldo" class="java.lang.Double"/>
+	<group name="tipoCuenta">
+		<groupExpression><![CDATA[$F{cuenta}.getTipoCuenta()]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="555" height="20" uuid="8b1eede9-0972-430d-b3be-6b51ecd11b38"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cuenta}.getTipoCuenta().getNombre()]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="118" y="10" width="353" height="20" uuid="4ddd70b4-3c78-452d-91eb-728f203bac7b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROCESADORA DE SORBETE ARTESANAL DELIFRUTAL]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="355" y="50" width="100" height="20" uuid="37948ce0-d4bf-4951-829c-8e0d9de3b588"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{periodo}.getFechaFin()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="155" y="30" width="261" height="20" uuid="ab6b6afa-bb93-4f60-a071-aeaa09fcb71d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{nombreEstadoFinanciero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="102" y="50" width="53" height="20" uuid="d7d9e564-03cd-45c1-8b5d-ea88a8058dc7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEL]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM">
+				<reportElement x="155" y="50" width="100" height="20" uuid="b5348510-eda2-40a4-a468-5bf4d6bd4d35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{periodo}.getFechaInicio()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="255" y="50" width="100" height="20" uuid="1dbe99dd-2292-4abf-8fbf-1df50674b9a5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AL]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="0" width="95" height="79" uuid="9fff6d98-3097-4056-9644-76bef01fca27"/>
+				<imageExpression><![CDATA["/home/dannier/NetBeansProjects/Sistema-Contable/src/SIC/Imagenes/logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="240" y="21" width="128" height="20" uuid="b1aa74fe-d7fc-4d0d-94e9-0b7787c93887"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DEBE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="21" width="142" height="20" uuid="1312c52b-6b27-418b-bad4-14090ae7d176"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[HABER]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="240" height="20" isRemoveLineWhenBlank="true" uuid="c81e0c78-d47c-4194-a84b-529f6db4ce56"/>
+				<box>
+					<pen lineStyle="Dotted"/>
+					<topPen lineStyle="Dotted"/>
+					<leftPen lineStyle="Dotted"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cuenta}.getNombre()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement isPrintRepeatedValues="false" x="240" y="0" width="128" height="20" isRemoveLineWhenBlank="true" uuid="063acfd2-f114-43ce-93c8-f001e9e42fca">
+					<printWhenExpression><![CDATA[$F{saldo} > 0]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineStyle="Dotted"/>
+					<topPen lineStyle="Dotted"/>
+					<leftPen lineStyle="Dotted"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="0" width="142" height="20" isRemoveLineWhenBlank="true" uuid="d093b151-e819-47aa-9736-800cfb509134">
+					<printWhenExpression><![CDATA[$F{saldo} < 0]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineStyle="Dotted"/>
+					<topPen lineStyle="Dotted"/>
+					<leftPen lineStyle="Dotted"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{saldo}*(-1)]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="23" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="430" y="34" width="80" height="20" uuid="32e3f0ec-a2ba-408e-b4aa-d83f8c1842f1"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pag. "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="510" y="34" width="40" height="20" uuid="647341fd-2219-4209-889c-70a81a24b670"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="72" y="34" width="100" height="20" uuid="7e235181-a942-4b6e-98f7-1204bc92d6b8"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="21" y="34" width="44" height="11" uuid="f5bef451-9d63-4853-96d2-921466567673"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Generado]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="20" splitType="Stretch"/>
+	</summary>
+</jasperReport>

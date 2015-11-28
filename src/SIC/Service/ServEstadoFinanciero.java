@@ -16,7 +16,7 @@ public class ServEstadoFinanciero extends BasicService{
         Query q=getEntityManager().createNamedQuery("EstadoFinanciero.findByIdPeriodo");
         q.setParameter("idPeriodo", SICService.getServPeriodo().getActivo().getIdPeriodo());
         try {
-            for(EstadoFinanciero estadoFinanciero:(List<EstadoFinanciero>)q.getResultList())
+            for(EstadoFinanciero estadoFinanciero:(List<EstadoFinanciero>) q.getResultList())
             {
                 if(estadoFinanciero.getTipoEstadoFinanciero().equals(SICService.getServTipoEstadoFinanciero().findByIdTipoEstadoFinanciero(idTipoEstadoFinanciero)))
                     return estadoFinanciero;
