@@ -1,29 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-    <background>
-        <band/>
-    </background>
-    <title>
-        <band height="79"/>
-    </title>
-    <pageHeader>
-        <band height="35"/>
-    </pageHeader>
-    <columnHeader>
-        <band height="61"/>
-    </columnHeader>
-    <detail>
-        <band height="125"/>
-    </detail>
-    <columnFooter>
-        <band height="45"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="54"/>
-    </pageFooter>
-    <summary>
-        <band height="42"/>
-    </summary>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="068e5ebe-43a6-45a3-8616-6f98945db257">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="8"/>
+	<parameter name="TipoEstadoFinanciero" class="SIC.Entidades.TipoEstadoFinanciero"/>
+	<parameter name="Periodo" class="SIC.Entidades.Periodo"/>
+	<field name="cuenta" class="SIC.Entidades.Cuenta"/>
+	<field name="saldo" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="108" y="0" width="353" height="20" uuid="2740041c-f058-48fd-920e-e63d72dd8ec0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROCESADORA DE SORBETE ARTESANAL DELIFRUTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="145" y="20" width="261" height="20" uuid="3ddc8d22-9545-4bab-b28f-8290d36c2aac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{TipoEstadoFinanciero}.getNombre()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="92" y="40" width="53" height="20" uuid="b7516816-268a-463c-a4f6-4fd230a90279"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="145" y="40" width="100" height="20" uuid="e3f92940-f3ae-4c10-815e-cb7678e6b485"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Periodo}.getFechaInicio()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="245" y="40" width="100" height="20" uuid="f93687db-a7d4-49c7-b42f-cb80d78ac336"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="345" y="40" width="100" height="20" uuid="25b90ef1-e4b9-4a60-a660-af8496ad12f4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Periodo}.getFechaFin()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="8" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="8" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="219" splitType="Stretch">
+			<staticText>
+				<reportElement x="92" y="0" width="369" height="20" uuid="62483286-439f-4999-843d-6dc78a3bf731"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[+ INGRESOS ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="92" y="40" width="369" height="20" uuid="ed5eb0d2-dd08-498f-9430-5e91fbf63f6a"/>
+				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="92" y="20" width="369" height="20" uuid="3a0c9830-a170-4108-b6c4-56d5b002d4e1"/>
+				<textFieldExpression><![CDATA[$F{cuenta}.getNombre()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="92" y="62" width="369" height="20" uuid="914a574d-201f-48a1-84fe-4dd64a15c46e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[- GASTOS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="92" y="102" width="369" height="20" uuid="abb7896e-26bb-419d-9648-e00b9e59e01e"/>
+				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="92" y="82" width="369" height="20" uuid="d77ee37e-8050-47e9-99b4-8faebdd7224f"/>
+				<textFieldExpression><![CDATA[$F{cuenta}.getNombre()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="92" y="122" width="369" height="20" uuid="939f92e3-bd91-4dee-a83f-4f1b968fbdcf"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[= UTILIDADES]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="92" y="142" width="369" height="20" uuid="0f1b717b-81ca-44b1-aabf-a9e90e1552ce"/>
+				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="97" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
 </jasperReport>
