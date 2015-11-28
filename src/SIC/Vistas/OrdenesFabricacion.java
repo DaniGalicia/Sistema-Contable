@@ -202,7 +202,6 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        descripcion = new javax.swing.JTextField();
         cantidadMaterial = new javax.swing.JTextField();
         preciounitario = new javax.swing.JTextField();
         cantidadObreros = new javax.swing.JTextField();
@@ -210,7 +209,10 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         precioHoras = new javax.swing.JTextField();
         tasa = new javax.swing.JTextField();
         nuevoDetalle = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        descripcion = new javax.swing.JTextArea();
         eliminarDetalle = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Orden de fabricacion");
@@ -263,34 +265,48 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         });
         jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 460, -1, -1));
 
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel1.setText("FECHA DE EXPEDICIÓN");
+        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 120, -1));
 
         expedicion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 expedicionActionPerformed(evt);
             }
         });
+        jPanel6.add(expedicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 160, -1));
 
         jLabel2.setText("DEPARTAMENTO");
+        jPanel6.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         departamento.setEditable(true);
         departamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel6.add(departamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 160, -1));
 
         jLabel3.setText("PRODUCCIÓN");
+        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, -1, -1));
 
         jLabel4.setText("ARTICULO");
+        jPanel6.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
 
         jLabel5.setText("INICIADO");
+        jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
 
         jLabel6.setText("REF PEPIDO N°");
+        jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
 
         jLabel8.setText("FECHA REQUERIDA POR CLIENTE ");
+        jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, -1, -1));
 
         jLabel12.setText("CANTIDAD");
+        jPanel6.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, -1, -1));
 
         jLabel10.setText("TERMINADO");
+        jPanel6.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 170, -1, -1));
 
         jLabel11.setText("ESPECIFICACIONES ");
+        jPanel6.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, -1, -1));
 
         orden.setEnabled(false);
         orden.addActionListener(new java.awt.event.ActionListener() {
@@ -298,14 +314,23 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
                 ordenActionPerformed(evt);
             }
         });
+        jPanel6.add(orden, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 30, 160, -1));
 
         cantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cantidadActionPerformed(evt);
             }
         });
+        jPanel6.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 130, 160, -1));
+        jPanel6.add(fechaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 60, 160, -1));
+        jPanel6.add(terminado, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 160, 160, -1));
+        jPanel6.add(especificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 190, 160, -1));
+        jPanel6.add(articulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 160, -1));
+        jPanel6.add(iniciado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 160, -1));
+        jPanel6.add(referencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 160, -1));
 
         jLabel7.setText("N° DE ORDEN");
+        jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 40, -1, -1));
 
         nuevo.setText("NUEVO");
         nuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -313,119 +338,13 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
                 nuevoActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(nuevo))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(expedicion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(160, 160, 160)
-                .addComponent(jLabel7)
-                .addGap(144, 144, 144)
-                .addComponent(orden, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel2)
-                .addGap(49, 49, 49)
-                .addComponent(departamento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(160, 160, 160)
-                .addComponent(jLabel8)
-                .addGap(44, 44, 44)
-                .addComponent(fechaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(370, 370, 370)
-                .addComponent(jLabel3))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel4)
-                .addGap(79, 79, 79)
-                .addComponent(articulo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(160, 160, 160)
-                .addComponent(jLabel12)
-                .addGap(158, 158, 158)
-                .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel5)
-                .addGap(82, 82, 82)
-                .addComponent(iniciado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(160, 160, 160)
-                .addComponent(jLabel10)
-                .addGap(150, 150, 150)
-                .addComponent(terminado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel6)
-                .addGap(56, 56, 56)
-                .addComponent(referencia, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(160, 160, 160)
-                .addComponent(jLabel11)
-                .addGap(110, 110, 110)
-                .addComponent(especificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(nuevo)
-                .addGap(7, 7, 7)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(orden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(expedicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))))
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fechaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(departamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))))
-                .addGap(10, 10, 10)
-                .addComponent(jLabel3)
-                .addGap(16, 16, 16)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(articulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))))
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(terminado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(iniciado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))))
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(referencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel11))
-                    .addComponent(especificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+        jPanel6.add(nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 28, -1, -1));
 
         jTabbedPane1.addTab("ENCABEZADO", jPanel1);
+
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tablaOrden.setAutoCreateRowSorter(true);
         tablaOrden.setModel(new javax.swing.table.DefaultTableModel(
@@ -451,15 +370,24 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tablaOrden);
 
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 266, 930, 150));
+
         jLabel13.setText("MATERIALES");
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 246, -1, -1));
 
         jLabel14.setText("MANO DE OBRA");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(547, 246, -1, -1));
 
         jLabel15.setText("COSTOS INDIRECTOS FAB.");
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(785, 246, -1, -1));
 
         jLabel16.setText("COSTO TOTAL");
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 430, -1, -1));
 
         jLabel17.setText("COSTO UNITARIO");
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 460, -1, -1));
+        jPanel2.add(costoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, 81, -1));
+        jPanel2.add(costoUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 450, 81, -1));
 
         guardarOrden.setText("GUARDAR");
         guardarOrden.addActionListener(new java.awt.event.ActionListener() {
@@ -467,6 +395,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
                 guardarOrdenActionPerformed(evt);
             }
         });
+        jPanel2.add(guardarOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 520, 140, -1));
 
         finalizar.setText("FINALIZAR");
         finalizar.addActionListener(new java.awt.event.ActionListener() {
@@ -474,6 +403,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
                 finalizarActionPerformed(evt);
             }
         });
+        jPanel2.add(finalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, 140, -1));
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -490,10 +420,10 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
         jLabel21.setText("Cantidad");
-        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 54, -1));
+        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 54, -1));
 
         jLabel22.setText("Precio Unitario");
-        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
         jLabel23.setText("Cantidad Obreros");
         jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, -1, -1));
@@ -507,20 +437,13 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         jLabel26.setText("Tasa sobre costo primo");
         jPanel3.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 70, -1, 24));
 
-        descripcion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                descripcionActionPerformed(evt);
-            }
-        });
-        jPanel3.add(descripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 78, -1));
-
         cantidadMaterial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cantidadMaterialActionPerformed(evt);
             }
         });
-        jPanel3.add(cantidadMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 78, -1));
-        jPanel3.add(preciounitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 77, -1));
+        jPanel3.add(cantidadMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 140, -1));
+        jPanel3.add(preciounitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 140, -1));
         jPanel3.add(cantidadObreros, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 76, -1));
         jPanel3.add(numHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 76, -1));
         jPanel3.add(precioHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 76, -1));
@@ -534,85 +457,28 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         });
         jPanel3.add(nuevoDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, -1, -1));
 
+        descripcion.setColumns(20);
+        descripcion.setRows(5);
+        jScrollPane3.setViewportView(descripcion);
+
+        jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 140, 70));
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 29, 1415, 199));
+
         eliminarDetalle.setText("ELIMINAR");
         eliminarDetalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminarDetalleActionPerformed(evt);
             }
         });
+        jPanel2.add(eliminarDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1415, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(142, 142, 142)
-                .addComponent(jLabel13)
-                .addGap(343, 343, 343)
-                .addComponent(jLabel14)
-                .addGap(161, 161, 161)
-                .addComponent(jLabel15))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 930, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(eliminarDetalle)
-                .addGap(289, 289, 289)
-                .addComponent(jLabel16)
-                .addGap(18, 18, 18)
-                .addComponent(costoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(350, 350, 350)
-                        .addComponent(guardarOrden)
-                        .addGap(40, 40, 40)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(finalizar)
-                    .addComponent(costoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(859, 859, 859))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel15))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(eliminarDetalle))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16)
-                            .addComponent(costoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(costoUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(guardarOrden)
-                    .addComponent(finalizar))
-                .addGap(87, 87, 87))
-        );
+        jButton1.setText("EXPORTAR A PDF");
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 520, 140, -1));
 
         jTabbedPane1.addTab("ORDEN", jPanel2);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 19, -1, -1));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 19, -1, 640));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -692,6 +558,12 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     private void finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarActionPerformed
         ordenFabricacion.setFinalizada("1");
         SICService.getServOrdenFabricacion().guardar(ordenFabricacion);
+        guardar.setEnabled(false);
+        guardarOrden.setEnabled(false);
+        finalizar.setEnabled(false);
+        JOptionPane.showMessageDialog(null, "Orden Finalizada");
+        
+        
     }//GEN-LAST:event_finalizarActionPerformed
 
     private void eliminarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarDetalleActionPerformed
@@ -829,22 +701,21 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     }//GEN-LAST:event_tablaOrdenesMousePressed
 
     private void tablaOrdenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaOrdenesMouseClicked
+        ordenFabricacion=null;
         if (evt.getClickCount() == 2) {
             jTabbedPane1.setEnabledAt(1, true);
             jTabbedPane1.setSelectedIndex(1);
             ordenFabricacion = ordenes.get(tablaOrdenes.getSelectedRow());
             cargarOrdenDetalle();
+            
         } else {
             if (evt.getClickCount() == 1) {
                 int filaSelec = tablaOrdenes.getSelectedRow();
                 ordenFabricacion = ordenes.get(filaSelec);
             }
         }
-        int filaSelec = tablaOrdenes.getSelectedRow();
-        ordenFabricacion = ordenes.get(filaSelec);
-        DefaultTableModel defaultTableModel = (DefaultTableModel) tablaOrdenes.getModel();
         DateFormat fechas = new SimpleDateFormat("dd/MM/yyyy");
-        String fecha1 = new String();
+        String fecha1;
         Date aux = new Date();
         aux = ordenFabricacion.getFechaExpedicion();
         fecha1 = fechas.format(aux);
@@ -868,6 +739,13 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
             guardar.setEnabled(false);
             guardarOrden.setEnabled(false);
             finalizar.setEnabled(false);
+            nuevoDetalle.setEnabled(false);
+        }
+        else{
+            guardar.setEnabled(true);
+            guardarOrden.setEnabled(true);
+            finalizar.setEnabled(true);
+            nuevoDetalle.setEnabled(true);
         }
     }//GEN-LAST:event_tablaOrdenesMouseClicked
 
@@ -880,10 +758,6 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_cantidadMaterialActionPerformed
 
-    private void descripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descripcionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_descripcionActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField articulo;
     private javax.swing.JTextField cantidad;
@@ -892,7 +766,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     private javax.swing.JTextField costoTotal;
     private javax.swing.JTextField costoUnitario;
     private javax.swing.JComboBox departamento;
-    private javax.swing.JTextField descripcion;
+    private javax.swing.JTextArea descripcion;
     private javax.swing.JButton eliminar;
     private javax.swing.JButton eliminarDetalle;
     private javax.swing.JTextField especificacion;
@@ -902,6 +776,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     private javax.swing.JButton guardar;
     private javax.swing.JButton guardarOrden;
     private javax.swing.JTextField iniciado;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -934,6 +809,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton nuevo;
     private javax.swing.JButton nuevoDetalle;
