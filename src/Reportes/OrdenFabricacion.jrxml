@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ab150e74-f679-409d-b51b-354ce8b47714">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="96"/>
 	<parameter name="orden" class="SIC.Entidades.OrdenFabricacion"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -10,7 +10,7 @@
 	<title>
 		<band height="35" splitType="Stretch">
 			<staticText>
-				<reportElement x="127" y="0" width="301" height="20" uuid="4f616ce6-a616-4a3b-a41b-5c63e3ba3fea"/>
+				<reportElement x="122" y="-10" width="301" height="20" uuid="4f616ce6-a616-4a3b-a41b-5c63e3ba3fea"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -99,7 +99,7 @@
 			</staticText>
 			<textField>
 				<reportElement x="460" y="0" width="95" height="20" uuid="c59ead7d-1de8-47c9-9ddd-2b0978188490"/>
-				<textFieldExpression><![CDATA[$P{orden}$P{orden}.getIdOrdenFabricacion()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{orden}.getIdOrdenFabricacion()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="460" y="20" width="95" height="20" uuid="a7945774-e1d8-4144-bc4d-8272d96b68f4"/>
@@ -386,7 +386,7 @@
 			<staticText>
 				<reportElement x="448" y="0" width="51" height="20" uuid="b8a41bdd-9559-4519-8bda-49fc0f56883d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none"/>
-				<text><![CDATA[$F{Detalle Orden}.getTasaCif()]]></text>
+				<text><![CDATA[$F]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement x="499" y="0" width="56" height="20" uuid="fcd6189b-1147-4b9d-9eb9-fe0d846dca13"/>
