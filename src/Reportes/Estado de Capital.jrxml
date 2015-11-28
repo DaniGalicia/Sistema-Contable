@@ -3,17 +3,13 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<field name="CuentaSaldada" class="SIC.Entidades.CuentaSaldada"/>
+	<parameter name="Periodo" class="SIC.Entidades.Periodo"/>
+	<field name="cuenta" class="SIC.Entidades.Cuenta"/>
+	<field name="saldo" class="java.lang.Double"/>
 	<group name="TIPO">
 		<groupExpression><![CDATA[$F{CuentaSaldada}]]></groupExpression>
 		<groupHeader>
-			<band height="20">
-				<textField>
-					<reportElement x="0" y="0" width="555" height="20" uuid="c130c426-0626-40b1-9f5d-1be0e0f46c3f"/>
-					<textElement textAlignment="Center"/>
-					<textFieldExpression><![CDATA[$F{CuentaSaldada}.getCuenta().getTipoCuenta().getNombre()]]></textFieldExpression>
-				</textField>
-			</band>
+			<band/>
 		</groupHeader>
 		<groupFooter>
 			<band height="50"/>
@@ -25,35 +21,52 @@
 	<title>
 		<band height="68" splitType="Stretch">
 			<staticText>
-				<reportElement x="202" y="23" width="164" height="20" uuid="a04dfe6c-1967-4e77-996c-c9b244013f1a"/>
-				<textElement>
+				<reportElement x="116" y="23" width="353" height="20" uuid="a04dfe6c-1967-4e77-996c-c9b244013f1a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[BALANCE COMPROBACION]]></text>
+				<text><![CDATA[ESTADO DE CAPITAL]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="116" y="3" width="353" height="20" uuid="137ddd16-8f52-4ace-95d0-013ea948515c"/>
-				<textElement textAlignment="Center">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PROCESADORA DE SORBETE ARTESANAL DELIFRUTAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="152" y="43" width="250" height="20" uuid="fe8ae785-4bf8-45d1-a470-fc200e1cbfdb"/>
-				<textElement textAlignment="Center">
+				<reportElement x="116" y="43" width="53" height="20" uuid="b3d8c870-2c7f-4dc0-93a2-a288b02bbc3a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[DEL  01 AL 31 DE NOVIEMBRE DEL 2015]]></text>
+				<text><![CDATA[DEL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="169" y="43" width="100" height="20" uuid="8cacca8f-5c3f-49c1-903f-b433393ba322"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Periodo}.getFechaInicio()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="43" width="100" height="20" uuid="8a2ef899-713e-4c37-8a75-784bec99cb0f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Periodo}.getFechaFin()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="269" y="43" width="100" height="20" uuid="5b7f440c-6839-4e83-873f-cd52b5c53e4f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AL]]></text>
 			</staticText>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="34" splitType="Stretch"/>
+		<band height="5" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="31" splitType="Stretch">
+		<band height="21" splitType="Stretch">
 			<staticText>
-				<reportElement x="177" y="2" width="189" height="20" uuid="8ec4cfd7-240f-4519-a617-e555d0171f6a"/>
+				<reportElement x="189" y="0" width="177" height="20" uuid="8ec4cfd7-240f-4519-a617-e555d0171f6a"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -61,11 +74,11 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[DEBE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="366" y="2" width="189" height="20" uuid="03e1e5be-2a4f-4c88-9c42-82affbc54ff9"/>
+				<reportElement x="366" y="0" width="189" height="20" uuid="03e1e5be-2a4f-4c88-9c42-82affbc54ff9"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -73,7 +86,7 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Center"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[HABER]]></text>
 			</staticText>
 		</band>
@@ -81,14 +94,28 @@
 	<detail>
 		<band height="125" splitType="Stretch">
 			<textField>
-				<reportElement x="220" y="11" width="100" height="20" uuid="4d472e2a-a0c7-48ad-9c50-c442fbfece72"/>
+				<reportElement x="0" y="0" width="555" height="20" uuid="c130c426-0626-40b1-9f5d-1be0e0f46c3f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cuenta}.getCuenta().getTipoCuenta().getNombre()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="412" y="11" width="100" height="20" uuid="85d10e87-4c43-45b0-84f4-0a78abc5e445"/>
+				<reportElement x="0" y="20" width="189" height="20" uuid="0a4e6909-c068-43cd-abd3-83beea080afa"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cuenta}.getTipoCuenta().getNombre()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="77" y="11" width="100" height="20" uuid="723fb0e7-469d-4c15-a5ef-c804d2589283"/>
-				<textFieldExpression><![CDATA[$F{CuentaSaldada}.getCuenta().getNombre()]]></textFieldExpression>
+				<reportElement x="189" y="20" width="177" height="20" uuid="7d73c1ca-dfa0-4a0f-9dd9-15a47c9d3906">
+					<printWhenExpression><![CDATA[$F{saldo}>0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="366" y="20" width="189" height="20" uuid="40fe4371-d31f-4723-9f24-ad1c2fdc4abc">
+					<printWhenExpression><![CDATA[$F{saldo}>0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
