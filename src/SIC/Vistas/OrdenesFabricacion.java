@@ -5,6 +5,7 @@
  */
 package SIC.Vistas;
 
+import Reportes.GenericReporte;
 import SIC.Entidades.Departamento;
 import SIC.Entidades.OrdenFabricacion;
 import SIC.Entidades.OrdenFabricacionDetalle;
@@ -474,6 +475,11 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         jPanel2.add(eliminarDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
 
         jButton1.setText("EXPORTAR A PDF");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 520, 140, -1));
 
         jTabbedPane1.addTab("ORDEN", jPanel2);
@@ -757,6 +763,15 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     private void cantidadMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadMaterialActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cantidadMaterialActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        GenericReporte reporte = new GenericReporte("OrdenFabricacion");
+        reporte.getMapa().put("orden",ordenFabricacion);
+        //reporte.getMapa().put("nombreEstadoFinanciero", "Orden de Fabricación");
+        reporte.setLista(ordendetalle);
+        reporte.generar();
+        JOptionPane.showMessageDialog(rootPane, "Archivo generado");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField articulo;
