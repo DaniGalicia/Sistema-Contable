@@ -86,8 +86,8 @@ public class IngresoCuenta extends javax.swing.JDialog {
         nuevaCuenta = new javax.swing.JCheckBox();
         aplicaIva = new javax.swing.JCheckBox();
         jLabel6 = new javax.swing.JLabel();
-        fecha = new javax.swing.JFormattedTextField();
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        fecha = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         botonEliminar = new javax.swing.JButton();
@@ -182,8 +182,6 @@ public class IngresoCuenta extends javax.swing.JDialog {
 
         jLabel6.setText("Cuenta");
 
-        fecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -194,8 +192,8 @@ public class IngresoCuenta extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(167, 167, 167)
+                        .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(170, 170, 170)
                         .addComponent(jLabel4)
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,9 +222,10 @@ public class IngresoCuenta extends javax.swing.JDialog {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel2))
-                    .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jLabel4))
@@ -464,6 +463,7 @@ public class IngresoCuenta extends javax.swing.JDialog {
             formatoFecha.setLenient(false);
             formatoFecha.parse(fecha.getText());
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
         return true;
@@ -578,7 +578,7 @@ public class IngresoCuenta extends javax.swing.JDialog {
     private javax.swing.JCheckBox aplicaIva;
     private javax.swing.JButton botonEliminar;
     private javax.swing.JComboBox comboListaCuentas;
-    private javax.swing.JFormattedTextField fecha;
+    private javax.swing.JTextField fecha;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
