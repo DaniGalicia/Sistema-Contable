@@ -7,7 +7,7 @@
 	<field name="cuenta" class="SIC.Entidades.Cuenta"/>
 	<field name="saldo" class="java.lang.Double"/>
 	<group name="TIPO">
-		<groupExpression><![CDATA[$F{CuentaSaldada}]]></groupExpression>
+		<groupExpression><![CDATA[]]></groupExpression>
 		<groupHeader>
 			<band/>
 		</groupHeader>
@@ -19,49 +19,53 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="68" splitType="Stretch">
+		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="116" y="23" width="353" height="20" uuid="a04dfe6c-1967-4e77-996c-c9b244013f1a"/>
+				<reportElement x="95" y="20" width="460" height="20" uuid="a04dfe6c-1967-4e77-996c-c9b244013f1a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ESTADO DE CAPITAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="116" y="3" width="353" height="20" uuid="137ddd16-8f52-4ace-95d0-013ea948515c"/>
+				<reportElement x="95" y="0" width="460" height="20" uuid="137ddd16-8f52-4ace-95d0-013ea948515c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PROCESADORA DE SORBETE ARTESANAL DELIFRUTAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="116" y="43" width="53" height="20" uuid="b3d8c870-2c7f-4dc0-93a2-a288b02bbc3a"/>
+				<reportElement x="95" y="40" width="53" height="20" uuid="b3d8c870-2c7f-4dc0-93a2-a288b02bbc3a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DEL]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="169" y="43" width="100" height="20" uuid="8cacca8f-5c3f-49c1-903f-b433393ba322"/>
+				<reportElement x="148" y="40" width="121" height="20" uuid="8cacca8f-5c3f-49c1-903f-b433393ba322"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{Periodo}.getFechaInicio()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="369" y="43" width="100" height="20" uuid="8a2ef899-713e-4c37-8a75-784bec99cb0f"/>
+				<reportElement x="397" y="40" width="158" height="20" uuid="8a2ef899-713e-4c37-8a75-784bec99cb0f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{Periodo}.getFechaFin()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="269" y="43" width="100" height="20" uuid="5b7f440c-6839-4e83-873f-cd52b5c53e4f"/>
+				<reportElement x="266" y="40" width="131" height="20" uuid="5b7f440c-6839-4e83-873f-cd52b5c53e4f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[AL]]></text>
 			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="0" width="95" height="79" uuid="a65ed8a5-e716-481e-909d-99c658522831"/>
+				<imageExpression><![CDATA["/home/dannier/NetBeansProjects/Sistema-Contable/src/SIC/Imagenes/logo.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="5" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="21" splitType="Stretch">
@@ -96,7 +100,7 @@
 			<textField>
 				<reportElement x="0" y="0" width="555" height="20" uuid="c130c426-0626-40b1-9f5d-1be0e0f46c3f"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{cuenta}.getCuenta().getTipoCuenta().getNombre()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cuenta}.getTipoCuenta().getNombre()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="20" width="189" height="20" uuid="0a4e6909-c068-43cd-abd3-83beea080afa"/>
