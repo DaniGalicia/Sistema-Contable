@@ -145,7 +145,7 @@ public class OrdenFabricacionDetalle implements Serializable {
         return cantidadObreros.floatValue()*cantidadHoras.floatValue()*precioHora;
     }
     public Double getImporte() {
-        return tasaCif*(getTotalMaterial()+getTotalManoObra());
+        return tasaCif * (getTotalMaterial()+getTotalManoObra());
     }
     public Double getCostoTotal() {
         return getTotalMaterial()+getTotalManoObra()+getImporte();
