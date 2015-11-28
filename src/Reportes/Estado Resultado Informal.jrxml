@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="068e5ebe-43a6-45a3-8616-6f98945db257">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="8"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="TipoEstadoFinanciero" class="SIC.Entidades.TipoEstadoFinanciero"/>
 	<parameter name="Periodo" class="SIC.Entidades.Periodo"/>
 	<field name="cuenta" class="SIC.Entidades.Cuenta"/>
@@ -13,41 +13,47 @@
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="108" y="0" width="353" height="20" uuid="2740041c-f058-48fd-920e-e63d72dd8ec0"/>
+				<reportElement x="92" y="0" width="463" height="20" uuid="2740041c-f058-48fd-920e-e63d72dd8ec0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PROCESADORA DE SORBETE ARTESANAL DELIFRUTAL]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="145" y="20" width="261" height="20" uuid="3ddc8d22-9545-4bab-b28f-8290d36c2aac"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{TipoEstadoFinanciero}.getNombre()]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="92" y="40" width="53" height="20" uuid="b7516816-268a-463c-a4f6-4fd230a90279"/>
+				<reportElement x="92" y="40" width="114" height="20" uuid="b7516816-268a-463c-a4f6-4fd230a90279"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DEL]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="145" y="40" width="100" height="20" uuid="e3f92940-f3ae-4c10-815e-cb7678e6b485"/>
+				<reportElement x="206" y="40" width="120" height="20" uuid="e3f92940-f3ae-4c10-815e-cb7678e6b485"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{Periodo}.getFechaInicio()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="245" y="40" width="100" height="20" uuid="f93687db-a7d4-49c7-b42f-cb80d78ac336"/>
+				<reportElement x="326" y="40" width="100" height="20" uuid="f93687db-a7d4-49c7-b42f-cb80d78ac336"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[AL]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="345" y="40" width="100" height="20" uuid="25b90ef1-e4b9-4a60-a660-af8496ad12f4"/>
+				<reportElement x="426" y="40" width="129" height="20" uuid="25b90ef1-e4b9-4a60-a660-af8496ad12f4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{Periodo}.getFechaFin()]]></textFieldExpression>
 			</textField>
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="0" width="95" height="79" uuid="8c663093-738f-458a-8ac4-9a2e47e53883"/>
+				<imageExpression><![CDATA["/home/dannier/NetBeansProjects/Sistema-Contable/src/SIC/Imagenes/logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="92" y="20" width="463" height="20" uuid="5c8b568f-90b8-4fa8-8d2e-1de3c716f9f4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO DE RESULTADO]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -102,7 +108,7 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="97" splitType="Stretch"/>
+		<band height="42" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch"/>
