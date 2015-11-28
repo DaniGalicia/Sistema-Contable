@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b92a134c-6557-4efb-9f64-c1951676b2c8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="Periodo" class="SIC.Entidades.Periodo"/>
+	<field name="TipoCuenta" class="SIC.Entidades.TipoCuenta"/>
+	<field name="cuenta" class="SIC.Entidades.Cuenta"/>
+	<field name="saldo" class="java.lang.Double"/>
+	<group name="TipoCuenta">
+		<groupExpression><![CDATA[$F{TipoCuenta}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="101" y="10" width="353" height="20" uuid="a996d96c-af03-4049-97f5-91b3e2fb9261"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROCESADORA DE SORBETE ARTESANAL DELIFRUTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="50" width="53" height="20" uuid="525873cb-baf1-4df4-9f2f-6aa2b445bb3d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="354" y="50" width="100" height="20" uuid="1f49af4a-bc77-486c-b5ef-9c45a2987fea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Periodo}.getFechaFin()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="254" y="50" width="100" height="20" uuid="ea58e27e-9e90-4ac9-9aac-1d8bb93a8830"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="154" y="50" width="100" height="20" uuid="cefa3db2-3e79-4ad2-b30c-2c3ca0a00000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Periodo}.getFechaInicio()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="101" y="30" width="353" height="20" uuid="0d4b438d-d4e8-4229-9529-d1511345541d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BALANCE GENERAL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="131" height="20" uuid="50d522b4-097d-4ce9-b4b9-cd254f676554"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[ACTIVOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="271" y="0" width="144" height="20" uuid="a14d99d2-ef2f-4160-b427-bfbe30ebb157"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[PASIVOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="131" y="0" width="70" height="20" uuid="1985a303-3c5e-484a-8ae5-55f3c13c49ae"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DEBE	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="0" width="70" height="20" uuid="ff8f4705-0bd9-4e96-bceb-e157060f8b33"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[HABER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="485" y="0" width="70" height="20" uuid="69f29d7a-c1af-4679-9b4c-c2caf3886155"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[HABER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="0" width="70" height="20" uuid="9e305813-5d33-40ed-8dfd-75eb9238c84b"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DEBE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="131" height="20" uuid="b3b9f70b-f575-4470-b87b-f04e542e238c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cuenta}.getTipoCuenta().getNombre()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="131" y="0" width="70" height="20" uuid="0ffed136-c9a6-4613-8f93-971cf32aa85e">
+					<printWhenExpression><![CDATA[$F{saldo}>0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="201" y="0" width="70" height="20" uuid="4182be73-025b-415e-9ad0-0d9954ca2379">
+					<printWhenExpression><![CDATA[$F{saldo}<0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="271" y="0" width="144" height="20" uuid="434a7020-b608-4e61-b08a-cd960ce827e0"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cuenta}.getTipoCuenta().getNombre()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="479" y="0" width="70" height="20" uuid="1591ce18-15fb-404b-a40e-3545c79f4ffb">
+					<printWhenExpression><![CDATA[$F{saldo}<0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="415" y="0" width="64" height="20" uuid="4aa5e151-ff04-48e4-8f70-cd8552ae1e36">
+					<printWhenExpression><![CDATA[$F{saldo}>0]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
