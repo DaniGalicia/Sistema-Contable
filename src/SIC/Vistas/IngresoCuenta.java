@@ -116,7 +116,6 @@ public class IngresoCuenta extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingreso de datos"));
 
-        comboListaCuentas.setEditable(true);
         comboListaCuentas.setMaximumSize(new java.awt.Dimension(28, 20));
         comboListaCuentas.setName(""); // NOI18N
         comboListaCuentas.addActionListener(new java.awt.event.ActionListener() {
@@ -192,8 +191,8 @@ public class IngresoCuenta extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(170, 170, 170)
+                        .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(172, 172, 172)
                         .addComponent(jLabel4)
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,9 +204,9 @@ public class IngresoCuenta extends javax.swing.JDialog {
                         .addComponent(jRadioButton2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(12, 12, 12)
-                        .addComponent(comboListaCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(204, 204, 204)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboListaCuentas, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(98, 98, 98)
                         .addComponent(nuevaCuenta)
                         .addGap(12, 12, 12)
                         .addComponent(aplicaIva))
@@ -370,8 +369,26 @@ public class IngresoCuenta extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "El monto no es correcto");
             return;
         }
-        if (!isAdded((Cuenta) comboListaCuentas.getSelectedItem())) {
-            Movimiento movimiento = new Movimiento();
+        
+                
+        Cuenta cuenta=(Cuenta) comboListaCuentas.getSelectedItem();
+        if(comboListaCuentas.isEnabled() && isAdded(cuenta))
+        {
+           JOptionPane.showMessageDialog(null, "Esta cuenta ya ha sido afectada en esta transaccion");
+            return;
+        }
+            
+        
+        Movimiento movimiento=null;
+
+        if(!isAdded(cuenta))
+            movimiento = new Movimiento();
+        else{
+            for(Movimiento  m:modeloTabla.movimientos)
+                if(m.getCuenta().equals(cuenta))
+                    movimiento=m;
+        }
+        
             //Obtiene el tipo de movimiento
             Double cantidad = Double.parseDouble(montoMovimiento.getText());
             if (aplicaIva.isSelected()) {
@@ -380,11 +397,14 @@ public class IngresoCuenta extends javax.swing.JDialog {
             movimiento.setFecha(new Date(fecha.getText()));
             movimiento.setCantidad(cantidad);
             movimiento.setTipo(tipoMovimiento.getSelection().getActionCommand());
-            movimiento.setCuenta((Cuenta) comboListaCuentas.getSelectedItem());
-            modeloTabla.movimientos.add(movimiento);
+            movimiento.setCuenta(cuenta);
+           
+            if(!isAdded(cuenta))
+                 modeloTabla.movimientos.add(movimiento);
+            
+            comboListaCuentas.setEnabled(true);
             modeloTabla.fireTableDataChanged();
-        }
-
+        
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -417,9 +437,11 @@ public class IngresoCuenta extends javax.swing.JDialog {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (total()) {
-
-            for (Movimiento mNuevo : modeloTabla.movimientos) {
-                //SICService.getServMovimiento().guardar(mNuevo);
+            
+            //SICService.getServMovimiento().guardar(modeloTabla.movimientos);
+            
+           for (Movimiento mNuevo : modeloTabla.movimientos) {
+                SICService.getServMovimiento().guardar(mNuevo);
             }
 
             JOptionPane.showMessageDialog(null, "Transaccion exitosa");

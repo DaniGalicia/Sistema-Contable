@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -40,8 +41,7 @@ public class Movimiento implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
-    @GeneratedValue(generator="InvSeq")
-    @SequenceGenerator(name="InvSeq",sequenceName="SECUENCIA_MOVIMIENTOS", allocationSize=5)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SECUENCIA_MOVIMIENTOS")
     @Column(name = "ID_MOVIMIENTO")
     private BigDecimal idMovimiento;
     @Basic(optional = false)
