@@ -43,10 +43,6 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$P{Periodo}.getFechaFin()]]></textFieldExpression>
 			</textField>
-			<image scaleImage="FillFrame">
-				<reportElement x="0" y="0" width="95" height="79" uuid="8c663093-738f-458a-8ac4-9a2e47e53883"/>
-				<imageExpression><![CDATA["/home/dannier/NetBeansProjects/Sistema-Contable/src/SIC/Imagenes/logo.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="92" y="20" width="463" height="20" uuid="5c8b568f-90b8-4fa8-8d2e-1de3c716f9f4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -54,6 +50,9 @@
 				</textElement>
 				<text><![CDATA[ESTADO DE RESULTADO]]></text>
 			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="92" height="79" uuid="9ebab036-4fc2-4368-a5c2-9797b9d8365e"/>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -111,7 +110,28 @@
 		<band height="42" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="76" y="27" width="119" height="27" uuid="0b697279-587b-463c-894e-0f1e440afdcd"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="27" width="66" height="20" uuid="bcd04ea5-3a43-4f26-b7be-133bea61842f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Generado]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="393" y="16" width="80" height="38" uuid="1818bc05-9846-4f96-b54f-5b3f700225af"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pag. "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="489" y="16" width="66" height="31" uuid="d773068c-d88f-415a-b240-6cc6264831da"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>

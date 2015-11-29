@@ -35,7 +35,7 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
     }
 
     private void cargarDatos() {
-        cuentas = SICService.getServCuenta().getListado(Cuenta.class);
+      cuentas = SICService.getServCuenta().getListado(Cuenta.class);
         DefaultTableModel defaultTableModel = (DefaultTableModel) tablaCuentas.getModel();
 
         while (defaultTableModel.getRowCount() > 0) {

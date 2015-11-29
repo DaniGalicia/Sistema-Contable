@@ -58,9 +58,8 @@
 				</textElement>
 				<text><![CDATA[AL]]></text>
 			</staticText>
-			<image scaleImage="FillFrame">
-				<reportElement x="0" y="0" width="95" height="79" uuid="a65ed8a5-e716-481e-909d-99c658522831"/>
-				<imageExpression><![CDATA["/home/dannier/NetBeansProjects/Sistema-Contable/src/SIC/Imagenes/logo.png"]]></imageExpression>
+			<image>
+				<reportElement x="0" y="0" width="95" height="79" uuid="ec20cfc6-addc-4220-ba2c-bae32f27fb78"/>
 			</image>
 		</band>
 	</title>
@@ -127,7 +126,28 @@
 		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="78" y="23" width="135" height="31" uuid="ad0a34b9-6cd1-4816-8598-d7d514188fcb"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="23" width="65" height="20" uuid="df3c7ddf-8f4c-4c3c-9cbc-c5c05d23053a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Generado]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="366" y="23" width="124" height="31" uuid="68a70ec1-3a2d-4f39-8441-1a4b4318f1ec"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pag. "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="490" y="23" width="65" height="31" uuid="ba04956f-06d1-47e3-9faa-297f65a9ca53"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>
