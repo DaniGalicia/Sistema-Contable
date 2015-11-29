@@ -41,6 +41,7 @@ public class GenericReporte {
 
     public void generar() {
         try {
+            mapa.put("imagen", "src/SIC/Imagenes/logo.png");
             JasperReport reporte = JasperCompileManager.compileReport("src/Reportes/" + archivoJasper + ".jrxml");
             JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, mapa, new JRBeanCollectionDataSource(lista));
             JRExporter exporter = new JRPdfExporter();

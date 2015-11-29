@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b22ab1e7-ce85-4a04-8444-d0f61bb4d33a">
-	<property name="ireport.zoom" value="1.4641000000000006"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="172"/>
+	<property name="ireport.zoom" value="1.9487171000000014"/>
+	<property name="ireport.x" value="6"/>
+	<property name="ireport.y" value="55"/>
 	<parameter name="nombreEstadoFinanciero" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="periodo" class="SIC.Entidades.Periodo" isForPrompting="false"/>
+	<parameter name="imagen" class="java.lang.String"/>
 	<field name="cuenta" class="SIC.Entidades.Cuenta"/>
 	<field name="saldo" class="java.lang.Double"/>
 	<group name="tipoCuenta">
@@ -35,12 +36,16 @@
 			</staticText>
 			<textField pattern="dd MMMMM yyyy">
 				<reportElement x="355" y="50" width="100" height="20" uuid="37948ce0-d4bf-4951-829c-8e0d9de3b588"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{periodo}.getFechaFin()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="155" y="30" width="261" height="20" uuid="ab6b6afa-bb93-4f60-a071-aeaa09fcb71d"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{nombreEstadoFinanciero}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -52,7 +57,9 @@
 			</staticText>
 			<textField pattern="dd MMMMM">
 				<reportElement x="155" y="50" width="100" height="20" uuid="b5348510-eda2-40a4-a468-5bf4d6bd4d35"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{periodo}.getFechaInicio()]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -64,7 +71,7 @@
 			</staticText>
 			<image scaleImage="FillFrame">
 				<reportElement x="0" y="0" width="95" height="79" uuid="9fff6d98-3097-4056-9644-76bef01fca27"/>
-				<imageExpression><![CDATA["/home/dannier/NetBeansProjects/Sistema-Contable/src/SIC/Imagenes/logo.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{imagen}]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -76,25 +83,29 @@
 			<staticText>
 				<reportElement x="240" y="21" width="128" height="20" uuid="b1aa74fe-d7fc-4d0d-94e9-0b7787c93887"/>
 				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[DEBE]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="368" y="21" width="142" height="20" uuid="1312c52b-6b27-418b-bad4-14090ae7d176"/>
 				<box>
-					<pen lineWidth="1.0"/>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
 				<text><![CDATA[HABER]]></text>
 			</staticText>
 		</band>
@@ -113,10 +124,8 @@
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{cuenta}.getNombre()]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement isPrintRepeatedValues="false" x="240" y="0" width="128" height="20" isRemoveLineWhenBlank="true" uuid="063acfd2-f114-43ce-93c8-f001e9e42fca">
-					<printWhenExpression><![CDATA[$F{saldo} > 0]]></printWhenExpression>
-				</reportElement>
+			<textField isBlankWhenNull="true">
+				<reportElement x="240" y="0" width="128" height="20" uuid="063acfd2-f114-43ce-93c8-f001e9e42fca"/>
 				<box>
 					<pen lineStyle="Dotted"/>
 					<topPen lineStyle="Dotted"/>
@@ -125,12 +134,10 @@
 					<rightPen lineStyle="Dotted"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{saldo} < 0 ?null:$F{saldo}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="368" y="0" width="142" height="20" isRemoveLineWhenBlank="true" uuid="d093b151-e819-47aa-9736-800cfb509134">
-					<printWhenExpression><![CDATA[$F{saldo} < 0]]></printWhenExpression>
-				</reportElement>
+			<textField isBlankWhenNull="true">
+				<reportElement x="368" y="0" width="142" height="20" uuid="d093b151-e819-47aa-9736-800cfb509134"/>
 				<box>
 					<pen lineStyle="Dotted"/>
 					<topPen lineStyle="Dotted"/>
@@ -139,7 +146,7 @@
 					<rightPen lineStyle="Dotted"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{saldo}*(-1)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{saldo} > 0 ?null:$F{saldo}*(-1)]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -2,8 +2,9 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ab150e74-f679-409d-b51b-354ce8b47714">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="orden" class="SIC.Entidades.OrdenFabricacion"/>
+	<parameter name="imagen" class="java.lang.String"/>
 	<field name="material" class="java.lang.String"/>
 	<field name="cantidadMaterial" class="java.math.BigInteger"/>
 	<field name="precioUnitario" class="java.lang.Double"/>
@@ -149,6 +150,7 @@
 			</textField>
 			<image>
 				<reportElement x="0" y="0" width="88" height="80" uuid="f84a25f0-d2a3-479d-b9b8-010fe184e439"/>
+				<imageExpression><![CDATA[$P{imagen}]]></imageExpression>
 			</image>
 		</band>
 	</pageHeader>

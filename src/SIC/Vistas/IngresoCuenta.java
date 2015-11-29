@@ -428,7 +428,7 @@ public class IngresoCuenta extends javax.swing.JDialog {
                 cuentaSaldada.setCuenta(cuenta);
                 cuentaSaldada.setPeriodo(SICService.getServPeriodo().getActivo());
                 cuentaSaldada.setSaldo(saldo);
-//                SICService.getServCuentaSaldada().guardar(cuentaSaldada);
+                SICService.getServCuentaSaldada().guardar(cuentaSaldada);
             }
 
         }

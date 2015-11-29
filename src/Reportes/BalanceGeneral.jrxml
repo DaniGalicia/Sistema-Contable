@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b92a134c-6557-4efb-9f64-c1951676b2c8">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="Periodo" class="SIC.Entidades.Periodo"/>
-	<field name="TipoCuenta" class="SIC.Entidades.TipoCuenta"/>
+	<parameter name="periodo" class="SIC.Entidades.Periodo"/>
+	<parameter name="imagen" class="java.lang.String"/>
 	<field name="cuenta" class="SIC.Entidades.Cuenta"/>
 	<field name="saldo" class="java.lang.Double"/>
 	<group name="TipoCuenta">
-		<groupExpression><![CDATA[$F{TipoCuenta}]]></groupExpression>
+		<groupExpression><![CDATA[$F{cuenta}.getTipoCuenta()]]></groupExpression>
 		<groupHeader>
-			<band/>
+			<band height="20">
+				<textField>
+					<reportElement x="0" y="0" width="555" height="20" uuid="b89b6f1f-185a-44c7-b4d5-983c788751c4"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cuenta}.getTipoCuenta().getNombre()]]></textFieldExpression>
+				</textField>
+			</band>
 		</groupHeader>
-		<groupFooter>
-			<band height="50"/>
-		</groupFooter>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
@@ -31,26 +36,30 @@
 			<staticText>
 				<reportElement x="95" y="40" width="77" height="20" uuid="525873cb-baf1-4df4-9f2f-6aa2b445bb3d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DEL]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="dd MMMMM yyyy">
 				<reportElement x="405" y="40" width="151" height="20" uuid="1f49af4a-bc77-486c-b5ef-9c45a2987fea"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{Periodo}.getFechaFin()]]></textFieldExpression>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{periodo}.getFechaFin()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="324" y="40" width="81" height="20" uuid="ea58e27e-9e90-4ac9-9aac-1d8bb93a8830"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true"/>
+					<font size="10" isBold="true"/>
 				</textElement>
 				<text><![CDATA[AL]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="dd MMMMM">
 				<reportElement x="172" y="40" width="152" height="20" uuid="cefa3db2-3e79-4ad2-b30c-2c3ca0a00000"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{Periodo}.getFechaInicio()]]></textFieldExpression>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{periodo}.getFechaInicio()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="95" y="20" width="460" height="20" uuid="0d4b438d-d4e8-4229-9529-d1511345541d"/>
@@ -61,7 +70,7 @@
 			</staticText>
 			<image scaleImage="FillFrame">
 				<reportElement x="0" y="0" width="95" height="79" uuid="a5ebae29-c96f-4988-9817-f114cb9566a2"/>
-				<imageExpression><![CDATA["/home/dannier/NetBeansProjects/Sistema-Contable/src/SIC/Imagenes/logo.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{imagen}]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -97,32 +106,25 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="40" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="1" y="20" width="223" height="20" uuid="b3b9f70b-f575-4470-b87b-f04e542e238c"/>
+				<reportElement x="1" y="0" width="223" height="20" uuid="b3b9f70b-f575-4470-b87b-f04e542e238c"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{cuenta}.getTipoCuenta().getNombre()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cuenta}.getNombre()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="390" y="20" width="165" height="20" uuid="1591ce18-15fb-404b-a40e-3545c79f4ffb">
+				<reportElement x="390" y="0" width="165" height="20" uuid="1591ce18-15fb-404b-a40e-3545c79f4ffb">
 					<printWhenExpression><![CDATA[$F{saldo}<0]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[-1*$F{saldo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="224" y="20" width="166" height="20" uuid="4aa5e151-ff04-48e4-8f70-cd8552ae1e36">
+				<reportElement x="224" y="0" width="166" height="20" uuid="4aa5e151-ff04-48e4-8f70-cd8552ae1e36">
 					<printWhenExpression><![CDATA[$F{saldo}>0]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="1" y="0" width="555" height="20" uuid="b89b6f1f-185a-44c7-b4d5-983c788751c4"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{cuenta}.getTipoCuenta().getNombre()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -132,7 +134,7 @@
 	<pageFooter>
 		<band height="54" splitType="Stretch">
 			<staticText>
-				<reportElement x="1" y="20" width="61" height="20" uuid="53e40666-d3db-4338-8a06-989a36322537"/>
+				<reportElement x="9" y="23" width="61" height="20" uuid="53e40666-d3db-4338-8a06-989a36322537"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>

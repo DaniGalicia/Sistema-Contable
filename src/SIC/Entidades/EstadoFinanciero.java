@@ -6,11 +6,13 @@
 package SIC.Entidades;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -25,46 +27,45 @@ import javax.persistence.Table;
 @Table(name = "ESTADO_FINANCIERO")
 @NamedQueries({
     @NamedQuery(name = "EstadoFinanciero.findAll", query = "SELECT e FROM EstadoFinanciero e"),
-    @NamedQuery(name = "EstadoFinanciero.findByIdEstadoFinanciero", query = "SELECT e FROM EstadoFinanciero e WHERE e.estadoFinancieroPK.idEstadoFinanciero = :idEstadoFinanciero"),
-    @NamedQuery(name = "EstadoFinanciero.findBySaldo", query = "SELECT e FROM EstadoFinanciero e WHERE e.saldo = :saldo"),
-    @NamedQuery(name = "EstadoFinanciero.findByIdPeriodo", query = "SELECT e FROM EstadoFinanciero e WHERE e.estadoFinancieroPK.idPeriodo = :idPeriodo")})
+    @NamedQuery(name = "EstadoFinanciero.findByIdEstadoFinanciero", query = "SELECT e FROM EstadoFinanciero e WHERE e.idEstadoFinanciero = :idEstadoFinanciero"),
+    @NamedQuery(name = "EstadoFinanciero.findBySaldo", query = "SELECT e FROM EstadoFinanciero e WHERE e.saldo = :saldo")})
 public class EstadoFinanciero implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected EstadoFinancieroPK estadoFinancieroPK;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Id
+    @Basic(optional = false)
+    @Column(name = "ID_ESTADO_FINANCIERO")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SECUENCIA_ESTADO_FINANCIERO")
+    private BigDecimal idEstadoFinanciero;
     @Basic(optional = false)
     @Column(name = "SALDO")
     private double saldo;
-    @JoinColumn(name = "ID_PERIODO", referencedColumnName = "ID_PERIODO", insertable = false, updatable = false)
+    @JoinColumn(name = "ID_PERIODO", referencedColumnName = "ID_PERIODO")
     @ManyToOne(optional = false)
     private Periodo periodo;
     @JoinColumn(name = "ID_TIPO_ESTADO_FINANCIERO", referencedColumnName = "ID_TIPO_ESTADO_FINANCIERO")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private TipoEstadoFinanciero tipoEstadoFinanciero;
 
     public EstadoFinanciero() {
     }
 
-    public EstadoFinanciero(EstadoFinancieroPK estadoFinancieroPK) {
-        this.estadoFinancieroPK = estadoFinancieroPK;
+    public EstadoFinanciero(BigDecimal idEstadoFinanciero) {
+        this.idEstadoFinanciero = idEstadoFinanciero;
     }
 
-    public EstadoFinanciero(EstadoFinancieroPK estadoFinancieroPK, double saldo) {
-        this.estadoFinancieroPK = estadoFinancieroPK;
+    public EstadoFinanciero(BigDecimal idEstadoFinanciero, double saldo) {
+        this.idEstadoFinanciero = idEstadoFinanciero;
         this.saldo = saldo;
     }
 
-    public EstadoFinanciero(BigInteger idEstadoFinanciero, BigInteger idPeriodo) {
-        this.estadoFinancieroPK = new EstadoFinancieroPK(idEstadoFinanciero, idPeriodo);
+    public BigDecimal getIdEstadoFinanciero() {
+        return idEstadoFinanciero;
     }
 
-    public EstadoFinancieroPK getEstadoFinancieroPK() {
-        return estadoFinancieroPK;
-    }
-
-    public void setEstadoFinancieroPK(EstadoFinancieroPK estadoFinancieroPK) {
-        this.estadoFinancieroPK = estadoFinancieroPK;
+    public void setIdEstadoFinanciero(BigDecimal idEstadoFinanciero) {
+        this.idEstadoFinanciero = idEstadoFinanciero;
     }
 
     public double getSaldo() {
@@ -94,7 +95,7 @@ public class EstadoFinanciero implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (estadoFinancieroPK != null ? estadoFinancieroPK.hashCode() : 0);
+        hash += (idEstadoFinanciero != null ? idEstadoFinanciero.hashCode() : 0);
         return hash;
     }
 
@@ -105,7 +106,7 @@ public class EstadoFinanciero implements Serializable {
             return false;
         }
         EstadoFinanciero other = (EstadoFinanciero) object;
-        if ((this.estadoFinancieroPK == null && other.estadoFinancieroPK != null) || (this.estadoFinancieroPK != null && !this.estadoFinancieroPK.equals(other.estadoFinancieroPK))) {
+        if ((this.idEstadoFinanciero == null && other.idEstadoFinanciero != null) || (this.idEstadoFinanciero != null && !this.idEstadoFinanciero.equals(other.idEstadoFinanciero))) {
             return false;
         }
         return true;
@@ -113,7 +114,7 @@ public class EstadoFinanciero implements Serializable {
 
     @Override
     public String toString() {
-        return "SIC.Entidades.EstadoFinanciero[ estadoFinancieroPK=" + estadoFinancieroPK + " ]";
+        return "SIC.Entidades.EstadoFinanciero[ idEstadoFinanciero=" + idEstadoFinanciero + " ]";
     }
     
 }

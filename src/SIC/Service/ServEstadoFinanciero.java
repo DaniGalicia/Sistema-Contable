@@ -8,23 +8,18 @@ import javax.persistence.Query;
  *
  * @author GALICIA
  */
-public class ServEstadoFinanciero extends BasicService{
-    
-    public EstadoFinanciero getEstadoFinacieroPeriodoActivo(String idTipoEstadoFinanciero){
-        
-        
-        Query q=getEntityManager().createNamedQuery("EstadoFinanciero.findByIdPeriodo");
-        q.setParameter("idPeriodo", SICService.getServPeriodo().getActivo().getIdPeriodo());
-        try {
-            for(EstadoFinanciero estadoFinanciero:(List<EstadoFinanciero>) q.getResultList())
-            {
-                if(estadoFinanciero.getTipoEstadoFinanciero().equals(SICService.getServTipoEstadoFinanciero().findByIdTipoEstadoFinanciero(idTipoEstadoFinanciero)))
-                    return estadoFinanciero;
+public class ServEstadoFinanciero extends BasicService {
+
+    public EstadoFinanciero getEstadoFinacieroPeriodoActivo(String idTipoEstadoFinanciero) {
+
+        List<EstadoFinanciero> lista = getListado(EstadoFinanciero.class);
+
+        for (EstadoFinanciero estadoFinanciero : lista) {
+            if (estadoFinanciero.getPeriodo().equals(SICService.getServPeriodo().getActivo()) && estadoFinanciero.getTipoEstadoFinanciero().getIdTipoEstadoFinanciero().equals(idTipoEstadoFinanciero)) {
+                return estadoFinanciero;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        
+
         return null;
     }
 }

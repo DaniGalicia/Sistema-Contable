@@ -17,6 +17,9 @@
     <class>SIC.Entidades.OrdenFabricacionDetalle</class>
     <class>SIC.Entidades.Departamento</class>
     <class>SIC.Entidades.OrdenFabricacion</class>
+    <class>SIC.Entidades.Periodo_1</class>
+    <class>SIC.Entidades.TipoCuenta_1</class>
+    <class>SIC.Entidades.Cuenta_1</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
       <property name="javax.persistence.jdbc.user" value="SIC"/>

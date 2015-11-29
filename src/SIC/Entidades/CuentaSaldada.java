@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -36,8 +37,7 @@ public class CuentaSaldada implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "ID_CUENTA_SALDADA")
-    @GeneratedValue(generator="InvSeqCS")
-    @SequenceGenerator(name="InvSeqCS",sequenceName="SECUENCIA_CUENTA_SALDADA", allocationSize=5)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SECUENCIA_CUENTA_SALDADA")
     private BigDecimal idCuentaSaldada;
     @Basic(optional = false)
     @Column(name = "SALDO")
