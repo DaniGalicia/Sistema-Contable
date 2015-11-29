@@ -6,14 +6,12 @@
 package SIC.Vistas;
 
 import Reportes.GenericReporte;
-import SIC.Entidades.Cuenta;
 import SIC.Service.Comunes;
 import SIC.Entidades.CuentaSaldada;
 import SIC.Entidades.EstadoFinanciero;
 import SIC.Entidades.EstadoFinancieroPK;
 import SIC.Entidades.TipoEstadoFinanciero;
 import SIC.Service.SICService;
-import SIC.Vistas.tableModels.CuentasTableModel;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;

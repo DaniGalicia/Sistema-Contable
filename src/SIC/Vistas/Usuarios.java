@@ -5,8 +5,6 @@
  */
 package SIC.Vistas;
 
-import SIC.Service.Comunes;
-import SIC.Vistas.tableModels.UsuariosTableModel;
 import SIC.Entidades.Empleado;
 import SIC.Entidades.Usuario;
 import SIC.Service.SICService;
@@ -19,22 +17,20 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author dannier
  */
-public class Usuarios extends javax.swing.JFrame {
+public class Usuarios extends javax.swing.JDialog {
     
     List<Usuario> usuarios = new ArrayList<>();
         
-UsuariosTableModel tableModel=new UsuariosTableModel();
     Empleado empleadoSelected;
     Usuario usuarioSelected;
-    UsuariosTableModel usuarioTableModel = new UsuariosTableModel();
-    
+
 
     /**
      * Creates new form Usuario
      */
-    public Usuarios() {
+    public Usuarios(java.awt.Frame parent, boolean modal) {
+        super(parent,modal);
         initComponents();
-       // tablaUsuarios.setColumnModel(Comunes.crearModeloColumnas("Codigo empleado,Usuario,Contraseña"));
         cargarDatos();
         this.setLocationRelativeTo(null);
     }
@@ -90,7 +86,7 @@ UsuariosTableModel tableModel=new UsuariosTableModel();
 
         jLabel4.setText("jLabel4");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Administrar usuarios");
 
         jButton2.setText("Guardar");
@@ -176,7 +172,16 @@ UsuariosTableModel tableModel=new UsuariosTableModel();
             new String [] {
                 "Codigo", "Nombre", "Clave"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaUsuarios.getTableHeader().setReorderingAllowed(false);
         tablaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaUsuariosMouseClicked(evt);
@@ -282,7 +287,7 @@ UsuariosTableModel tableModel=new UsuariosTableModel();
         usuarioSelected=null;
         
         if (evt.getClickCount() == 2 && tablaUsuarios.getSelectedRow() != -1) {
-            usuarioSelected = usuarioTableModel.usuarios.get(tablaUsuarios.getSelectedRow());
+            usuarioSelected = usuarios.get(tablaUsuarios.getSelectedRow());
             empleadoSelected = usuarioSelected.getEmpleado();
             codigoEmpleado.setText(empleadoSelected.getCodigoEmpleado());
             codigoEmpleado.setEnabled(false);
@@ -313,42 +318,6 @@ UsuariosTableModel tableModel=new UsuariosTableModel();
         usuarioSelected = null;
         empleadoSelected = null;
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Usuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Usuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Usuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Usuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Usuarios().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField clave;
