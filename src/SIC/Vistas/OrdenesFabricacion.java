@@ -40,6 +40,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     public OrdenesFabricacion(java.awt.Frame parent, boolean modal) {
         super(parent,modal);
         initComponents();
+        
         this.setLocationRelativeTo(null);
         departamento.setModel(Comunes.crearModeloComboBox(SICService.getServDepartamento().getListado(Departamento.class)));
         cargarOrdenes();
@@ -151,8 +152,8 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        contenedor = new javax.swing.JTabbedPane();
+        registroOrden = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaOrdenes = new javax.swing.JTable();
         guardar = new javax.swing.JButton();
@@ -180,7 +181,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         referencia = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         nuevo = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        ordenDetalle = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaOrden = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
@@ -219,7 +220,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         setTitle("Orden de fabricacion");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        registroOrden.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tablaOrdenes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -239,16 +240,16 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         });
         tablaOrdenes.getTableHeader().setReorderingAllowed(false);
         tablaOrdenes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaOrdenesMouseClicked(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tablaOrdenesMousePressed(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaOrdenesMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tablaOrdenes);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 296, 920, 140));
+        registroOrden.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 296, 920, 140));
 
         guardar.setText("GUARDAR");
         guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -256,7 +257,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
                 guardarActionPerformed(evt);
             }
         });
-        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 480, -1, -1));
+        registroOrden.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 480, -1, -1));
 
         eliminar.setText("ELIMINAR");
         eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -264,7 +265,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
                 eliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 480, -1, -1));
+        registroOrden.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 480, -1, -1));
 
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -341,11 +342,11 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         });
         jPanel6.add(nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 28, -1, -1));
+        registroOrden.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 28, -1, -1));
 
-        jTabbedPane1.addTab("ENCABEZADO", jPanel1);
+        contenedor.addTab("ENCABEZADO", registroOrden);
 
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        ordenDetalle.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tablaOrden.setAutoCreateRowSorter(true);
         tablaOrden.setModel(new javax.swing.table.DefaultTableModel(
@@ -371,24 +372,24 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tablaOrden);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 266, 930, 150));
+        ordenDetalle.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 266, 930, 150));
 
         jLabel13.setText("MATERIALES");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 246, -1, -1));
+        ordenDetalle.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 246, -1, -1));
 
         jLabel14.setText("MANO DE OBRA");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(547, 246, -1, -1));
+        ordenDetalle.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(547, 246, -1, -1));
 
         jLabel15.setText("COSTOS INDIRECTOS FAB.");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(785, 246, -1, -1));
+        ordenDetalle.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(785, 246, -1, -1));
 
         jLabel16.setText("COSTO TOTAL");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 430, -1, -1));
+        ordenDetalle.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 430, -1, -1));
 
         jLabel17.setText("COSTO UNITARIO");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 460, -1, -1));
-        jPanel2.add(costoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, 81, -1));
-        jPanel2.add(costoUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 450, 81, -1));
+        ordenDetalle.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 460, -1, -1));
+        ordenDetalle.add(costoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, 81, -1));
+        ordenDetalle.add(costoUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 450, 81, -1));
 
         guardarOrden.setText("GUARDAR");
         guardarOrden.addActionListener(new java.awt.event.ActionListener() {
@@ -396,7 +397,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
                 guardarOrdenActionPerformed(evt);
             }
         });
-        jPanel2.add(guardarOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 520, 140, -1));
+        ordenDetalle.add(guardarOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 520, 140, -1));
 
         finalizar.setText("FINALIZAR");
         finalizar.addActionListener(new java.awt.event.ActionListener() {
@@ -404,7 +405,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
                 finalizarActionPerformed(evt);
             }
         });
-        jPanel2.add(finalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, 140, -1));
+        ordenDetalle.add(finalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, 140, -1));
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -464,7 +465,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
 
         jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 140, 70));
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 29, 1415, 199));
+        ordenDetalle.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 29, 1415, 199));
 
         eliminarDetalle.setText("ELIMINAR");
         eliminarDetalle.addActionListener(new java.awt.event.ActionListener() {
@@ -472,7 +473,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
                 eliminarDetalleActionPerformed(evt);
             }
         });
-        jPanel2.add(eliminarDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
+        ordenDetalle.add(eliminarDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
 
         jButton1.setText("EXPORTAR A PDF");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -480,11 +481,11 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 520, 140, -1));
+        ordenDetalle.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 520, 140, -1));
 
-        jTabbedPane1.addTab("ORDEN", jPanel2);
+        contenedor.addTab("ORDEN", ordenDetalle);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 19, 960, 590));
+        getContentPane().add(contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 19, 960, 590));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -709,8 +710,8 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     private void tablaOrdenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaOrdenesMouseClicked
         ordenFabricacion=null;
         if (evt.getClickCount() == 2) {
-            jTabbedPane1.setEnabledAt(1, true);
-            jTabbedPane1.setSelectedIndex(1);
+            contenedor.setEnabledAt(1, true);
+            contenedor.setSelectedIndex(1);
             ordenFabricacion = ordenes.get(tablaOrdenes.getSelectedRow());
             cargarOrdenDetalle();
             
@@ -778,6 +779,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     private javax.swing.JTextField cantidad;
     private javax.swing.JTextField cantidadMaterial;
     private javax.swing.JTextField cantidadObreros;
+    private javax.swing.JTabbedPane contenedor;
     private javax.swing.JTextField costoTotal;
     private javax.swing.JTextField costoUnitario;
     private javax.swing.JComboBox departamento;
@@ -818,21 +820,20 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JButton nuevo;
     private javax.swing.JButton nuevoDetalle;
     private javax.swing.JTextField numHoras;
     private javax.swing.JTextField orden;
+    private javax.swing.JPanel ordenDetalle;
     private javax.swing.JTextField precioHoras;
     private javax.swing.JTextField preciounitario;
     private javax.swing.JTextField referencia;
+    private javax.swing.JPanel registroOrden;
     private javax.swing.JTable tablaOrden;
     private javax.swing.JTable tablaOrdenes;
     private javax.swing.JTextField tasa;
