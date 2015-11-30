@@ -5,15 +5,13 @@
  */
 package Reportes;
 
-import SIC.Entidades.OrdenFabricacion;
-import SIC.Service.SICService;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
@@ -33,7 +31,8 @@ public class GenericReporte {
     private List lista = new ArrayList<>();
     private String archivoJasper;
     private Map<String, Object> mapa = new HashMap<>();
-    private String nombrePdf = "reporte";
+    private String nombrePdf =System.getProperty("user.home") + "/Desktop/"+ "reporte";
+
 
     public GenericReporte(String archivoJasper) {
         this.archivoJasper = archivoJasper;
@@ -46,7 +45,17 @@ public class GenericReporte {
             JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, mapa, new JRBeanCollectionDataSource(lista));
             JRExporter exporter = new JRPdfExporter();
             exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombrePdf +".pdf"));
+            JFileChooser archivo = new JFileChooser();
+            int seleccion = archivo.showSaveDialog(null);
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                if (!(archivo.getSelectedFile().getName() == null) && !archivo.getSelectedFile().getName().isEmpty()) {
+                    //JOptionPane.showMessageDialog(null, ruta);
+                    nombrePdf=archivo.getSelectedFile().getPath();
+                }
+
+            }
+
+            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File(nombrePdf + ".pdf"));
             exporter.exportReport();
         } catch (JRException ex) {
             Logger.getLogger(GenericReporte.class.getName()).log(Level.SEVERE, null, ex);
