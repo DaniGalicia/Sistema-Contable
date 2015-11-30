@@ -12,12 +12,12 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -55,8 +55,7 @@ public class OrdenFabricacionDetalle implements Serializable {
     private Double tasaCif;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(generator="InvSeqOFD")
-    @SequenceGenerator(name="InvSeqOFD",sequenceName="SECUENCIA_OF_DETALLE", allocationSize=5)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SECUENCIA_OF_DETALLE")
     @Column(name = "ID_ORDEN_FRABRICACION_DETALLE")
     private BigDecimal idOrdenFrabricacionDetalle;
     @JoinColumn(name = "ID_ORDEN_FABRICACION", referencedColumnName = "ID_ORDEN_FABRICACION")
