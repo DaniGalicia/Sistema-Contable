@@ -153,39 +153,35 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tablaOrdenes = new javax.swing.JTable();
-        guardar = new javax.swing.JButton();
-        eliminar = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         expedicion = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         departamento = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
+        nuevo = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        referencia = new javax.swing.JTextField();
+        articulo = new javax.swing.JTextField();
+        iniciado = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         orden = new javax.swing.JTextField();
-        cantidad = new javax.swing.JTextField();
         fechaCliente = new javax.swing.JTextField();
+        cantidad = new javax.swing.JTextField();
         terminado = new javax.swing.JTextField();
         especificacion = new javax.swing.JTextField();
-        articulo = new javax.swing.JTextField();
-        iniciado = new javax.swing.JTextField();
-        referencia = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        nuevo = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        eliminar = new javax.swing.JButton();
+        guardar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaOrdenes = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaOrden = new javax.swing.JTable();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         costoTotal = new javax.swing.JTextField();
@@ -214,12 +210,181 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         descripcion = new javax.swing.JTextArea();
         eliminarDetalle = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaOrden = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Orden de fabricacion");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingreso de Datos"));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setText("FECHA DE EXPEDICIÓN");
+        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 120, -1));
+
+        expedicion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                expedicionActionPerformed(evt);
+            }
+        });
+        jPanel6.add(expedicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, 160, -1));
+
+        jLabel2.setText("DEPARTAMENTO");
+        jPanel6.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+
+        departamento.setEditable(true);
+        departamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel6.add(departamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 160, -1));
+
+        nuevo.setText("NUEVO");
+        nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevoActionPerformed(evt);
+            }
+        });
+        jPanel6.add(nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, -1, -1));
+
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 28, 940, 90));
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Produccion"));
+
+        jLabel6.setText("REF PEPIDO N°");
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel4.setText("ARTICULO");
+
+        jLabel5.setText("INICIADO");
+
+        jLabel7.setText("N° DE ORDEN");
+
+        jLabel8.setText("FECHA REQUERIDA POR CLIENTE ");
+
+        jLabel12.setText("CANTIDAD");
+
+        jLabel10.setText("TERMINADO");
+
+        jLabel11.setText("ESPECIFICACIONES ");
+
+        orden.setEnabled(false);
+        orden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ordenActionPerformed(evt);
+            }
+        });
+
+        cantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cantidadActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(articulo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(iniciado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(referencia, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(orden, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fechaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(terminado, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(especificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(109, 109, 109))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel7)
+                        .addGap(134, 134, 134))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(orden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fechaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(articulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel8)
+                                            .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel12)
+                                            .addComponent(terminado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(iniciado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel5))
+                                        .addGap(28, 28, 28)
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(referencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel6))
+                                        .addGap(8, 8, 8)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(especificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
+        );
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 940, 210));
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Orden"));
+
+        eliminar.setText("ELIMINAR");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarActionPerformed(evt);
+            }
+        });
+
+        guardar.setText("GUARDAR");
+        guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarActionPerformed(evt);
+            }
+        });
+
+        jScrollPane2.setBackground(new java.awt.Color(140, 240, 240));
 
         tablaOrdenes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -248,104 +413,148 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(tablaOrdenes);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 296, 830, 140));
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(281, 281, 281)
+                        .addComponent(eliminar)
+                        .addGap(111, 111, 111)
+                        .addComponent(guardar))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 848, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(61, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(eliminar)
+                    .addComponent(guardar))
+                .addContainerGap())
+        );
 
-        guardar.setText("GUARDAR");
-        guardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(452, 460, -1, -1));
-
-        eliminar.setText("ELIMINAR");
-        eliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 460, -1, -1));
-
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setText("FECHA DE EXPEDICIÓN");
-        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 120, -1));
-
-        expedicion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                expedicionActionPerformed(evt);
-            }
-        });
-        jPanel6.add(expedicion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 160, -1));
-
-        jLabel2.setText("DEPARTAMENTO");
-        jPanel6.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
-
-        departamento.setEditable(true);
-        departamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel6.add(departamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 160, -1));
-
-        jLabel3.setText("PRODUCCIÓN");
-        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, -1, -1));
-
-        jLabel4.setText("ARTICULO");
-        jPanel6.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, -1, -1));
-
-        jLabel5.setText("INICIADO");
-        jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
-
-        jLabel6.setText("REF PEPIDO N°");
-        jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
-
-        jLabel8.setText("FECHA REQUERIDA POR CLIENTE ");
-        jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, -1, -1));
-
-        jLabel12.setText("CANTIDAD");
-        jPanel6.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, -1, -1));
-
-        jLabel10.setText("TERMINADO");
-        jPanel6.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 170, -1, -1));
-
-        jLabel11.setText("ESPECIFICACIONES ");
-        jPanel6.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, -1, -1));
-
-        orden.setEnabled(false);
-        orden.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ordenActionPerformed(evt);
-            }
-        });
-        jPanel6.add(orden, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 30, 160, -1));
-
-        cantidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cantidadActionPerformed(evt);
-            }
-        });
-        jPanel6.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 130, 160, -1));
-        jPanel6.add(fechaCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 60, 160, -1));
-        jPanel6.add(terminado, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 160, 160, -1));
-        jPanel6.add(especificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 190, 160, -1));
-        jPanel6.add(articulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 160, -1));
-        jPanel6.add(iniciado, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 170, 160, -1));
-        jPanel6.add(referencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 160, -1));
-
-        jLabel7.setText("N° DE ORDEN");
-        jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 40, -1, -1));
-
-        nuevo.setText("NUEVO");
-        nuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nuevoActionPerformed(evt);
-            }
-        });
-        jPanel6.add(nuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
-
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 28, -1, -1));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 940, 310));
 
         jTabbedPane1.addTab("ENCABEZADO", jPanel1);
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel16.setText("COSTO TOTAL");
+        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 480, -1, -1));
+
+        jLabel17.setText("COSTO UNITARIO");
+        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 480, -1, -1));
+        jPanel2.add(costoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 480, 81, -1));
+        jPanel2.add(costoUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 480, 81, -1));
+
+        guardarOrden.setText("GUARDAR");
+        guardarOrden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarOrdenActionPerformed(evt);
+            }
+        });
+        jPanel2.add(guardarOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 540, 140, -1));
+
+        finalizar.setText("FINALIZAR");
+        finalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finalizarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(finalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 540, 140, -1));
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalle Orden"));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setText("Material");
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, -1, -1));
+
+        jLabel18.setText("Mano De Obra");
+        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, -1, -1));
+
+        jLabel19.setText("Costos Indirectos de Fabricación");
+        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 30, -1, 10));
+
+        jLabel20.setText("Descripción");
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
+
+        jLabel21.setText("Cantidad");
+        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 54, -1));
+
+        jLabel22.setText("Precio Unitario");
+        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
+
+        jLabel23.setText("Cantidad Obreros");
+        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, -1, -1));
+
+        jLabel24.setText("N° de Horas");
+        jPanel3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 92, -1));
+
+        jLabel25.setText("Precio Por Hora");
+        jPanel3.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, -1, -1));
+
+        jLabel26.setText("Tasa sobre costo primo");
+        jPanel3.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 60, -1, 24));
+
+        cantidadMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cantidadMaterialActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cantidadMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 140, -1));
+        jPanel3.add(preciounitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 140, -1));
+        jPanel3.add(cantidadObreros, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 76, -1));
+        jPanel3.add(numHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 76, -1));
+        jPanel3.add(precioHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 76, -1));
+        jPanel3.add(tasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 100, 95, -1));
+
+        nuevoDetalle.setText("NUEVO DETALLE");
+        nuevoDetalle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nuevoDetalleActionPerformed(evt);
+            }
+        });
+        jPanel3.add(nuevoDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(631, 140, 160, -1));
+
+        descripcion.setColumns(20);
+        descripcion.setRows(5);
+        jScrollPane3.setViewportView(descripcion);
+
+        jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 140, 70));
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 970, 200));
+
+        eliminarDetalle.setText("ELIMINAR");
+        eliminarDetalle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarDetalleActionPerformed(evt);
+            }
+        });
+        jPanel2.add(eliminarDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 540, 140, -1));
+
+        jButton1.setText("EXPORTAR A PDF");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 540, 140, -1));
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Orden Fabricacion"));
+
+        jLabel13.setText("MATERIALES");
+
+        jLabel14.setText("MANO DE OBRA");
+
+        jLabel15.setText("COSTOS INDIRECTOS FAB.");
 
         tablaOrden.setAutoCreateRowSorter(true);
         tablaOrden.setModel(new javax.swing.table.DefaultTableModel(
@@ -371,120 +580,41 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tablaOrden);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 266, 930, 150));
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(148, 148, 148)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addGap(184, 184, 184)
+                .addComponent(jLabel15)
+                .addGap(90, 90, 90))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 930, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 14, Short.MAX_VALUE))
+        );
 
-        jLabel13.setText("MATERIALES");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 246, -1, -1));
-
-        jLabel14.setText("MANO DE OBRA");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(547, 246, -1, -1));
-
-        jLabel15.setText("COSTOS INDIRECTOS FAB.");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(785, 246, -1, -1));
-
-        jLabel16.setText("COSTO TOTAL");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 430, -1, -1));
-
-        jLabel17.setText("COSTO UNITARIO");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 460, -1, -1));
-        jPanel2.add(costoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, 81, -1));
-        jPanel2.add(costoUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 450, 81, -1));
-
-        guardarOrden.setText("GUARDAR");
-        guardarOrden.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarOrdenActionPerformed(evt);
-            }
-        });
-        jPanel2.add(guardarOrden, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 520, 140, -1));
-
-        finalizar.setText("FINALIZAR");
-        finalizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                finalizarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(finalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, 140, -1));
-
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel9.setText("Material");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, -1, -1));
-
-        jLabel18.setText("Mano De Obra");
-        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(403, 48, -1, -1));
-
-        jLabel19.setText("Costos Indirectos de Fabricación");
-        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 50, -1, -1));
-
-        jLabel20.setText("Descripción");
-        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
-
-        jLabel21.setText("Cantidad");
-        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 54, -1));
-
-        jLabel22.setText("Precio Unitario");
-        jPanel3.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
-
-        jLabel23.setText("Cantidad Obreros");
-        jPanel3.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, -1, -1));
-
-        jLabel24.setText("N° de Horas");
-        jPanel3.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 92, -1));
-
-        jLabel25.setText("Precio Por Hora");
-        jPanel3.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 130, -1, -1));
-
-        jLabel26.setText("Tasa sobre costo primo");
-        jPanel3.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 70, -1, 24));
-
-        cantidadMaterial.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cantidadMaterialActionPerformed(evt);
-            }
-        });
-        jPanel3.add(cantidadMaterial, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 140, -1));
-        jPanel3.add(preciounitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 140, -1));
-        jPanel3.add(cantidadObreros, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 70, 76, -1));
-        jPanel3.add(numHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 76, -1));
-        jPanel3.add(precioHoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 76, -1));
-        jPanel3.add(tasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 110, 95, -1));
-
-        nuevoDetalle.setText("NUEVO DETALLE");
-        nuevoDetalle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nuevoDetalleActionPerformed(evt);
-            }
-        });
-        jPanel3.add(nuevoDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, -1, -1));
-
-        descripcion.setColumns(20);
-        descripcion.setRows(5);
-        jScrollPane3.setViewportView(descripcion);
-
-        jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 140, 70));
-
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 29, 1415, 199));
-
-        eliminarDetalle.setText("ELIMINAR");
-        eliminarDetalle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminarDetalleActionPerformed(evt);
-            }
-        });
-        jPanel2.add(eliminarDetalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, -1, -1));
-
-        jButton1.setText("EXPORTAR A PDF");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 520, 140, -1));
+        jPanel2.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 960, 230));
 
         jTabbedPane1.addTab("ORDEN", jPanel2);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 19, -1, 640));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 990, 700));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -811,7 +941,6 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -821,7 +950,10 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
