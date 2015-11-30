@@ -248,7 +248,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(tablaOrdenes);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 296, 830, 140));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 296, 920, 140));
 
         guardar.setText("GUARDAR");
         guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -256,7 +256,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
                 guardarActionPerformed(evt);
             }
         });
-        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(452, 460, -1, -1));
+        jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 480, -1, -1));
 
         eliminar.setText("ELIMINAR");
         eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -264,7 +264,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
                 eliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(326, 460, -1, -1));
+        jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 480, -1, -1));
 
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -484,7 +484,7 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
 
         jTabbedPane1.addTab("ORDEN", jPanel2);
 
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 19, -1, 640));
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 19, 960, 590));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
