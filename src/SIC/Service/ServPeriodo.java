@@ -14,6 +14,10 @@ public Periodo getActivo(){
     Query q=getEntityManager().createNamedQuery("Periodo.findByActivo");
     q.setParameter("activo", "1");
     
-    return (Periodo) q.getSingleResult();
+    try {
+        return (Periodo) q.getSingleResult();
+    } catch (Exception e) {
+    }
+    return null;
 }
 }
