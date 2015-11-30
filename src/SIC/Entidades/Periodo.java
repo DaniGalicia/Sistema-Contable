@@ -7,6 +7,8 @@ package SIC.Entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -142,7 +144,9 @@ public class Periodo implements Serializable {
 
     @Override
     public String toString() {
-        return "SIC.Entidades.Periodo[ idPeriodo=" + idPeriodo + " ]";
+
+        DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        return formatoFecha.format(fechaInicio) + " - " + formatoFecha.format(fechaFin);
     }
-    
+
 }

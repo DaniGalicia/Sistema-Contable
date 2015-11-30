@@ -900,7 +900,6 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
         //reporte.getMapa().put("nombreEstadoFinanciero", "Orden de Fabricación");
         reporte.setLista(ordendetalle);
         reporte.generar();
-        JOptionPane.showMessageDialog(rootPane, "Archivo generado");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

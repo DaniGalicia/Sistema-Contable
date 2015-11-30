@@ -5,12 +5,16 @@
  */
 package SIC.Vistas;
 
+import SIC.Entidades.Cuenta;
+import SIC.Entidades.CuentaSaldada;
+import SIC.Entidades.Movimiento;
 import SIC.Entidades.Periodo;
 import SIC.Service.SICService;
 import groovy.xml.Entity;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -161,9 +165,39 @@ public class AdministrarPeriodo extends javax.swing.JFrame {
         Periodo actual = SICService.getServPeriodo().getActivo();
 
         if (actual != null) {
+ 
+            //Saldar cuentas
+            for (Cuenta cuenta : (List<Cuenta>) SICService.getServCuenta().getListado(Cuenta.class)) {
+                if (cuenta.getMovimientoList().isEmpty()) {
+                    continue;
+                }
+
+                double saldo = 0;
+                for (Movimiento movimiento : cuenta.getMovimientoList()) {
+                    
+                    if(movimiento.getFecha().before(actual.getFechaInicio()) || movimiento.getFecha().after(actual.getFechaFin()))
+                        continue;
+
+                    if (movimiento.getTipo().equals("D")) {
+                        saldo += movimiento.getCantidad();
+                    } else {
+                        saldo -= movimiento.getCantidad();
+                    }
+                }
+//Almacena las cuentas
+                if (saldo != 0) {
+                    CuentaSaldada cuentaSaldada = new CuentaSaldada();
+                    cuentaSaldada.setCuenta(cuenta);
+                    cuentaSaldada.setPeriodo(SICService.getServPeriodo().getActivo());
+                    cuentaSaldada.setSaldo(saldo);
+                    SICService.getServCuentaSaldada().guardar(cuentaSaldada);
+                }
+                
             actual.setActivo("0");
             SICService.getServPeriodo().guardar(actual);
-            JOptionPane.showMessageDialog(rootPane, "Periodo cerrado correctamente", "Cerrar periodo", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
             inicioPeriodoActual.setText("");
             finPeriodoActual.setText("");
         } else {
@@ -197,8 +231,26 @@ public class AdministrarPeriodo extends javax.swing.JFrame {
             nuevo.setFechaFin(new Date(finPeriodoActual.getText()));
             nuevo.setActivo("1");
             SICService.getServPeriodo().guardar(nuevo);
+
+            
+            for(CuentaSaldada cuentaSaldada:(List<CuentaSaldada>) SICService.getServCuentaSaldada().getSaldosAnteriores())
+            {
+                Movimiento m= new Movimiento();
+                m.setCuenta(cuentaSaldada.getCuenta());
+                m.setFecha(new Date());
+                
+                if(cuentaSaldada.getSaldo() > 0)
+                    m.setTipo("D");
+                else
+                    m.setTipo("H");
+                
+                m.setCantidad(cuentaSaldada.getSaldo());
+                
+                SICService.getServMovimiento().guardar(m);
+            }
             JOptionPane.showMessageDialog(null, "Guardado y activado como periodo actual");
             guardar.setVisible(false);
+            
         }
     }//GEN-LAST:event_guardarActionPerformed
 
