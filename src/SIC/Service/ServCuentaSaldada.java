@@ -33,7 +33,8 @@ public class ServCuentaSaldada extends BasicService{
     public List<CuentaSaldada> findByTipoCuenta(String tipoCuenta){
 
         List<CuentaSaldada> aux= getListado(CuentaSaldada.class);   
-        aux.removeIf(p -> !p.getCuenta().getTipoCuenta().getIdTipoCuenta().equals(tipoCuenta));
+       //Solo funciona en java 8
+        // aux.removeIf(p -> !p.getCuenta().getTipoCuenta().getIdTipoCuenta().equals(tipoCuenta));
         
         return aux;
     }

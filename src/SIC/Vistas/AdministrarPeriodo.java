@@ -10,7 +10,6 @@ import SIC.Entidades.CuentaSaldada;
 import SIC.Entidades.Movimiento;
 import SIC.Entidades.Periodo;
 import SIC.Service.SICService;
-import groovy.xml.Entity;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;

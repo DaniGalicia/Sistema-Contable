@@ -303,7 +303,8 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, estadoFinanciero.getSaldo());
             SICService.getServEstadoFinanciero().guardar(estadoFinanciero);
         }
-        cuentasSaldadas.removeIf(p->!p.getPeriodo().equals(periodoSelected));  
+        //Solo funciona en java 8
+        //cuentasSaldadas.removeIf(p->!p.getPeriodo().equals(periodoSelected));  
         insertarDato();
     }//GEN-LAST:event_botonGenerarActionPerformed
 

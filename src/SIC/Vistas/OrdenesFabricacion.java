@@ -48,9 +48,11 @@ public class OrdenesFabricacion extends javax.swing.JDialog {
 
     private void limpiar() {
         for (Object cajasTexto : jPanel3.getComponents()) {
+          //Solo funciona en java 8
+          /*
             if (cajasTexto.getClass().getTypeName().equals("javax.swing.JTextField")) {
                 ((JTextField) cajasTexto).setText("");
-            }
+            }*/
         }
     }
 
