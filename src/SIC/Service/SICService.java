@@ -28,12 +28,23 @@ public class SICService {
     private static ServOrdenFabricacionDetalle servOrdenFabricacionDetalle;
     private static ServDepartamento servDepartamento;
     private static ServEstadoFinanciero servEstadoFinanciero;
+    private static ServPlanilla servPlanilla;
+
+    public static ServPlanilla getServPlanilla() {
+        if(servPlanilla==null)
+            servPlanilla=new ServPlanilla();
+        
+        return servPlanilla;
+    }
+    
+    
 
     public static ServPeriodo getServPeriodo() {
         if(servPeriodo==null)
             servPeriodo=new ServPeriodo();
         return servPeriodo;
     }
+
 
     public static ServEstadoFinanciero getServEstadoFinanciero() {
         if(servEstadoFinanciero==null)

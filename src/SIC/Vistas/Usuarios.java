@@ -301,11 +301,12 @@ public class Usuarios extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Por favor complete los datos");
         } else {
             if (usuarioSelected==null && empleadoSelected!=null) {
-                usuarioSelected = new Usuario(empleadoSelected.getCodigoEmpleado());
+                usuarioSelected = new Usuario(empleadoSelected.getCodigoEmpleado());                
             }
 
             usuarioSelected.setUsuario(usuario.getText());
             usuarioSelected.setClave(clave.getText());
+            usuarioSelected.setEmpleado(empleadoSelected);
             SICService.getServUsuario().guardar(usuarioSelected);
             actualizarTextos(false);
             JOptionPane.showMessageDialog(null, "Datos guardados");
