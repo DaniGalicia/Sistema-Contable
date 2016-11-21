@@ -24,8 +24,6 @@ public class SICService {
     private static ServTipoCuenta servTipoCuenta;
     private static ServTipoEstadoFinanciero servTipoEstadoFinanciero;
     private static ServPeriodo servPeriodo;
-    private static ServOrdenFabricacion servOrdenFabricacion;
-    private static ServOrdenFabricacionDetalle servOrdenFabricacionDetalle;
     private static ServDepartamento servDepartamento;
     private static ServEstadoFinanciero servEstadoFinanciero;
     private static ServPlanilla servPlanilla;
@@ -107,23 +105,12 @@ public class SICService {
         
         return servCuentaSaldada;
     }
-    public static ServOrdenFabricacion getServOrdenFabricacion() {
-        if(servOrdenFabricacion==null)
-            servOrdenFabricacion=new ServOrdenFabricacion();
-        
-        return servOrdenFabricacion;
-    }
+    
     public static ServDepartamento getServDepartamento() {
         if(servDepartamento==null)
             servDepartamento=new ServDepartamento();
         
         return servDepartamento;
-    }
-    public static ServOrdenFabricacionDetalle getServOrdenFabricacionDetalle() {
-        if(servOrdenFabricacionDetalle==null)
-            servOrdenFabricacionDetalle=new ServOrdenFabricacionDetalle();
-        
-        return servOrdenFabricacionDetalle;
     }
     
     

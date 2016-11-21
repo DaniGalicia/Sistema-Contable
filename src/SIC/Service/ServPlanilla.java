@@ -9,7 +9,6 @@ package SIC.Service;
  *
  * @author IVON-GARCIA
  */
-public class ServPlanilla extends BasicService{
-    
+public class ServPlanilla {
     
 }

@@ -19,7 +19,9 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
-        getIconImage();   
+        getIconImage();
+        setLocationRelativeTo(null);
+        
         new Login(this, true).setVisible(true);
         ImageIcon fot = new ImageIcon(getClass().getResource("/SIC/Imagenes/logo.png"));
         ImageIcon icono = new ImageIcon(fot.getImage().getScaledInstance(logo.getWidth(), logo.getHeight(), Image.SCALE_DEFAULT));
@@ -174,7 +176,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void envio3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio3ActionPerformed
         // TODO add your handling code here:
-        new OrdenesFabricacion(this, true).setVisible(true);
+        //new OrdenesFabricacion(this, true).setVisible(true);
     }//GEN-LAST:event_envio3ActionPerformed
 
     private void mantenimientoDeUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mantenimientoDeUsuariosActionPerformed

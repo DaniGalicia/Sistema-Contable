@@ -1,8 +1,8 @@
 
 package pruebas.reportes.jasperreports.parametros;
 
-import SIC.Entidades.OrdenFabricacion;
-import SIC.Entidades.OrdenFabricacionDetalle;
+//import SIC.Entidades.OrdenFabricacion;
+//import SIC.Entidades.OrdenFabricacionDetalle;
 import SIC.Service.SICService;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -33,15 +33,15 @@ public class Main
 
         
         
-        OrdenFabricacion or=(OrdenFabricacion) SICService.getServOrdenFabricacion().getByPK(OrdenFabricacion.class, BigDecimal.valueOf(29));
+        //OrdenFabricacion or=(OrdenFabricacion) SICService.getServOrdenFabricacion().getByPK(OrdenFabricacion.class, BigDecimal.valueOf(29));
 
         Map<String, Object> parametros = new HashMap<String,Object>();
-        parametros.put("orden",or);
+        //parametros.put("orden",or);
 
-        JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, new JRBeanCollectionDataSource(or.getOrdenFabricacionDetalleList()));
+        //JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parametros, new JRBeanCollectionDataSource(or.getOrdenFabricacionDetalleList()));
 
         JRExporter exporter = new JRPdfExporter();
-        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+        //exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
         exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new java.io.File("reporte3PDF.pdf"));
         exporter.exportReport();
     }
