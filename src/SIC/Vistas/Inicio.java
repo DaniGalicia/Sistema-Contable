@@ -21,13 +21,12 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
         getIconImage();
         setLocationRelativeTo(null);
-        
         new Login(this, true).setVisible(true);
         ImageIcon fot = new ImageIcon(getClass().getResource("/SIC/Imagenes/logo.png"));
         ImageIcon icono = new ImageIcon(fot.getImage().getScaledInstance(logo.getWidth(), logo.getHeight(), Image.SCALE_DEFAULT));
         logo.setIcon(icono);
         
-         
+        
     }
 
     /**
@@ -39,28 +38,46 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         envio1 = new javax.swing.JButton();
         envio2 = new javax.swing.JButton();
         envio4 = new javax.swing.JButton();
-        imagen = new javax.swing.JLabel();
         logo = new javax.swing.JLabel();
         envio3 = new javax.swing.JButton();
+        mantenimientoDePeriodo = new javax.swing.JButton();
         mantenimientoDeUsuarios = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+
+        jLabel2.setText("jLabel2");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SISTEMA CONTABLE \"EL SOL NACIENTE\"");
-        setAutoRequestFocus(false);
         setBackground(new java.awt.Color(255, 255, 204));
-        setExtendedState(6);
+        setFocusableWindowState(false);
         setIconImage(getIconImage());
-        setMaximumSize(new java.awt.Dimension(21474836, 21474836));
+        setMaximumSize(new java.awt.Dimension(850, 499));
+        setMinimumSize(new java.awt.Dimension(850, 499));
+        setSize(new java.awt.Dimension(850, 499));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Aharoni", 0, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(153, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("SISTEMA CONTABLE");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 485, 89));
 
         envio1.setFont(new java.awt.Font("Aharoni", 1, 14)); // NOI18N
         envio1.setText("REGISTRAR TRANSACCIÓN");
@@ -71,6 +88,7 @@ public class Inicio extends javax.swing.JFrame {
                 envio1ActionPerformed(evt);
             }
         });
+        getContentPane().add(envio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 290, 303, 31));
 
         envio2.setFont(new java.awt.Font("Aharoni", 1, 14)); // NOI18N
         envio2.setText("ESTADOS FINANCIEROS");
@@ -80,6 +98,7 @@ public class Inicio extends javax.swing.JFrame {
                 envio2ActionPerformed(evt);
             }
         });
+        getContentPane().add(envio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 340, 303, 31));
 
         envio4.setFont(new java.awt.Font("Aharoni", 1, 14)); // NOI18N
         envio4.setText("MANTENIMIENTO DE CUENTAS");
@@ -88,10 +107,12 @@ public class Inicio extends javax.swing.JFrame {
                 envio4ActionPerformed(evt);
             }
         });
+        getContentPane().add(envio4, new org.netbeans.lib.awtextra.AbsoluteConstraints(539, 109, 303, 30));
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SIC/Imagenes/logo.png"))); // NOI18N
         logo.setMaximumSize(new java.awt.Dimension(480, 505));
         logo.setMinimumSize(new java.awt.Dimension(480, 505));
+        getContentPane().add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
         envio3.setFont(new java.awt.Font("Aharoni", 1, 14)); // NOI18N
         envio3.setText("GENERAR PLANILLA");
@@ -101,6 +122,16 @@ public class Inicio extends javax.swing.JFrame {
                 envio3ActionPerformed(evt);
             }
         });
+        getContentPane().add(envio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 400, 299, 31));
+
+        mantenimientoDePeriodo.setFont(new java.awt.Font("Aharoni", 1, 14)); // NOI18N
+        mantenimientoDePeriodo.setText("MANTENIMIENTO DE PERIODO");
+        mantenimientoDePeriodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mantenimientoDePeriodoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(mantenimientoDePeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 230, 303, 30));
 
         mantenimientoDeUsuarios.setFont(new java.awt.Font("Aharoni", 1, 14)); // NOI18N
         mantenimientoDeUsuarios.setText("MANTENIMIENTO DE USUARIOS");
@@ -109,56 +140,13 @@ public class Inicio extends javax.swing.JFrame {
                 mantenimientoDeUsuariosActionPerformed(evt);
             }
         });
+        getContentPane().add(mantenimientoDeUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 303, 30));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(271, 271, 271)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(88, 88, 88)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(envio4, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(mantenimientoDeUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(envio1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(envio2, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(envio3, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(77, 77, 77))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(imagen)
-                        .addGap(317, 317, 317))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(envio4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addComponent(mantenimientoDeUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(envio1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(envio2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(envio3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(imagen))
-        );
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SIC/Imagenes/fondo1.jpg"))); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 499));
 
-        pack();
+        setSize(new java.awt.Dimension(866, 537));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void envio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envio1ActionPerformed
@@ -178,6 +166,11 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
         //new OrdenesFabricacion(this, true).setVisible(true);
     }//GEN-LAST:event_envio3ActionPerformed
+
+    private void mantenimientoDePeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mantenimientoDePeriodoActionPerformed
+        // TODO add your handling code here:
+        new AdministrarPeriodo(this,true).setVisible(true);
+    }//GEN-LAST:event_mantenimientoDePeriodoActionPerformed
 
     private void mantenimientoDeUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mantenimientoDeUsuariosActionPerformed
         // TODO add your handling code here:
@@ -229,9 +222,12 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton envio2;
     private javax.swing.JButton envio3;
     private javax.swing.JButton envio4;
-    private javax.swing.JLabel imagen;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel logo;
+    private javax.swing.JButton mantenimientoDePeriodo;
     private javax.swing.JButton mantenimientoDeUsuarios;
     // End of variables declaration//GEN-END:variables
 
