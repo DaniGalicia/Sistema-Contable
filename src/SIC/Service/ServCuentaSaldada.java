@@ -43,6 +43,9 @@ public class ServCuentaSaldada extends BasicService{
     public List<CuentaSaldada> getSaldosAnteriores(){
         
         List<Periodo> periodos=SICService.getServPeriodo().getFinalizados();
+        if(periodos.isEmpty())
+            return new ArrayList<>();
+        
         Periodo periodo=periodos.get(0);
         
         for(Periodo p:periodos)

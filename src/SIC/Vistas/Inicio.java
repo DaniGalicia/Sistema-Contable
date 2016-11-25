@@ -68,9 +68,12 @@ public class Inicio extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 204));
         setFocusableWindowState(false);
         setIconImage(getIconImage());
-        setMaximumSize(new java.awt.Dimension(850, 499));
         setMinimumSize(new java.awt.Dimension(850, 499));
-        setSize(new java.awt.Dimension(850, 499));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Aharoni", 0, 48)); // NOI18N
@@ -142,7 +145,9 @@ public class Inicio extends javax.swing.JFrame {
         });
         getContentPane().add(mantenimientoDeUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 303, 30));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SIC/Imagenes/fondo1.jpg"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SIC/Imagenes/fondo.jpg"))); // NOI18N
+        jLabel3.setRequestFocusEnabled(false);
+        jLabel3.setVerifyInputWhenFocusTarget(false);
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 499));
 
         setSize(new java.awt.Dimension(866, 537));
@@ -176,6 +181,11 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
         new Usuarios(this,true).setVisible(true);
     }//GEN-LAST:event_mantenimientoDeUsuariosActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

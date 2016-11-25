@@ -9,12 +9,19 @@ import SIC.Entidades.Cuenta;
 import SIC.Entidades.CuentaSaldada;
 import SIC.Entidades.Movimiento;
 import SIC.Entidades.Periodo;
+import SIC.Entidades.TipoCuenta;
+import SIC.Service.Comunes;
 import SIC.Service.SICService;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -22,12 +29,20 @@ import javax.swing.JTextField;
  *
  * @author dannier
  */
-public class AdministrarPeriodo extends javax.swing.JFrame {
+public class AdministrarPeriodo extends javax.swing.JDialog {
 
     /**
      * Creates new form AdministrarPeriodo
      */
     public AdministrarPeriodo() {
+        initComponents();
+        cargarPeriodoActual();
+    }
+    
+    
+    public AdministrarPeriodo(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        this.setLocationRelativeTo(parent);
         initComponents();
         cargarPeriodoActual();
     }
@@ -38,7 +53,7 @@ public class AdministrarPeriodo extends javax.swing.JFrame {
 
             DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
             inicioPeriodoActual.setText(formatoFecha.format(actual.getFechaInicio()));
-            finPeriodoActual.setText(formatoFecha.format(actual.getFechaInicio()));
+            finPeriodoActual.setText(formatoFecha.format(actual.getFechaFin()));
         }
     }
 
@@ -60,8 +75,10 @@ public class AdministrarPeriodo extends javax.swing.JFrame {
         nuevo = new javax.swing.JButton();
         guardar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Administrar periodo");
+        setResizable(false);
+        setType(java.awt.Window.Type.POPUP);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Periodo actual")));
 
@@ -196,7 +213,6 @@ public class AdministrarPeriodo extends javax.swing.JFrame {
             SICService.getServPeriodo().guardar(actual);
 
             }
-
             inicioPeriodoActual.setText("");
             finPeriodoActual.setText("");
         } else {
@@ -211,10 +227,23 @@ public class AdministrarPeriodo extends javax.swing.JFrame {
             finPeriodoActual.setText("");
             inicioPeriodoActual.setEditable(true);
             finPeriodoActual.setEditable(true);
+            DateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+            
+            Date fecha=new Date();
+            Calendar c = new GregorianCalendar();
+
+            
+            inicioPeriodoActual.setText("01/"+fecha.getMonth()+"/"+(fecha.getYear()+1900));
+            finPeriodoActual.setText(c.getMaximum(Calendar.DAY_OF_MONTH) +"/"+fecha.getMonth()+"/"+(fecha.getYear()+1900));
+            
+            inicioPeriodoActual.requestFocus();
+            
+            
+            
             guardar.setVisible(true);
 
         } else {
-            JOptionPane.showMessageDialog(rootPane, "NO ha cerrado el periodo anterior", "Iniciar Periodo", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, "No ha cerrado el periodo anterior", "Iniciar Periodo", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_nuevoActionPerformed
@@ -226,11 +255,19 @@ public class AdministrarPeriodo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se puede guardar, hay campos vacios");
         } else if (validarFecha(inicioPeriodoActual) && validarFecha(finPeriodoActual)) {
             Periodo nuevo = new Periodo();
-            nuevo.setFechaInicio(new Date(inicioPeriodoActual.getText()));
-            nuevo.setFechaFin(new Date(finPeriodoActual.getText()));
+
+            
+            try {
+                nuevo.setFechaInicio(new SimpleDateFormat("dd/MM/yyyy").parse(inicioPeriodoActual.getText()));
+                nuevo.setFechaFin(new SimpleDateFormat("dd/MM/yyyy").parse(finPeriodoActual.getText()));
+            } catch (ParseException ex) {
+                Logger.getLogger(AdministrarPeriodo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             nuevo.setActivo("1");
             SICService.getServPeriodo().guardar(nuevo);
 
+            
             
             for(CuentaSaldada cuentaSaldada:(List<CuentaSaldada>) SICService.getServCuentaSaldada().getSaldosAnteriores())
             {
