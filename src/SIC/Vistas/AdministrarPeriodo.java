@@ -191,7 +191,7 @@ public class AdministrarPeriodo extends javax.swing.JDialog {
                 double saldo = 0;
                 for (Movimiento movimiento : cuenta.getMovimientoList()) {
                     
-                    if(movimiento.getFecha().before(actual.getFechaInicio()) || movimiento.getFecha().after(actual.getFechaFin()))
+                    if(!movimiento.getPeriodo().equals(actual))
                         continue;
 
                     if (movimiento.getTipo().equals("D")) {
@@ -204,17 +204,19 @@ public class AdministrarPeriodo extends javax.swing.JDialog {
                 if (saldo != 0) {
                     CuentaSaldada cuentaSaldada = new CuentaSaldada();
                     cuentaSaldada.setCuenta(cuenta);
-                    cuentaSaldada.setPeriodo(SICService.getServPeriodo().getActivo());
+                    cuentaSaldada.setPeriodo(actual);
                     cuentaSaldada.setSaldo(saldo);
                     SICService.getServCuentaSaldada().guardar(cuentaSaldada);
                 }
                 
-            actual.setActivo("0");
-            SICService.getServPeriodo().guardar(actual);
+
 
             }
+            actual.setActivo("0");
+            SICService.getServPeriodo().guardar(actual);
             inicioPeriodoActual.setText("");
             finPeriodoActual.setText("");
+            JOptionPane.showMessageDialog(this, "Periodo contable cerrado con éxito");
         } else {
             JOptionPane.showMessageDialog(rootPane, "No hay periodo activo", "Cerrar periodo", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -273,7 +275,7 @@ public class AdministrarPeriodo extends javax.swing.JDialog {
             {
                 Movimiento m= new Movimiento();
                 m.setCuenta(cuentaSaldada.getCuenta());
-                m.setFecha(new Date());
+                m.setPeriodo(nuevo);
                 
                 if(cuentaSaldada.getSaldo() > 0)
                     m.setTipo("D");

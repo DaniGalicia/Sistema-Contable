@@ -76,6 +76,11 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
         jLabel1.setText("Periodo");
 
         listaPeriodos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listaPeriodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaPeriodosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -266,6 +271,11 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
         cuentasSaldadas.clear();
         TipoEstadoFinanciero tipoEstadoFinancieroSelected = (TipoEstadoFinanciero) tiposEstadoFinanciero.getSelectedItem();
 
+        if(tipoEstadoFinancieroSelected==null || periodoSelected==null){
+            JOptionPane.showMessageDialog(this,"Seleccione el periodo y el balance a generar");
+            return;
+        }
+        
         if (tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("EC")) {
             prepareEstadoCapital(periodoSelected);
         } else if (tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("ER")) {
@@ -292,7 +302,7 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
         if (SICService.getServEstadoFinanciero().getEstadoFinacieroPeriodoActivo(tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero(),periodoSelected) == null && guarda==true) {
            
             EstadoFinanciero estadoFinanciero = new EstadoFinanciero();
-            estadoFinanciero.setPeriodo(SICService.getServPeriodo().getActivo());
+            estadoFinanciero.setPeriodo(periodoSelected);
             estadoFinanciero.setTipoEstadoFinanciero(tipoEstadoFinancieroSelected);
             
             if(tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("EC"))
@@ -304,7 +314,17 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
             SICService.getServEstadoFinanciero().guardar(estadoFinanciero);
         }
         //Solo funciona en java 8
-        //cuentasSaldadas.removeIf(p->!p.getPeriodo().equals(periodoSelected));  
+       //cuentasSaldadas.removeIf(p->!p.getPeriodo().equals(periodoSelected));  
+       
+       List cuentasBorrar = new ArrayList<>();
+       
+      /* for(CuentaSaldada c:cuentasSaldadas){
+           if(c.getPeriodo().equals(periodoSelected)){
+               cuentasBorrar.add(c);
+           }
+       }
+       cuentasSaldadas.removeAll(cuentasBorrar);*/
+       
         insertarDato();
     }//GEN-LAST:event_botonGenerarActionPerformed
 
@@ -359,6 +379,10 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
         reporte.setLista(cuentasSaldadas);
         reporte.generar();
     }//GEN-LAST:event_exportarPdfActionPerformed
+
+    private void listaPeriodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaPeriodosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listaPeriodosActionPerformed
 
     private void prepareEstadoCapital(Periodo periodo) {
         EstadoFinanciero estadoResultados = SICService.getServEstadoFinanciero().getEstadoFinacieroPeriodoActivo("ER",periodo);

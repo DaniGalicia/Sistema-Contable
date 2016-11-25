@@ -45,7 +45,7 @@ public class Usuarios extends javax.swing.JDialog {
        for (Usuario usuario1 : usuarios) {
            Object[] linea = {usuario1.getCodigoEmpleado(),
                usuario1.getEmpleado().getNombres(),
-               usuario1.getClave()
+               usuario1.getEmpleado().getApellidos()
            };
            defaultTableModel.addRow(linea);
        }
@@ -170,11 +170,11 @@ public class Usuarios extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Codigo", "Nombre", "Clave"
+                "Codigo", "Nombre", "Apellidos"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

@@ -32,7 +32,6 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Movimiento.findAll", query = "SELECT m FROM Movimiento m"),
     @NamedQuery(name = "Movimiento.findByIdMovimiento", query = "SELECT m FROM Movimiento m WHERE m.idMovimiento = :idMovimiento"),
-    @NamedQuery(name = "Movimiento.findByFecha", query = "SELECT m FROM Movimiento m WHERE m.fecha = :fecha"),
     @NamedQuery(name = "Movimiento.findByTipo", query = "SELECT m FROM Movimiento m WHERE m.tipo = :tipo"),
     @NamedQuery(name = "Movimiento.findByCantidad", query = "SELECT m FROM Movimiento m WHERE m.cantidad = :cantidad")})
 public class Movimiento implements Serializable {
@@ -45,10 +44,6 @@ public class Movimiento implements Serializable {
     @Column(name = "ID_MOVIMIENTO")
     private BigDecimal idMovimiento;
     @Basic(optional = false)
-    @Column(name = "FECHA")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fecha;
-    @Basic(optional = false)
     @Column(name = "TIPO")
     private String tipo;
     @Basic(optional = false)
@@ -57,6 +52,9 @@ public class Movimiento implements Serializable {
     @JoinColumn(name = "ID_CUENTA", referencedColumnName = "ID_CUENTA")
     @ManyToOne(optional = false)
     private Cuenta cuenta;
+    @JoinColumn(name = "ID_PERIODO",referencedColumnName = "ID_PERIODO")
+    @ManyToOne(optional = false)
+    private Periodo periodo;
 
     public Movimiento() {
     }
@@ -65,9 +63,8 @@ public class Movimiento implements Serializable {
         this.idMovimiento = idMovimiento;
     }
 
-    public Movimiento(BigDecimal idMovimiento, Date fecha, String tipo, double cantidad) {
+    public Movimiento(BigDecimal idMovimiento, String tipo, double cantidad) {
         this.idMovimiento = idMovimiento;
-        this.fecha = fecha;
         this.tipo = tipo;
         this.cantidad = cantidad;
     }
@@ -78,14 +75,6 @@ public class Movimiento implements Serializable {
 
     public void setIdMovimiento(BigDecimal idMovimiento) {
         this.idMovimiento = idMovimiento;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
     }
 
     public String getTipo() {
@@ -110,6 +99,14 @@ public class Movimiento implements Serializable {
 
     public void setCuenta(Cuenta cuenta) {
         this.cuenta = cuenta;
+    }
+
+    public Periodo getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(Periodo periodo) {
+        this.periodo = periodo;
     }
 
     @Override

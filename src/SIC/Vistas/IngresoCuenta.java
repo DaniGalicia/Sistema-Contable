@@ -10,6 +10,7 @@ import SIC.Vistas.tableModels.MovimientosTableModel;
 import SIC.Entidades.Cuenta;
 import SIC.Entidades.CuentaSaldada;
 import SIC.Entidades.Movimiento;
+import SIC.Entidades.Periodo;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -29,6 +30,7 @@ public class IngresoCuenta extends javax.swing.JDialog {
     public MovimientosTableModel modeloTabla = new MovimientosTableModel();
     DefaultComboBoxModel combo = new DefaultComboBoxModel();
     List<Cuenta> cuentasNuevas = new ArrayList<>();
+    Periodo periodo;
 
     public IngresoCuenta(java.awt.Frame parent, boolean modal) {
         super(parent,modal);
@@ -36,6 +38,14 @@ public class IngresoCuenta extends javax.swing.JDialog {
         tablaMovimientos.setColumnModel(Comunes.crearModeloColumnas("Cuenta,Tipo,Monto"));
         this.setLocationRelativeTo(null);
         comboListaCuentas.setModel(Comunes.crearModeloComboBox(SICService.getServCuenta().getListado(Cuenta.class)));
+         periodo = SICService.getServPeriodo().getActivo();
+         if(periodo==null)
+         {
+              JOptionPane.showMessageDialog(null, "No hay periodo activo");
+              btnAgregar.hide();
+         }else{
+             nombrePeriodoCtble.setText("Periodo: "+ periodo.toString());
+         }
     }
     
 
@@ -78,7 +88,7 @@ public class IngresoCuenta extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         comboListaCuentas = new javax.swing.JComboBox();
         montoMovimiento = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        nombrePeriodoCtble = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
@@ -86,11 +96,9 @@ public class IngresoCuenta extends javax.swing.JDialog {
         aplicaIva = new javax.swing.JCheckBox();
         jLabel6 = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        fecha = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         botonEliminar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaMovimientos = new javax.swing.JTable();
@@ -137,7 +145,8 @@ public class IngresoCuenta extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setText("Fecha");
+        nombrePeriodoCtble.setText("Periodo:");
+        nombrePeriodoCtble.setToolTipText("");
 
         tipoMovimiento.add(jRadioButton1);
         jRadioButton1.setSelected(true);
@@ -174,18 +183,16 @@ public class IngresoCuenta extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel3)
                             .addGap(18, 18, 18)
                             .addComponent(montoMovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(177, 177, 177)
                             .addComponent(aplicaIva))
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(18, 18, 18)
-                            .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(172, 172, 172)
+                            .addComponent(nombrePeriodoCtble, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(81, 81, 81)
                             .addComponent(jLabel4)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
@@ -203,20 +210,20 @@ public class IngresoCuenta extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel4))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(1, 1, 1)
+                                .addComponent(jRadioButton1))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(jRadioButton1)))
+                        .addGap(17, 17, 17)
+                        .addComponent(nombrePeriodoCtble)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -239,13 +246,6 @@ public class IngresoCuenta extends javax.swing.JDialog {
                         .addContainerGap())))
         );
 
-        jButton2.setText("Saldar cuentas");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jButton3.setText("Guardar transaccion");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,10 +260,10 @@ public class IngresoCuenta extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
 
@@ -303,18 +303,16 @@ public class IngresoCuenta extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(273, 273, 273)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(botonEliminar))
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(246, 246, 246)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,27 +320,21 @@ public class IngresoCuenta extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(btnAgregar)
                     .addComponent(botonEliminar))
                 .addGap(21, 21, 21)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (!validarFecha()) {
-            JOptionPane.showMessageDialog(null, "La fecha debe ser en el formato dd/mm/yyyy");
-            return;
-        }
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         if (!validarMonto()) {
-            JOptionPane.showMessageDialog(null, "El monto no es correcto");
+            JOptionPane.showMessageDialog(this, "El monto no es correcto");
             return;
         }
         
@@ -370,7 +362,7 @@ public class IngresoCuenta extends javax.swing.JDialog {
             if (aplicaIva.isSelected()) {
                 cantidad = cantidad + 0.13 * cantidad;
             }
-            movimiento.setFecha(new Date(fecha.getText()));
+            movimiento.setPeriodo(periodo);
             movimiento.setCantidad(cantidad);
             movimiento.setTipo(tipoMovimiento.getSelection().getActionCommand());
             movimiento.setCuenta(cuenta);
@@ -382,26 +374,22 @@ public class IngresoCuenta extends javax.swing.JDialog {
             modeloTabla.fireTableDataChanged();
         
 
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (total()) {
             
             //SICService.getServMovimiento().guardar(modeloTabla.movimientos);
-            
+
            for (Movimiento mNuevo : modeloTabla.movimientos) {
+                mNuevo.setPeriodo(periodo);
                 SICService.getServMovimiento().guardar(mNuevo);
             }
 
-            JOptionPane.showMessageDialog(null, "Transaccion exitosa");
+            JOptionPane.showMessageDialog(this, "Transaccion exitosa");
             modeloTabla.movimientos.clear();
         } else {
-            JOptionPane.showMessageDialog(null, "No se puedes guardar", "Registrar transaccion", ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se puedes guardar", "Registrar transaccion", ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -429,21 +417,6 @@ public class IngresoCuenta extends javax.swing.JDialog {
         return true;
     }
 
-    private boolean validarFecha() {
-        //valida si esta vacio
-        if (fecha.getText().isEmpty()) {
-            return false;
-        }
-        try {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            formatoFecha.setLenient(false);
-            formatoFecha.parse(fecha.getText());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
 
     private void tablaMovimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMovimientosMouseClicked
         // TODO add your handling code here:
@@ -541,14 +514,11 @@ public class IngresoCuenta extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox aplicaIva;
     private javax.swing.JButton botonEliminar;
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JComboBox comboListaCuentas;
-    private javax.swing.JTextField fecha;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDialog jDialog1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
@@ -558,6 +528,7 @@ public class IngresoCuenta extends javax.swing.JDialog {
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField montoMovimiento;
+    private javax.swing.JLabel nombrePeriodoCtble;
     private javax.swing.JTable tablaMovimientos;
     private javax.swing.ButtonGroup tipoMovimiento;
     // End of variables declaration//GEN-END:variables

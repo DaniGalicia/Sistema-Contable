@@ -6,10 +6,13 @@
 package SIC.Vistas;
 
 
+import SIC.Entidades.Periodo;
+import SIC.Service.SICService;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 
 public class Inicio extends javax.swing.JFrame {
@@ -22,6 +25,13 @@ public class Inicio extends javax.swing.JFrame {
         getIconImage();
         setLocationRelativeTo(null);
         new Login(this, true).setVisible(true);
+       
+        Periodo periodo = SICService.getServPeriodo().getActivo();
+        if(periodo==null)
+        {
+            JOptionPane.showMessageDialog(this, "Atencion, no hay un periodo contable activo");
+        }
+       
         ImageIcon fot = new ImageIcon(getClass().getResource("/SIC/Imagenes/logo.png"));
         ImageIcon icono = new ImageIcon(fot.getImage().getScaledInstance(logo.getWidth(), logo.getHeight(), Image.SCALE_DEFAULT));
         logo.setIcon(icono);
@@ -66,7 +76,6 @@ public class Inicio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SISTEMA CONTABLE \"EL SOL NACIENTE\"");
         setBackground(new java.awt.Color(255, 255, 204));
-        setFocusableWindowState(false);
         setIconImage(getIconImage());
         setMinimumSize(new java.awt.Dimension(850, 499));
         addWindowListener(new java.awt.event.WindowAdapter() {

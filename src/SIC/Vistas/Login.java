@@ -54,6 +54,7 @@ public class Login extends javax.swing.JDialog {
         setTitle("Acceso de usuarios");
         setAlwaysOnTop(true);
         setAutoRequestFocus(false);
+        setModal(true);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
