@@ -229,7 +229,7 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
             utilidad.setNombre("Revinversion (50%) utilidad");
             CuentaSaldada cs = new CuentaSaldada();
             cs.setCuenta(utilidad);
-            cs.setPeriodo(SICService.getServPeriodo().getActivo());
+            cs.setPeriodo(periodo);
 
             //Si el resultado es ganancia entonces se reinvierte el 50%
             //sino se agrega como una desinversion
@@ -360,21 +360,22 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
 
         String tipo = ((TipoEstadoFinanciero) tiposEstadoFinanciero.getSelectedItem()).getIdTipoEstadoFinanciero();
         GenericReporte reporte = null;
+        Periodo periodoSelected = (Periodo) listaPeriodos.getSelectedItem();
         if (tipo.equals("BC")) {
             reporte = new GenericReporte("BalanceComprobacion");
-            reporte.getMapa().put("periodo", SICService.getServPeriodo().getActivo());
+            reporte.getMapa().put("periodo",periodoSelected);
             reporte.getMapa().put("nombreEstadoFinanciero", "Balance comprobacion");
         } else if (tipo.equals("BG")) {
             reporte = new GenericReporte("BalanceGeneral");
-            reporte.getMapa().put("periodo", SICService.getServPeriodo().getActivo());
+            reporte.getMapa().put("periodo", periodoSelected);
             reporte.getMapa().put("nombreEstadoFinanciero", "Balance comprobacion");
         } else if (tipo.equals("EC")) {
             reporte = new GenericReporte("EstadoCapital");
-            reporte.getMapa().put("periodo", SICService.getServPeriodo().getActivo());
+            reporte.getMapa().put("periodo",periodoSelected);
 
         } else if (tipo.equals("ER")) {
             reporte = new GenericReporte("EstadoResultado");
-            reporte.getMapa().put("periodo", SICService.getServPeriodo().getActivo());
+            reporte.getMapa().put("periodo", periodoSelected);
         }
         reporte.setLista(cuentasSaldadas);
         reporte.generar();
@@ -389,11 +390,11 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
 
         if (estadoResultados != null) {
             cuentasSaldadas = SICService.getServCuentaSaldada().findByTipoCuenta("K");
-            Cuenta utilidad = (Cuenta) SICService.getServCuenta().getByPK(Cuenta.class, "3104");
+            Cuenta utilidad = (Cuenta) SICService.getServCuenta().getByPK(Cuenta.class, "3104-001");
             utilidad.setNombre("Revinversion (50%) utilidad");
             CuentaSaldada cs = new CuentaSaldada();
             cs.setCuenta(utilidad);
-            cs.setPeriodo(SICService.getServPeriodo().getActivo());
+            cs.setPeriodo(periodo);
 
             //Si el resultado es ganancia entonces se reinvierte el 50%
             //sino se agrega como una desinversion
