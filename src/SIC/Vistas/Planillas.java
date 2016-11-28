@@ -24,6 +24,7 @@ public class Planillas extends javax.swing.JDialog {
 
     List<Planilla> planillaActual = new ArrayList<>();
 
+
     /**
      * Creates new form MantenimientoCuentas
      */
@@ -47,7 +48,8 @@ public class Planillas extends javax.swing.JDialog {
                 planilla.getIsss(),
                 planilla.getAfp(),
                 planilla.getOtroIngreso(),
-                planilla.getOtroEgreso()
+                planilla.getOtroEgreso(),
+                planilla.getSueldoNeto()
             };
             defaultTableModel.addRow(linea);
         }
@@ -196,6 +198,7 @@ public class Planillas extends javax.swing.JDialog {
         if (evt.getClickCount() == 2) {
             Planilla planillaSelected= planillaActual.get(tablaPlanillas.getSelectedRow());
             new IngresosPlanilla((JFrame)this.getParent(), true,planillaSelected).setVisible(true);
+            cargarDatos();
         }
     }//GEN-LAST:event_tablaPlanillasMouseClicked
 
@@ -210,6 +213,7 @@ public class Planillas extends javax.swing.JDialog {
         
         if(periodoSelected.getActivo().equals("0")){
             JOptionPane.showMessageDialog(this, "El periodo contable ya esta cerrado, no se puede generar planilla");
+            return;
         }
         
         if(SICService.getServPlanilla().getPlanillaByPeriodo(periodoSelected).isEmpty()){

@@ -184,4 +184,9 @@ public class Planilla implements Serializable {
         this.ingresosPlanillaList = ingresosPlanillaList;
     }
     
+    public void calcularSueldoNeto(){
+        this.sueldoNeto = salarioBruto + otroIngreso - (isss + afp + otroEgreso);
+          
+    }
+    
 }

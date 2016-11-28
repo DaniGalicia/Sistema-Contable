@@ -22,8 +22,6 @@ import javax.swing.table.DefaultTableModel;
  * @author dannier
  */
 public class IngresosPlanilla extends javax.swing.JDialog {
-
-    List<Planilla> planillaActual = new ArrayList<>();
     Planilla planilla;
 
     /**
@@ -34,8 +32,14 @@ public class IngresosPlanilla extends javax.swing.JDialog {
         initComponents();
         this.planilla=planilla;
        periodoLabel.setText("Periodo: " + planilla.getPeriodo());
-       empleadoData.setText("Empleado"+ planilla.getEmpleado().getApellidos() + ", " + planilla.getEmpleado().getNombres());
+       empleadoData.setText("Empleado: "+ planilla.getEmpleado().getApellidos() + ", " + planilla.getEmpleado().getNombres());
         this.setLocationRelativeTo(null);
+        if(planilla.getPeriodo().getActivo().equals("0")){
+            btnAgregar.setVisible(false);
+            btnGuardar.setVisible(false);
+        }
+        
+        cargarDatos();
     }
     
         private boolean validarMonto() {
@@ -64,7 +68,7 @@ public class IngresosPlanilla extends javax.swing.JDialog {
 
 
     private void cargarDatos() {
-        DefaultTableModel defaultTableModel = (DefaultTableModel) tablaCuentas.getModel();
+        DefaultTableModel defaultTableModel = (DefaultTableModel) tablaDetalle.getModel();
 
         while (defaultTableModel.getRowCount() > 0) {
             defaultTableModel.removeRow(0);
@@ -100,19 +104,22 @@ public class IngresosPlanilla extends javax.swing.JDialog {
         empleadoData = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaCuentas = new javax.swing.JTable();
+        tablaDetalle = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        descripcion = new javax.swing.JTextField();
         montoMovimiento = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        ingresoSelector = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        btnAgregar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro de ingresos y descuentos");
+        setModal(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos planilla"));
 
@@ -138,9 +145,9 @@ public class IngresosPlanilla extends javax.swing.JDialog {
                 .addComponent(empleadoData))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Ingresos y desscuentos"))));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Ingresos y descuentos"))));
 
-        tablaCuentas.setModel(new javax.swing.table.DefaultTableModel(
+        tablaDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -156,12 +163,12 @@ public class IngresosPlanilla extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tablaCuentas.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablaDetalle.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaCuentasMouseClicked(evt);
+                tablaDetalleMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tablaCuentas);
+        jScrollPane1.setViewportView(tablaDetalle);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -182,26 +189,32 @@ public class IngresosPlanilla extends javax.swing.JDialog {
 
         jLabel2.setText("Monto:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        descripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                descripcionActionPerformed(evt);
             }
         });
 
         jLabel3.setText("Tipo:");
 
-        tipoMovimiento.add(jRadioButton1);
-        jRadioButton1.setText("Ingreso");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        tipoMovimiento.add(ingresoSelector);
+        ingresoSelector.setSelected(true);
+        ingresoSelector.setText("Ingreso");
+        ingresoSelector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                ingresoSelectorActionPerformed(evt);
             }
         });
 
         tipoMovimiento.add(jRadioButton2);
         jRadioButton2.setText("Egreso");
 
-        jButton1.setText("Agregar");
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -218,25 +231,25 @@ public class IngresosPlanilla extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
+                            .addComponent(descripcion)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(montoMovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jRadioButton1)
+                        .addComponent(ingresoSelector)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jRadioButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 264, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                        .addComponent(btnAgregar)
+                        .addGap(124, 124, 124))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -244,60 +257,145 @@ public class IngresosPlanilla extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jRadioButton1)
+                    .addComponent(ingresoSelector)
                     .addComponent(jRadioButton2)
-                    .addComponent(jButton1))
+                    .addComponent(btnAgregar))
                 .addGap(0, 9, Short.MAX_VALUE))
         );
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Quitar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 20, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 7, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGuardar)
+                .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnGuardar)
+                .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
  
-    private void tablaCuentasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCuentasMouseClicked
+    private void tablaDetalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDetalleMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
             
         }
-    }//GEN-LAST:event_tablaCuentasMouseClicked
+    }//GEN-LAST:event_tablaDetalleMouseClicked
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void ingresoSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoSelectorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_ingresoSelectorActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void descripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descripcionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_descripcionActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        if(descripcion.getText().equals("")|| !validarMonto()){
+            JOptionPane.showMessageDialog(this, "Por favor complete los datos");
+        }else{
+            IngresoPlanilla ingresoPlanilla= new IngresoPlanilla();
+            ingresoPlanilla.setMonto(Double.parseDouble(montoMovimiento.getText()));
+            ingresoPlanilla.setPlanilla(planilla);
+            ingresoPlanilla.setDescripcion(descripcion.getText());
+            ingresoPlanilla.setTipo(ingresoSelector.isSelected()?"1":"2");
+            
+            planilla.getIngresosPlanillaList().add(ingresoPlanilla);
+            cargarDatos();
+        }
+        
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        planilla.setOtroEgreso(0.0);
+        planilla.setOtroIngreso(0.0);
+        double ing=0.0,egr=0.0;
+        for(IngresoPlanilla ingresoPlanilla:planilla.getIngresosPlanillaList()){
+            if(ingresoPlanilla.getTipo().equals("1")){
+                ing+=ingresoPlanilla.getMonto();
+                
+            }else{
+                egr+=ingresoPlanilla.getMonto();
+            }
+        }
+        
+        
+        planilla.setOtroEgreso(egr);
+        planilla.setOtroIngreso(ing);
+        planilla.calcularSueldoNeto();
+        SICService.getServPlanilla().guardar(planilla.getIngresosPlanillaList());
+        SICService.getServPlanilla().guardar(planilla);
+        
+        this.dispose();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int filaSelec = tablaDetalle.getSelectedRow();
+        if (filaSelec == -1 || tablaDetalle.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Error no hay fila seleccionada");
+        } else {
+            planilla.getIngresosPlanillaList().remove(filaSelec);
+            cargarDatos();
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JTextField descripcion;
     private javax.swing.JLabel empleadoData;
+    private javax.swing.JRadioButton ingresoSelector;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -305,13 +403,11 @@ public class IngresosPlanilla extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField montoMovimiento;
     private javax.swing.JLabel periodoLabel;
-    private javax.swing.JTable tablaCuentas;
+    private javax.swing.JTable tablaDetalle;
     private javax.swing.ButtonGroup tipoMovimiento;
     // End of variables declaration//GEN-END:variables
 }
