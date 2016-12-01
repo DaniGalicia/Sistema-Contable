@@ -5,8 +5,10 @@
  */
 package SIC.Vistas;
 
+import SIC.Entidades.Cuenta;
 import SIC.Service.Comunes;
 import SIC.Entidades.Empleado;
+import SIC.Entidades.Movimiento;
 import SIC.Entidades.Periodo;
 import SIC.Entidades.Planilla;
 import SIC.Service.SICService;
@@ -39,6 +41,9 @@ public class Planillas extends javax.swing.JDialog {
       planillaActual = SICService.getServPlanilla().getPlanillaByPeriodo((Periodo)listaPeriodos.getSelectedItem());
         DefaultTableModel defaultTableModel = (DefaultTableModel) tablaPlanillas.getModel();
 
+        if(planillaActual.isEmpty() || planillaActual.get(0).getEstado().equals("0")){
+            btnCerrar.hide();
+        }
         while (defaultTableModel.getRowCount() > 0) {
             defaultTableModel.removeRow(0);
         }
@@ -69,6 +74,7 @@ public class Planillas extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPlanillas = new javax.swing.JTable();
@@ -101,6 +107,13 @@ public class Planillas extends javax.swing.JDialog {
             }
         });
 
+        btnCerrar.setText("Cerrar planilla");
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -113,7 +126,9 @@ public class Planillas extends javax.swing.JDialog {
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addGap(0, 159, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnCerrar)
+                .addGap(0, 68, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,7 +138,8 @@ public class Planillas extends javax.swing.JDialog {
                     .addComponent(listaPeriodos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)))
+                    .addComponent(jButton2)
+                    .addComponent(btnCerrar)))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Planilla"))));
@@ -246,8 +262,51 @@ public class Planillas extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_listaPeriodosActionPerformed
 
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        // TODO add your handling code here:
+        int resultado = JOptionPane.showConfirmDialog(this, "Ya no podrá realizar modificaciones \n ¿Desea cerrarla?");
+        
+        if(resultado==0){
+            //Cuenta de gasto por salario
+            Cuenta c = (Cuenta) SICService.getServCuenta().getByPK(Cuenta.class, "4202-001");
+            //Cuenta de gasto por seguro
+            
+            
+            //Cuenta de gasto por afp
+            
+            
+            
+            for(Planilla p:planillaActual){
+                /*Se debe crear un movimiento por cada cuenta a afectar y esto por cada linea de la planilla
+                    No olvidar la partida doble, ejemplo si carga efectivo abono en otra cuenta
+                */
+                
+                Movimiento m=new Movimiento();
+                //La cuenta correspondiente, obtenida antes
+                m.setCuenta(c);
+                //D o H segun corresponda
+                m.setTipo("");
+                //Segun corresponda, p.getIss(),  p.getAfp etc
+                m.setCantidad(0);
+                
+                //El mismo para todos los movimientos
+                m.setPeriodo(p.getPeriodo());
+
+                //Por cada movimiento creado anteriormente
+                SICService.getServMovimiento().guardar(m);
+                
+                //Fija el ettado de planilla a cerrada
+                p.setEstado("0");
+            }
+            SICService.getServPlanilla().guardar(planillaActual);
+        
+        }
+        
+    }//GEN-LAST:event_btnCerrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCerrar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

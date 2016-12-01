@@ -39,6 +39,9 @@ public class Planilla implements Serializable {
     private Double otroIngreso;
     @Column(name = "otro_egreso")
     private Double otroEgreso;
+    
+    @Column(name = "estado")
+    private String estado;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -188,5 +191,14 @@ public class Planilla implements Serializable {
         this.sueldoNeto = salarioBruto + otroIngreso - (isss + afp + otroEgreso);
           
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
     
 }

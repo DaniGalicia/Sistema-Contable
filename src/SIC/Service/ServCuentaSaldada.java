@@ -2,6 +2,7 @@ package SIC.Service;
 
 import SIC.Entidades.CuentaSaldada;
 import SIC.Entidades.Periodo;
+import SIC.Entidades.TipoCuenta;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
@@ -30,9 +31,20 @@ public class ServCuentaSaldada extends BasicService{
         return retorno;
     }
     
-    public List<CuentaSaldada> findByTipoCuenta(String tipoCuenta){
+    public List<CuentaSaldada> findByTipoCuenta(String idTipoCuenta){
 
         List<CuentaSaldada> aux= getListado(CuentaSaldada.class);   
+        
+        List<CuentaSaldada> aBorrar= new ArrayList<>();
+        
+        for(CuentaSaldada cs:aux){
+            if(!cs.getCuenta().getTipoCuenta().getIdTipoCuenta().equals(idTipoCuenta)){
+                aBorrar.add(cs);
+            }
+        }
+        
+        aux.removeAll(aBorrar);
+        
        //Solo funciona en java 8
         // aux.removeIf(p -> !p.getCuenta().getTipoCuenta().getIdTipoCuenta().equals(tipoCuenta));
         

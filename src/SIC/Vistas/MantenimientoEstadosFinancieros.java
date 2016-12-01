@@ -290,13 +290,15 @@ public class MantenimientoEstadosFinancieros extends javax.swing.JDialog {
         double t = verificarDualidad();
         if (t > 0) {
             total.setText("Saldo deudor: " + t);
-        } else {
+        } else if (t < 0) {
             t = -t;
             total.setText("Saldo acreedor: " + t);
-        }
+        }else{
+                total.setText("");
+                }
 
         if (tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero().equals("BC") && t != 0) {
-            JOptionPane.showMessageDialog(null, "Datos inconsistentes", "Balance comprobacion", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Datos inconsistentes", "Balance comprobacion", JOptionPane.ERROR_MESSAGE);
             guarda=false;
         }
         if (SICService.getServEstadoFinanciero().getEstadoFinacieroPeriodoActivo(tipoEstadoFinancieroSelected.getIdTipoEstadoFinanciero(),periodoSelected) == null && guarda==true) {

@@ -43,6 +43,7 @@ public class IngresoCuenta extends javax.swing.JDialog {
          {
               JOptionPane.showMessageDialog(null, "No hay periodo activo");
               btnAgregar.hide();
+              btnAgregar.hide();
          }else{
              nombrePeriodoCtble.setText("Periodo: "+ periodo.toString());
          }
@@ -96,7 +97,7 @@ public class IngresoCuenta extends javax.swing.JDialog {
         aplicaIva = new javax.swing.JCheckBox();
         jLabel6 = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        jButton3 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         botonEliminar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -246,10 +247,10 @@ public class IngresoCuenta extends javax.swing.JDialog {
                         .addContainerGap())))
         );
 
-        jButton3.setText("Guardar transaccion");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setText("Guardar transaccion");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
 
@@ -311,7 +312,7 @@ public class IngresoCuenta extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -325,7 +326,7 @@ public class IngresoCuenta extends javax.swing.JDialog {
                 .addGap(21, 21, 21)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -376,7 +377,13 @@ public class IngresoCuenta extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
+        if(modeloTabla.movimientos.isEmpty()){
+            JOptionPane.showMessageDialog(this,"No hay movimientos");
+            return;
+        }
+        
         if (total()) {
             
             //SICService.getServMovimiento().guardar(modeloTabla.movimientos);
@@ -391,7 +398,7 @@ public class IngresoCuenta extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(this, "No se puedes guardar", "Registrar transaccion", ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     private boolean validarMonto() {
         //valida si esta vacio
@@ -515,8 +522,8 @@ public class IngresoCuenta extends javax.swing.JDialog {
     private javax.swing.JCheckBox aplicaIva;
     private javax.swing.JButton botonEliminar;
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox comboListaCuentas;
-    private javax.swing.JButton jButton3;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel3;
