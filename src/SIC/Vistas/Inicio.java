@@ -154,9 +154,7 @@ public class Inicio extends javax.swing.JFrame {
         });
         getContentPane().add(mantenimientoDeUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 303, 30));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SIC/Imagenes/fondo.jpg"))); // NOI18N
-        jLabel3.setRequestFocusEnabled(false);
-        jLabel3.setVerifyInputWhenFocusTarget(false);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SIC/Imagenes/fondo1.jpg"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 499));
 
         setSize(new java.awt.Dimension(866, 537));

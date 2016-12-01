@@ -290,7 +290,7 @@ public class IngresoCuenta extends javax.swing.JDialog {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -324,9 +324,9 @@ public class IngresoCuenta extends javax.swing.JDialog {
                     .addComponent(botonEliminar))
                 .addGap(21, 21, 21)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -342,7 +342,7 @@ public class IngresoCuenta extends javax.swing.JDialog {
         Cuenta cuenta=(Cuenta) comboListaCuentas.getSelectedItem();
         if(comboListaCuentas.isEnabled() && isAdded(cuenta))
         {
-           JOptionPane.showMessageDialog(null, "Esta cuenta ya ha sido afectada en esta transaccion");
+           JOptionPane.showMessageDialog(this, "Esta cuenta ya ha sido afectada en esta transaccion");
             return;
         }
             

@@ -260,6 +260,7 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
 
     private void limpiarTextos(){
         nombreCuenta.setText("");
+        idCuenta.setText("");
     }
     
     private void comboTiposCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTiposCuentaActionPerformed
@@ -290,7 +291,7 @@ public class MantenimientoCuentas extends javax.swing.JDialog {
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         // TODO add your handling code here:
         if(cuentaActual!=null){
-            SICService.getServCuenta().guardar(cuentaActual);
+            SICService.getServCuenta().eliminar(cuentaActual);
             cargarDatos();
             limpiarTextos();
         }else{

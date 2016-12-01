@@ -230,7 +230,9 @@ public class Planillas extends javax.swing.JDialog {
                 
                 //afp
                 planilla.setAfp(empleado.getCargo().getSueldo() * 0.065);
-             
+                planilla.setOtroIngreso(0.0);
+                planilla.setOtroEgreso(0.0);
+                planilla.calcularSueldoNeto();
                 
                 SICService.getServPlanilla().guardar(planilla);
             }
