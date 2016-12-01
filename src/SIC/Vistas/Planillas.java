@@ -299,6 +299,8 @@ public class Planillas extends javax.swing.JDialog {
                 p.setEstado("0");
             }
             SICService.getServPlanilla().guardar(planillaActual);
+            
+            JOptionPane.showMessageDialog(this,"Planilla cerrada");
         
         }
         
